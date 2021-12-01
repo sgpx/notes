@@ -1,0 +1,14 @@
+#!/bin/bash
+last=$(ls *.c | sort -n | tail -n 1 | sed -r "s/p(.+)\.c/\1/")
+next=$(expr $last + "1")
+a=$(printf %02d $next)
+fn="p$a.c"
+echo $fn
+echo "#include <stdio.h>" > $fn
+printf "\n" >> $fn
+echo "main()" >> $fn
+echo "{" >> $fn
+printf "\n\n" >> $fn
+echo "}" >> $fn
+nano $fn
+ln -sf fn last

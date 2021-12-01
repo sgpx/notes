@@ -1,0 +1,9 @@
+#!/bin/bash
+last=$(ls *.c | sort -n | tail -n 1)
+echo "gcc $last && ./a.out"
+printf "\n\n// output" >> $last
+printf "\n" >> $last
+gcc $last && ./a.out | tee tmp.txt
+cat tmp.txt | sed -r "s/(.+)/\/\/ \1/" >> $last
+printf "\n"
+rm tmp.txt

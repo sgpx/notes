@@ -1,0 +1,24 @@
+`useRef(1)` stays detached from app and survives render cycles
+
+`<Image>` width and height must be a square and borderRadius must be half of width for it to be perfect circle
+
+`resizeMode="contain"`
+`resizeMode="cover"`
+`resizeMode="stretch"`
+
+etc
+
+you can nest `<Text>` components into `<Text>` components
+
+`<View>` does not pass styles to children components but `<Text>` does to child `<Text>` components
+
+# avoid
+
+do NOT put a string value to a numerical StyleSheet style property, it might break some componenents. use style validation provided by StyleSheet
+
+# unverified
+
+dont use `<ScrollView>` with `style={{...,flex: 1}}`
+
+parent `<View>` for `<ScrollView>` must have `style={{flex: 1}}`
+

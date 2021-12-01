@@ -31,6 +31,18 @@ $ ls
 _1Kt.class META-INF
 ```
 
+specify output directory for classes with `-d`
+
+```
+$ kotlin 1.kt -d xyz/
+```
+
+`-d` can output JAR files
+
+```
+kotlinc 1.kt -d 1.jar && java -jar 1.jar
+```
+
 # example
 
 ```

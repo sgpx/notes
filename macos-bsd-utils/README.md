@@ -25,3 +25,21 @@ alias cdate="echo $(date +%d-%m-%y)"
 alias
 unalias cdate
 ```
+
+# file
+
+check file type and architecture
+
+```
+$ cc test.c
+
+$ file a.out
+a.out: Mach-O 64-bit executable arm64
+
+$ arch -x86_64 zsh
+
+$ cc test.c
+
+$ file a.out
+a.out: Mach-O 64-bit executable x86_64
+```

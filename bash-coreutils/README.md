@@ -43,8 +43,18 @@ else
 fi
 
 echo "Platform is $platform"
+
 ```
 
+oneliners
+
+```bash
+$ if [ "1" = "1" ]; then echo yes; else echo no; fi;
+yes
+
+$ if [ "1" = "2" ]; then echo yes; else echo no; fi;
+no
+```
 # input/output/error redirection
 
 
@@ -67,5 +77,6 @@ Under normal circumstances every UNIX program has three streams opened for it wh
 `2>/path/to/logfile` => redirect stderr to log file
 
 `1>/path/to/logfile` => redirect stdout to log file
+
 
 

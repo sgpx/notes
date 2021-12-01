@@ -1,4 +1,4 @@
-# reset to previous commit (revert all uncommitted changes)
+# reset to previous commit (revert all un-committed changes)
 
 `git reset --hard`
 

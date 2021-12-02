@@ -1,0 +1,19 @@
+; <<>> DiG 9.10.6 <<>> github.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 53756
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1280
+;; QUESTION SECTION:
+;github.com.			XX	A
+
+;; ANSWER SECTION:
+github.com.		36	XX	A	XX.XX.XX.XX
+
+;; Query time: 90 msec
+;; SERVER: XXXX:XXXX:XXXX:XXXX:XXXX
+;; WHEN: ...
+;; MSG SIZE  rcvd: 55
+

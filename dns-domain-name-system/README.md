@@ -28,3 +28,7 @@ foo.example.com.        A      192.0.2.23
 # MX record
 
 indicates mail exchange server address of current domain
+
+# TXT record
+
+stores custom information like verification codes to prove ownership

@@ -21,6 +21,8 @@ outputs java classes with title case names and Kt attached to the end. numerical
 $ kotlinc a.kt
 $ ls
 AKt.class META-INF  a.kt
+$ kotlin AKt
+hello world
 $ java AKt
 hello world
 ```

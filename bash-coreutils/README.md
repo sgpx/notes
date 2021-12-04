@@ -1,3 +1,16 @@
+# find
+
+`-depth` only enables depth first search and doesn't accept values
+
+global options like `-depth` must always precede filename paths
+
+
+to search till a particular depth use `-maxdepth` and `-mindepth` instead
+
+```
+find . -maxdepth 3 -mindepth 2 foobar.txt
+```
+
 # printf
 ```
 $ printf "%02.1f" "12.34"

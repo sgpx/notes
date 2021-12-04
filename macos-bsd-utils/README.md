@@ -1,14 +1,37 @@
-# wildcard escaping 
+# `-depth` in BSD find vs GNU find
+
+```
+find . -iname \*.txt  -depth $depthLevel
+```
+
+will give you a list of txt files at depth exactly == $depthLevel
+
+```
+find . -iname \*.txt  -depth 1 # all text files in current directory
+find . -iname \*.txt  -depth 2 # all text files in subdirectories of current directory
+find . -iname \*.txt  -depth 3 # etc
+```
+
+`-depth` in GNU find only enables depth-first-search and does not accept values. `-depth` must preceed pathnames like
+
+`find . -depth -iname \*.txt`
+
+use `-maxdepth` in GNU find instead 
+
+`find . -maxdepth 2 -iname \*.txt`
+
+# wildcard escaping in zsh
 
 ```
 find . -iname *.apk
 ```
 
-in GNU find is equivalent to
+in bash/GNU find is equivalent to
 
 ```
 find . -iname \*.apk
 ```
+in zsh/BSD find
 
 from manpage
 ```

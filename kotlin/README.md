@@ -58,3 +58,9 @@ fun main()
 $ echo "fun main() { println(\"hello from kotlin\") }" > a.kt && kotlinc a.kt -d a.jar && java -jar a.jar;
 hello from kotlin
 ```
+
+# kotlin interactive shell  : `ki`
+
+## setup (macOS)
+
+`brew install ki`

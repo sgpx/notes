@@ -17,7 +17,8 @@ class MainActivity : AppCompatActivity() {
 
         myButton.setOnClickListener {
             Toast.makeText(this, "Button was pressed", Toast.LENGTH_LONG).show()
-            val displayText = "The year is ${myCalendar.get(Calendar.YEAR)}"
+            val displayText = "${myCalendar.get(Calendar.YEAR)}/${myCalendar.get(Calendar.MONTH)}/${myCalendar.get(Calendar.DATE)} ${myCalendar.get(Calendar.HOUR)}:${myCalendar.get(Calendar.MINUTE)}:${myCalendar.get(Calendar.SECOND)}"
+            //val displayText = "The year is ${myCalendar.get(Calendar.YEAR)}"
             myTextView.text = displayText
         }
     }

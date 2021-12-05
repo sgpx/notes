@@ -1,1 +1,1 @@
-wsl bash ~/gxc.sh
+@wsl bash ~/gxc.sh

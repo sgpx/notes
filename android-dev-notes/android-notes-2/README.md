@@ -14,6 +14,16 @@ use `android:gravity`
 `android:gravity="center_horizontal"`
 `android:gravity="center_vertical"`
 
+## row vs column arrangement
+
+```
+Set android:orientation to specify whether child views are displayed in a row or column.
+```
+
+https://developer.android.com/reference/android/widget/LinearLayout
+
+`android:orientation="vertical"`
+
 ## adding color values to colors.xml
 
 add

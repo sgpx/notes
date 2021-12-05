@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
 		char * fx = argv[arg_ctr];
 		char c = * fx;
 		int ctr = 0;
+		printf("\n");
 		while(c != '\0')
 		{
 			printf("%c",c);

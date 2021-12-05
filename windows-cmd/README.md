@@ -21,4 +21,19 @@ Refreshing environment variables from registry for cmd.exe. Please wait...Finish
 
 `echo %1%` => first argument
 
+# do not display output the executed command to CMD
 
+example.bat
+
+```batch
+@echo 123
+echo 456
+```
+
+```
+C:\>a.bat
+123
+
+C:\>echo 456
+456
+```

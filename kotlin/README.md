@@ -74,6 +74,7 @@ Variable Type Declaration Omitted
 val f3 = { str : String, x : Int -> "$str $x" }
 ```
 
+```
 $ kotlin
 Welcome to Kotlin version 1.6.0 (JRE 17.0.1+0)
 Type :help for help, :quit for quit

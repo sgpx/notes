@@ -11,7 +11,9 @@ A layout that arranges other views either horizontally in a single column or ver
 use `android:gravity`
 
 `android:gravity="center"`
+
 `android:gravity="center_horizontal"`
+
 `android:gravity="center_vertical"`
 
 ## row vs column arrangement

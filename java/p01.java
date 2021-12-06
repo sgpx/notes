@@ -1,8 +1,4 @@
-# creating an object from a class
-
-TestProgram.java
-```
-public class MyClass
+class MyClass
 {
 	public MyClass(int myArg)
 	{
@@ -25,4 +21,3 @@ public class TestProgram
 		m1.myMethod("hello world",3);
 	}
 }
-```

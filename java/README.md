@@ -1,3 +1,9 @@
+# `javac`
+
+output compiled classes to folder
+
+`javac Xyz.java -d XyzDir/`
+
 # creating an object from a class
 
 TestProgram.java

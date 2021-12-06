@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -20,28 +21,38 @@ class MainActivity : AppCompatActivity() {
 
         myButton.setOnClickListener {
             Toast.makeText(this, "Button was pressed", Toast.LENGTH_LONG).show()
-            var displayText : String = "";
-            var currentDate = "Current Date: ${myCalendar.get(Calendar.YEAR)}-${myCalendar.get(Calendar.MONTH)}-${
-                myCalendar.get(Calendar.DATE)
-            } ${myCalendar.get(Calendar.HOUR)}:${myCalendar.get(Calendar.MINUTE)}:${
-                myCalendar.get(
-                    Calendar.SECOND
-                )
-            }"
-            myTextView.text = displayText
+            var selectedDate = ""
+            val currentDate =
+                "${myCalendar.get(Calendar.YEAR)}-${myCalendar.get(Calendar.MONTH) + 1}-${
+                    myCalendar.get(Calendar.DATE)
+                } ${myCalendar.get(Calendar.HOUR)}:${myCalendar.get(Calendar.MINUTE)}"
+            myTextView.text = selectedDate
 
             DatePickerDialog(this, { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
                 run {
-                    TimePickerDialog(this,
+                    TimePickerDialog(
+                        this,
                         { _: TimePicker, hourOfDay: Int, minute: Int ->
                             run {
-                                displayText = "Selected Date: $year-$month-$dayOfMonth $hourOfDay:$minute\n$currentDate"
+                                selectedDate =
+                                    "$year-${month + 1}-$dayOfMonth $hourOfDay:$minute"
+
+
+                                val xyz = SimpleDateFormat("yyyy-MM-dd HH:mm")
+                                val d1: Date = xyz.parse(currentDate)
+                                val d2: Date = xyz.parse(selectedDate)
+                                val diff = (d1.time - d2.time)/(1000*3600*24)
+                                //d1.time - d2.time
+                                val displayText =
+                                    "Selected: $selectedDate\nCurrent Date: $currentDate\ndiff: $diff days"
                                 myTextView.text = displayText
+
+
                             }
                         }, 1, 1, false
                     ).show()
                 }
-            }, 2020, 1, 1).show()
+            }, 2021, 11, 1).show()
         }
     }
 }

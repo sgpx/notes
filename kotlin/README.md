@@ -94,8 +94,30 @@ res7: kotlin.String = hey 123
 >>> :quit
 ```
 
-# ~~kotlin interactive shell  : `ki`~~ (DON'T USE, use `kotlin` REPL instead)
+# NOT NULL ASSERTION OPERATOR `!!`
 
-## setup (macOS)
+https://www.baeldung.com/kotlin/not-null-assertion
 
-`brew install ki`
+each type in kotlin has a nullable form and a non-nullable form
+
+`!!` forcibly converts a nullable form to non-nullable form
+
+if null is found, it throws a java `NullPointerException`
+
+```
+$ kotlin
+Welcome to Kotlin version 1.6.0 (JRE 17.0.1+0)
+Type :help for help, :quit for quit
+>>> var x : String = "abc"
+>>> var y : String? = null
+>>> var z : String = y!!
+java.lang.NullPointerException
+>>> z = x!!
+error: unresolved reference: z
+z = x!!
+^
+
+>>> var z : String = x!!
+>>> z
+res5: kotlin.String = abc
+```

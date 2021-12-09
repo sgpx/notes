@@ -13,3 +13,13 @@ control ios simulators from command line
 ## launching apps
 
 `xcrun simctl launch XXXXXXXX-XXXX-XXXX-XXXX-XXXXYYYYZZZZ com.myProj.identifier`
+
+returns a PID
+
+## enabling verbose logs
+
+`xcrun simctl logverbose $SIMULATOR_ID enable`
+
+## getting logs for a process
+
+`xcrun simctl spawn booted log stream  --level="debug" --process 36562`

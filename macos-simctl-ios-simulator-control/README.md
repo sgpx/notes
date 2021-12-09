@@ -10,6 +10,6 @@ control ios simulators from command line
 
 `xcrun simctl install XXXXXXXX-XXXX-XXXX-XXXX-XXXXYYYYZZZZ myProj.app`
 
-## installing 
+## launching apps
 
-`xcrun simctl launch install XXXXXXXX-XXXX-XXXX-XXXX-XXXXYYYYZZZZ com.myProj.ext`
+`xcrun simctl launch XXXXXXXX-XXXX-XXXX-XXXX-XXXXYYYYZZZZ com.myProj.identifier`

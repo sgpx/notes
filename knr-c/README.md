@@ -63,6 +63,12 @@ memset(b,999,sizeof(b));
 char c = '\000';
 ```
 
+# char from hexadecimal sequence 
+
+```c
+char c = '\x5F';
+```
+
 # ===
 
 don't use `clang-format`

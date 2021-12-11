@@ -57,6 +57,11 @@ int b[50];
 memset(b,999,sizeof(b));
 
 ```
+# char from octal sequence 
+
+```c
+char c = '\000';
+```
 
 # ===
 

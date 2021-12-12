@@ -66,3 +66,18 @@ $ cc test.c
 $ file a.out
 a.out: Mach-O 64-bit executable x86_64
 ```
+
+# paste
+
+replace newline in files with something else
+
+```
+$ paste a.txt
+123
+456
+567
+$ paste -s a.txt
+123	456	567
+$ paste -s -d , a.txt
+123,456,567
+```

@@ -91,5 +91,6 @@ Under normal circumstances every UNIX program has three streams opened for it wh
 
 `1>/path/to/logfile` => redirect stdout to log file
 
+# chown
 
-
+`sudo chown username /path/to/file`

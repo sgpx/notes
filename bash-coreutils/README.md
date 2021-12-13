@@ -1,3 +1,16 @@
+# export
+
+variables created with `export` are passed on to all processes created by bash
+
+```
+export FOO=BAR
+gnome-terminal
+```
+
+is equivalent to 
+
+`FOO=BAR gnome-terminal`
+
 # find
 
 `-depth` only enables depth first search and doesn't accept values

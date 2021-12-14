@@ -18,6 +18,8 @@ each `%` denotes a spot where the next arguments are to be substituted into
 
 `%3.0f` => floating point, 3 characters wide, 0 characters after decimal point 
 
+`%lu` => unsigned long int
+
 ```
 printf("%f\n",12345.6798);
 //outputs 12345.679800

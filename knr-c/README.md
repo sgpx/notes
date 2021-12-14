@@ -1,6 +1,14 @@
+# `*` (value at address) and `&` (address of) operators
+
+```
+int x = 1;
+int * y = &x; // equals address of x in memory
+int z = * y; // equals 1
+```
+
 # NUL terminated strings
 
-
+`char x[3] = "abc"`
 
 # printf()
 
@@ -23,6 +31,8 @@ each `%` denotes a spot where the next arguments are to be substituted into
 `%3.0f` => floating point, 3 characters wide, 0 characters after decimal point 
 
 `%lu` => unsigned long int
+
+`%p` => pointer address
 
 ```
 printf("%f\n",12345.6798);

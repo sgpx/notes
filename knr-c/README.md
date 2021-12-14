@@ -69,7 +69,14 @@ char c = '\000';
 char c = '\x5F';
 ```
 
+# data type sizes
+
+`char` -> 1 byte, capable of holding 1 character
+
+`int` -> natural size of integers on host machine
+
 # ===
 
 don't use `clang-format`
+
 

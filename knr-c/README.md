@@ -1,3 +1,7 @@
+# NUL terminated strings
+
+
+
 # printf()
 
 first argument is string of characters to be printed

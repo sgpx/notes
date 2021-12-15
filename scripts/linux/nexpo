@@ -1,0 +1,2 @@
+#!/bin/bash
+time expo init $1 --template blank

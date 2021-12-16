@@ -13,8 +13,9 @@ $ echo {5..10}{1..4}
 arrays are space separated
 
 ```bash
-myarray=("foo" "bar" "baz")
-echo ${myarray[0]}
+$ myarray=(foo bar baz)
+$ echo ${myarray[1]}
+bar
 ```
 
 # redirection

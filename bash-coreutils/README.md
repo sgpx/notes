@@ -1,3 +1,26 @@
+# redirection
+
+HERE-STRING: pass a string to a program with `<<<`
+
+```bash
+$ wc <<< "hello bash"
+      1       2      11
+```
+
+HERE-DOCUMENT: pass a document with `<<`
+
+```bash
+$ wc <<< "hello bash"
+      1       2      11
+$ wc << wait_for_this
+> blah
+> blah
+> blah
+> wait_for_this
+      3       3      15
+```
+
+
 # get exit code of last executed program
 
 ```bash

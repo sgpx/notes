@@ -9,3 +9,12 @@
 # get submodule contents manually
 
 `git submodule update --init`
+
+# setup with URL
+
+```bash
+git init
+git remote add origin https://git.xyz.com/blah.git
+git add . && git commit -m foobar
+git push --set-upstream origin main
+```

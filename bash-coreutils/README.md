@@ -1,3 +1,15 @@
+# get exit code of last executed program
+
+```bash
+$ ls
+$ echo $?
+0
+$ ls foo
+ls: foo: No such file or directory
+$ echo $?
+1
+```
+
 # export
 
 variables created with `export` are passed on to all processes created by bash

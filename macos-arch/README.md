@@ -6,4 +6,4 @@ select architectures for programs
 
 `arch -x86_64 zsh`
 
-`arch -x86_64 zsh`
+`arch -arm64 zsh`

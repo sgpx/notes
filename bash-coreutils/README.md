@@ -1,3 +1,46 @@
+# sequences
+
+```bash
+$ echo {5..10}
+5 6 7 8 9 10
+
+$ echo {5..10}{1..4}
+51 52 53 54 61 62 63 64 71 72 73 74 81 82 83 84 91 92 93 94 101 102 103 104
+```
+
+# arrays
+
+arrays are space separated
+
+```bash
+$ myarray=(foo bar baz)
+$ echo ${myarray[1]}
+bar
+```
+
+# redirection
+
+HERE-STRING: pass a string to a program with `<<<`
+
+```bash
+$ wc <<< "hello bash"
+      1       2      11
+```
+
+HERE-DOCUMENT: pass a document with `<<`
+
+```bash
+$ wc <<< "hello bash"
+      1       2      11
+$ wc << wait_for_this
+> blah
+> blah
+> blah
+> wait_for_this
+      3       3      15
+```
+
+
 # get exit code of last executed program
 
 ```bash

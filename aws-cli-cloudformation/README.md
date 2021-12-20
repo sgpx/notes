@@ -10,7 +10,7 @@ A stack is a collection of AWS resources that you can manage as a single unit
 
 ## get list of resources in stack
 
-`aws cloudformation describe-stack-resource --stack-name my-stack-name`
+`aws cloudformation describe-stack-resources --stack-name my-stack-name`
 
 ## get a particular resource
 

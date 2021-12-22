@@ -1,6 +1,6 @@
 # expo
 
-# eject for specific platform
+## eject for specific platform
 
 `expo eject --platform android`
 

@@ -1,3 +1,13 @@
+# read
+
+```bash
+$ IFS="," read -a tmp <<< "a,b,c"
+$ for i in {0..2}; do echo ${tmp[i]}; done
+a
+b
+c
+```
+
 # sequences
 
 ```bash

@@ -8,6 +8,26 @@ to see list of devices:
 
 `adb shell` 
 
+# adb shell - `am` - activity manager
+
+launch app
+
+`am start com.my.app`
+
+# adb shell - `pm` - package manager
+
+install app
+
+`pm install /path/to/my.apk`
+
+uninstall app
+
+`pm uninstall com.my.app`
+
+# logs - `logcat`
+
+`adb logcat | grep ReactNative`
+
 # send a file to connected device
 
 `adb push localfile.ext /path/to/remotefile.ext`

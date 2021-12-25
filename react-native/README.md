@@ -1,3 +1,20 @@
+# logs
+
+use [`https://www.npmjs.com/package/react-native-logs`](https://www.npmjs.com/package/react-native-logs) for logging to logcat and ios sim process logs
+
+```js
+import { logger } from "react-native-logs";
+
+var log = logger.createLogger();
+
+log.debug("This is a Debug log");
+log.info("This is an Info log");
+log.warn("This is a Warning log");
+log.error("This is an Error log");
+```
+
+# ---
+
 `useRef(1)` stays detached from app and survives render cycles
 
 `<Image>` width and height must be a square and borderRadius must be half of width for it to be perfect circle

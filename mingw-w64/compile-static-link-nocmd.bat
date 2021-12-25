@@ -1,0 +1,1 @@
+g++ -static -static-libgcc -mwindows "%1%.cpp" -o "%1%.exe"

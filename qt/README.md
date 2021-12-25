@@ -15,12 +15,13 @@ run `qmake -project` inside source folder
 # bootstrapping the qpushbutton example with only the cpp file (mingw)
 
 ```batch
-mkdir ..\main
-copy main.cpp ..\main
+mkdir example
+copy qpushbutton_example_mingw-w64\main.cpp example\main.cpp
+cd example
 qmake -project
-echo QT += widgets >> main.pro
+echo QT += widgets >> example.pro
 qmake
 gmake
-cd releases
-main.exe
+cd release
+example.exe
 ```

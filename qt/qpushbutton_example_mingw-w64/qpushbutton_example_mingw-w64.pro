@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = mingw64_qt_gui
+TARGET = qpushbutton_example_mingw-w64 
 INCLUDEPATH += .
 
 # Input

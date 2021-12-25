@@ -38,3 +38,9 @@ public class TestProgram
 https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html
 
 If a class has no modifier (the default, also known as package-private), it is visible only within its own package.
+
+# openj9/ibm semeru
+
+`source activate-openj9.sh`
+
+supposedly faster than openjdk/hotspot for IO etc but I didn't see any big performance difference on amd64 (openjdk 11 vs openj9 11). android gradle builds are actually faster on hotspot

@@ -1,3 +1,42 @@
+# version differences in HERE-STRING
+
+test program
+
+```bash
+#!/bin/bash
+bash --version
+
+test_str="1_2"
+IFS="_" read -a tmp <<< $test_str
+
+for i in {0..2};
+	do echo tmp$i ${tmp[$i]};
+done
+```
+
+bash 3.2 output (treats $test_str "1_2" as "1 2") (putting $test_str in quotes as `<<< "$test_str"` solves this problem)
+```
+bash-3.2$ ./test-bash-here-string.sh 
+GNU bash, version 3.2.57(1)-release (arm64-apple-darwin20)
+Copyright (C) 2007 Free Software Foundation, Inc.
+tmp0 1 2
+tmp1
+tmp2
+```
+
+bash 5.0 output
+```
+root@41d8cce0e049:/# ./test-bash-here-string.sh
+GNU bash, version 5.0.17(1)-release (aarch64-unknown-linux-gnu)
+Copyright (C) 2019 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+
+This is free software; you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+tmp0 1
+tmp1 2
+tmp2
+```
 # read
 
 ```bash

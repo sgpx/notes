@@ -1,3 +1,23 @@
+# semicolon line termination
+
+semicolons must be escaped in bare strings
+
+example: to output `123;` to a file
+
+```
+echo 123; > a.txt
+```
+
+will output 123 to stdout and create an empty a.txt file because `> a.txt` will pipe stdin to a.txt (in zsh, it will wait for stdin input instead)
+
+
+use escaped semicolon instead
+
+```
+$ echo 123\; > a.txt
+$ cat a.txt
+123;
+```
 # version differences in HERE-STRING
 
 test program

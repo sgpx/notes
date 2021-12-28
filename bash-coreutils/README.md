@@ -1,3 +1,12 @@
+# aliases
+
+shorthands for commands
+
+```bash
+alias svenv=source venv/bin/activate
+svenv
+```
+
 # semicolon line termination
 
 semicolons must be escaped in bare strings

@@ -1,10 +1,15 @@
 # aliases
 
-shorthands for commands
+shorthands for one or more commands
 
 ```bash
 alias svenv=source venv/bin/activate
 svenv
+```
+
+
+```bash
+alias ppap="for i in {1..3}; do echo $i; done; ls; pwd;"
 ```
 
 # semicolon line termination

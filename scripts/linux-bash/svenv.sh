@@ -1,3 +1,3 @@
 #!/bin/bash
 echo 'alias svenv="source venv/bin/activate"' >> ~/.zshrc
-cat ~/.zshrc
+echo 'alias activate_venv="source venv/bin/activate"' >> ~/.zshrc

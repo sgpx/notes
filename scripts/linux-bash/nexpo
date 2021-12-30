@@ -1,2 +1,5 @@
 #!/bin/bash
 time expo init $1 --template blank
+cd $1
+rm -rfv .git
+yarn remove react-native-web

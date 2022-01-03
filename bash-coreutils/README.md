@@ -1,3 +1,12 @@
+# numerical comparison
+
+```bash
+a=1
+b=2
+if [ $a -eq $b ]; then echo equals; fi
+if [ $a -ne $b ]; then echo does not equal; fi
+```
+
 # aliases
 
 shorthands for one or more commands

@@ -1,0 +1,12 @@
+#!/bin/bash
+exe(){
+	echo "$1";
+	$1;
+}
+
+exe "podman stop $(podman ps -aq)"
+exe "podman rm $(podman ps -aq)"
+
+if [ "$1" = "-a" ]; then
+	exe "podman machine stop"
+fi

@@ -46,6 +46,12 @@ podman exec -it ubuntu1 bash
 podman stop ubuntu1
 ```
 
+# copy local files to container
+
+```bash
+podman cp a.txt ubuntu1:/root/a.txt
+```
+
 # get list of running containers
 
 ```

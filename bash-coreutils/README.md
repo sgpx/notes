@@ -1,3 +1,13 @@
+# date
+
+```bash
+$ date +%s
+1641556789
+$ old_time=$(date +%s)
+$ new_time=$(expr "$old_time" "-" "100")
+$ date --set="@$new_time"
+```
+
 # functions
 
 ```bash

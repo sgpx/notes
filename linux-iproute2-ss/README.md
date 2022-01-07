@@ -13,6 +13,9 @@ https://man7.org/linux/man-pages/man8/ss.8.html
 # params
 
 `-t` => tcp sockets
+
 `-l` => listening sockets
+
 `-p` => show processes
+
 `-n` => don't resolve service names

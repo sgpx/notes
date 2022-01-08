@@ -5,8 +5,8 @@ exe(){
 }
 
 exe "podman stop $(podman ps -aq)"
-exe "podman rm $(podman ps -aq)"
 
 if [ "$1" = "-a" ]; then
+	exe "podman rm $(podman ps -aq)"
 	exe "podman machine stop"
 fi

@@ -22,7 +22,14 @@ else
 	container_name="$1"
 fi
 
-exe "$engine run --name $container_name -it -d -p 5000:5000 ubuntu bash"
+container_exists="$(podman ps -a | grep $container_name)"
 
-exe "$engine exec -it $container_name bash"
+if [ "$container_exists" = "" ]; then
+	exe "$engine run --name $container_name -it -d -p 5000:5000 ubuntu bash"
+else
+	exe "$engine start $container_name"
+fi
+
+exe "$engine exec -it $container_name bash"	
+
 

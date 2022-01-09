@@ -1,0 +1,1 @@
+alias get_ip="ifconfig | grep -E \"inet.+192\" | sed -r \"s/.+inet ([0-9\.]+) .+/\1/\""

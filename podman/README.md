@@ -68,3 +68,15 @@ podman stop $(podman ps -aq)
 podman rm $(podman ps -aq)
 ```
 
+# list networks
+
+```
+NETWORK ID    NAME        VERSION     PLUGINS
+XXXXXXXXXXX  podman      0.4.0       bridge,podman-machine,portmap,firewall,tuning
+```
+
+# check network
+
+```
+podman network inspect podman
+```

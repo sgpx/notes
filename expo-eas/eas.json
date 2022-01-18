@@ -1,0 +1,12 @@
+{
+  "build": {
+    "apkonly": {
+      "android": {
+        "buildType": "apk"
+      }
+    }
+  },
+  "cli": {
+    "version": ">= 0.44.1"
+  }
+}

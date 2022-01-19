@@ -18,6 +18,22 @@ def execute(cmd):
 	x = json.loads(x)
 	return x
 
+def print_evts(e):
+	if e:
+		for i in e:
+			print("=== event ===")
+			for j in i:
+				print(j,":",i[j])
+
+def load_next(nt):
+	cmd = f"aws logs get-log-events --log-group-name {log_group_name} --log-stream-name {log_stream_name} --start-from-head --next-token {nt}"
+	x = execute(cmd)
+	e = x.get("events")
+	print_evts(e)
+	nft = x.get("nextForwardToken")
+	return nft
+
+
 cmd = "aws logs describe-log-groups"
 x = execute(cmd).get("logGroups")
 
@@ -50,11 +66,19 @@ else:
 log_stream_name = x[p].get("logStreamName")
 
 print("=======")
-cmd = f"aws logs get-log-events --log-group-name {log_group_name} --log-stream-name {log_stream_name}"
-x = execute(cmd).get("events")
-print(x)
+cmd = f"aws logs get-log-events --log-group-name {log_group_name} --log-stream-name {log_stream_name} --start-from-head"
+x = execute(cmd)
 
-for i in x:
-	print("\n=== event ===\n")
-	for j in i:
-		print(j,":",i[j])
+print_evts(x.get("events"))
+sft = x.get("nextForwardToken")
+
+ft = sft
+
+while True:
+	nft = load_next(ft)
+	if nft == ft:
+		break
+	else:
+		ft = nft
+
+

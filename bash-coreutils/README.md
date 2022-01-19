@@ -1,3 +1,17 @@
+# pushd && popd
+
+```bash
+$ pwd
+/
+$ pushd node_modules/event-emitter/benchmark/
+/node_modules/event-emitter/benchmark 
+$ pwd
+/node_modules/event-emitter/benchmark
+$ popd
+$ pwd
+/
+```
+
 # date
 
 ```bash
@@ -83,7 +97,7 @@ done
 
 bash 3.2 output (treats $test_str "1_2" as "1 2") (putting $test_str in quotes as `<<< "$test_str"` solves this problem)
 ```
-bash-3.2$ ./test-bash-here-string.sh 
+$ ./test-bash-here-string.sh 
 GNU bash, version 3.2.57(1)-release (arm64-apple-darwin20)
 Copyright (C) 2007 Free Software Foundation, Inc.
 tmp0 1 2

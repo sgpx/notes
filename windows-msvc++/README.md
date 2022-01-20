@@ -23,10 +23,23 @@ int main()
 	printf("linked to user32.dll\n);
 	return 0;
 }
+
 ```
 
+# generate assembly
 
-## `direct.h` - windows header for manipulating file system directories
+```
+cl.exe /FA a.c
+dir a.asm
+```
+
+# link.exe - MSVC Linker
+
+## examples
+
+`link.exe /out:a.exe /entry:main /subsystem:console a.obj kernel32.lib user32.lib msvcrt.lib ucrt.lib`
+
+# `direct.h` - windows header for manipulating file system directories
 
 ```c
 #include <direct.h>

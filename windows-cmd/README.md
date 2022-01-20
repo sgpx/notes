@@ -1,3 +1,11 @@
+# redirect all args
+
+a.bat
+
+```batch
+C:\a.exe %*
+```
+
 # refresh environment variables without exiting shell
 
 `refreshenv`

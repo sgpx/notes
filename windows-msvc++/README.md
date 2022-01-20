@@ -1,6 +1,12 @@
 # VS 2019 development environment variables
 
+32bit
+
 `C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\Tools\VsDevCmd.bat`
+
+64bit (x64)
+
+"c:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
 
 # cl.exe - MSVC Optimizing Compiler
 
@@ -34,6 +40,10 @@ dir a.asm
 ```
 
 # link.exe - MSVC Linker
+
+## target architecture
+
+use `/MACHINE:X64` or `/MACHINE:X86`
 
 ## examples
 

@@ -12,5 +12,6 @@ class p15 {
 
 		System.out.println(x[0].fstr);
 		System.out.println(x[1].fstr);
+		System.out.println(x.length);
 	}
 }

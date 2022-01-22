@@ -10,6 +10,14 @@ https://www.redhat.com/sysadmin/podman-mac-machine-architecture
 
 `brew install podman`
 
+# pull image
+
+`podman pull ubuntu`
+
+# pull specific version of image (TAGS)
+
+`podman pull ubuntu:16.04`
+
 # setup VM
 
 ```
@@ -80,3 +88,4 @@ XXXXXXXXXXX  podman      0.4.0       bridge,podman-machine,portmap,firewall,tuni
 ```
 podman network inspect podman
 ```
+

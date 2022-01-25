@@ -22,3 +22,11 @@ functions:
 layers:
   None
 ```
+
+# setup (python/flask)
+
+`yarn init --yes && yarn add serverless-wsgi serverless-python-requirements`
+
+# setup (nodejs/expresjs)
+
+`yarn init --yes && yarn add express serverless-http`

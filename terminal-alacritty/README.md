@@ -15,3 +15,7 @@ no multitab support
 # font config
 
 `alacritty --option font.size=24`
+
+# ref
+
+https://wiki.archlinux.org/title/Alacritty

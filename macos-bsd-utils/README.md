@@ -1,3 +1,16 @@
+# `file` - get file type
+
+```
+$ file core.54321
+core.5461: ELF 64-bit LSB core file, x86-64, version 1 (SYSV), SVR4-style, from './a.out', real uid: 1000, effective uid: 1000, real gid: 1000, effective gid: 1000, execfn: './a.out', platform: 'x86_64
+
+$ file xyz.out 
+xyz.out: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=0f9acf4ab1cdf4783733599d30de2e3cc4179fe5, for GNU/Linux 3.2.0, not stripped
+
+$ file cert9.db 
+cert9.db: SQLite 3.x database, last written using SQLite version 3011000
+```
+
 # `-depth` in BSD find vs GNU find
 
 ```

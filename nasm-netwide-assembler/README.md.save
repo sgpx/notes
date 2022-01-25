@@ -1,0 +1,9 @@
+# nasm
+
+netwide assembler
+
+# produce i386 object
+
+`nasm -f elf32 -o x.o x.asm`
+
+# produce 

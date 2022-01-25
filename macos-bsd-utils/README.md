@@ -1,5 +1,21 @@
 # `file` - get file type
 
+check file type and architecture
+
+```
+$ cc test.c
+
+$ file a.out
+a.out: Mach-O 64-bit executable arm64
+
+$ arch -x86_64 zsh
+
+$ cc test.c
+
+$ file a.out
+a.out: Mach-O 64-bit executable x86_64
+```
+
 ```
 $ file core.54321
 core.5461: ELF 64-bit LSB core file, x86-64, version 1 (SYSV), SVR4-style, from './a.out', real uid: 1000, effective uid: 1000, real gid: 1000, effective gid: 1000, execfn: './a.out', platform: 'x86_64
@@ -60,24 +76,6 @@ delete a set alias
 alias cdate="echo $(date +%d-%m-%y)"
 alias
 unalias cdate
-```
-
-# file
-
-check file type and architecture
-
-```
-$ cc test.c
-
-$ file a.out
-a.out: Mach-O 64-bit executable arm64
-
-$ arch -x86_64 zsh
-
-$ cc test.c
-
-$ file a.out
-a.out: Mach-O 64-bit executable x86_64
 ```
 
 # paste

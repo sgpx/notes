@@ -8,7 +8,7 @@ echo $c
 touch $c
 
 echo "class $d {" > $c
-printf "\tpublic static void main(String[] args){\n\t}\n" >> $c
+printf "\tpublic static void main(String[] args){\n\n\n\t}\n" >> $c
 echo "}" >> $c
 
 nano $c

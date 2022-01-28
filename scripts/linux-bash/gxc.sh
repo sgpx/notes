@@ -1,3 +1,8 @@
+if [ "$(ls . | grep clean.sh)" ]; then
+	echo executing cleaning step
+	./clean.sh;
+fi
+
 cdate=$(date +%Y-%m-%d-%H-%M)
 
 git config user.name sgpx

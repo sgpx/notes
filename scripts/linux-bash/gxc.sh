@@ -1,7 +1,7 @@
-if [ "$(ls . | grep clean.sh)" ]; then
-	echo executing cleaning step
-	./clean.sh;
-fi
+#!/bin/bash
+
+a="$(ls . | grep clean.sh)"
+echo $a
 
 cdate=$(date +%Y-%m-%d-%H-%M)
 

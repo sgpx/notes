@@ -1,3 +1,22 @@
+# imports should be classes
+
+```bash
+$ wget -v https://repo1.maven.org/maven2/org/apache/commons/commons-math/2.2/commons-math-2.2.jar -O x.jar
+$ mkdir tmp && cd tmp
+$ jar xf ../x.jar
+$ ls org/apache/commons/math/Field.class
+```
+
+```
+import org.apache.commons.math.Field;
+```
+
+classpath linking with `--classpath`
+
+```
+javac foo.java -cp x.jar && java foo
+```
+
 # `javac`
 
 output compiled classes to folder

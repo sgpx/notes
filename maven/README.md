@@ -1,5 +1,15 @@
 # maven
 
+# setup (ubuntu)
+
+`sudo apt install -y maven`
+
+# cache
+
+usually stored at `~/.m2` or `$HOME/.m2`
+
+contains jars, pom files for dependencies, etc
+
 # pom
 
 project object model
@@ -37,6 +47,10 @@ base pom is known as super pom
 
 contains default inherited values
 
+to see effective pom:
+
+`mvn help:effective-pom`
+
 # build lifecycle
 
 sequence of phases
@@ -61,6 +75,10 @@ see `generate-project.sh`
 
 `mvn clean`
 
+# install
+
+`mvn install`
+
 # create jars
 
 `mvn package`
@@ -68,6 +86,10 @@ see `generate-project.sh`
 # compile project
 
 `mvn compile`
+
+for debug info use
+
+`mvn compile -X`
 
 # add compiler targets
 

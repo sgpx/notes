@@ -1,7 +1,10 @@
 #!/bin/bash
 
 a="$(ls . | grep clean.sh)"
-echo $a
+if [ "$a" = "clean.sh" ]; then
+	echo executing clean step;
+	bash clean.sh;
+fi;
 
 cdate=$(date +%Y-%m-%d-%H-%M)
 

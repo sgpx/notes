@@ -139,3 +139,14 @@ mydb=> select * from abc;
 mydb=> \q
 $
 ```
+
+## force SSL
+
+```
+$ psql postgres://myuser:mypwd@abc.com:5432/mydb?sslmode=require
+```
+
+
+```
+$ psql postgres://myuser:mypwd@abc.com:5432/mydb?requiressl=true
+```

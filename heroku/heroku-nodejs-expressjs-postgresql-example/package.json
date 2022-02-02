@@ -1,0 +1,9 @@
+{
+  "name": "heroku-expressjs-postgresql-starter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.2",
+    "pg": "^8.7.1"
+  }
+}

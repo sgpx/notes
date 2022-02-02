@@ -1,5 +1,77 @@
 # postgresql
 
+## setup (ubuntu container)
+
+```
+$ apt install -y postgresql
+$ pg_ctlcluster 12 main start
+$ pg_ctlcluster 12 main status
+$ su postgres
+$ psql
+```
+
+## examples
+
+creating a table and a user
+
+```
+$ psql
+psql (12.9 (Ubuntu 12.9-0ubuntu0.20.04.1))
+Type "help" for help.
+
+postgres=# create database mydb;
+CREATE DATABASE
+postgres=# \c mydb;
+You are now connected to database "mydb" as user "postgres".
+mydb=# create table mytable(a int, b text);
+CREATE TABLE
+mydb=# insert into mytable(a,b) values(1,'hello world');
+INSERT 0 1
+mydb=# select * from mytable;
+ a |      b      
+---+-------------
+ 1 | hello world
+(1 row)
+
+mydb=# create user myuser with password 'mypassword';
+CREATE ROLE
+mydb=# grant all privileges on mydb to myuser;
+ERROR:  relation "mydb" does not exist
+mydb=# grant all privileges on mytable to myuser;
+GRANT
+mydb=# \dt+
+                     List of relations
+ Schema |  Name   | Type  |  Owner   | Size  | Description 
+--------+---------+-------+----------+-------+-------------
+ public | mytable | table | postgres | 16 kB | 
+(1 row)
+
+mydb=# \q
+```
+
+logging in with created user
+
+```
+psql --username="myuser" --password --host="127.0.0.1" --port="5432" --dbname="mydb"
+Password: 
+psql (12.9 (Ubuntu 12.9-0ubuntu0.20.04.1))
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+Type "help" for help.
+
+mydb=>
+```
+
+connect with postgres URI
+
+```
+# psql "postgresql://myuser:mypassword@127.0.0.1:5432/mydb"
+psql (12.9 (Ubuntu 12.9-0ubuntu0.20.04.1))
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+Type "help" for help.
+
+mydb=> 
+```
+
 ## installing psql client on macOS (homebrew)
 
 ```

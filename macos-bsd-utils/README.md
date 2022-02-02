@@ -1,3 +1,12 @@
+# `lsof`
+
+check all open ports used by processes
+
+```
+$ lsof -i -P | grep 5000
+node      555   gt7   xxx  IPv6 0x999999999999999      0t0  TCP *:5000 (LISTEN)
+```
+
 # `file` - get file type
 
 check file type and architecture

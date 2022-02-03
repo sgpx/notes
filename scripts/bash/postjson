@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "curl -v \"$1\" -H \"Content-Type: application/json\" -d '$2'"
+cmd=$(echo "curl -v \"$1\" -H \"Content-Type: application/json\" -d '$2'")
+$cmd

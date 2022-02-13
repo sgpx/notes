@@ -119,3 +119,6 @@ XXXXXXXXXXX  podman      0.4.0       bridge,podman-machine,portmap,firewall,tuni
 podman network inspect podman
 ```
 
+# issues
+
+error connection closed, etc => is gvproxy laggy?

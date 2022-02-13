@@ -19,3 +19,15 @@ fn main(){
 	println!("hello world");
 }
 ```
+
+# macro vs function
+
+`println!` is a macro
+
+```
+it does things that functions can't do:
+
+- It parses the format string at compile time, and generates type safe code
+- It has a variable number of arguments
+- It has named arguments ("keyword arguments") 
+```

@@ -12,5 +12,5 @@ _start:
 	syscall
 
 section .data
-msg db "hello world"
-len equ 5
+msg db "hello world",10
+len equ 11

@@ -1,3 +1,15 @@
+# `.data`
+
+contains all the data used by the program
+
+# `.rodata`
+
+contains all the read only data used by the program
+
+# `.text`
+
+contains all code
+
 # _start
 
 every program must have a `global _start`

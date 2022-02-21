@@ -7,9 +7,10 @@ _start:
 	mov rax, 1
 	syscall
 
-	jmp _start
-
+	mov rax, 60
+	mov rdi, 0
+	syscall
 
 section .data
-msg db "y",10
-len equ 2
+msg db "hello world",10
+len equ 12

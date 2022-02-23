@@ -10,3 +10,11 @@
 
 `ls | expo eject --platform android`
 `yes | expo eject --platform android`
+
+## define version code for play store builds
+
+use `android.versionCode`
+
+https://docs.expo.dev/versions/latest/config/app/
+
+

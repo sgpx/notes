@@ -1,1 +1,1 @@
-alias svenv="if [ \"\$(ls | grep venv)\" = \"\" ]; then echo creating venv; virtualenv venv --python=python3; fi; source venv/bin/activate; if [ \"$(ls requirements.txt)\" = \"requirements.txt\" ]; then echo requirements.txt found; pip3 install -r requirements.txt; fi"
+alias svenv="if [ \"\$(ls | grep venv)\" = \"\" ]; then echo creating venv; virtualenv venv --python=python3; fi; source venv/bin/activate; if [ \"\$(ls requirements.txt)\" = \"requirements.txt\" ]; then echo requirements.txt found; pip3 install -r requirements.txt; fi"

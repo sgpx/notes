@@ -13,3 +13,4 @@ cleanup class
 cleanup out
 cleanup o
 cleanup obj
+cleanup save

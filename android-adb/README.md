@@ -50,3 +50,7 @@ USER=root
 # set device date (to prevent date drift errors with TLS etc)
 
 `Host-System % adb shell "su && date $(date +%m%d%H%M%Y.%S)" `
+
+# insufficient permissions error
+
+https://itsfoss.com/fix-error-insufficient-permissions-device/

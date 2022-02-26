@@ -1,13 +1,8 @@
 section .text
 global _start
 _start:
-	mov rdx, len
-	mov rsi, msg
-	mov rdi, 1
-	mov rax, 1
-	syscall
 
-	mov rax, 60
+	mov rax, [rip]
 	mov rdi, 0
 	syscall
 

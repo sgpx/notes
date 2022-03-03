@@ -1,3 +1,13 @@
+# register bits/bytes hex representation
+
+rax = (0000 0000 0000 0000)16
+
+where each digit represents 1 byte made of 8 bits
+
+each bit can represent a number from 0 to 255 
+
+or 0 to (1111 1111)2 = (255)10
+
 # data sizes
 
 byte => 8 bits => 1 byte

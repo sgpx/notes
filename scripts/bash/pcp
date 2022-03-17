@@ -1,0 +1,3 @@
+#!/bin/bash
+container_id=$(podman ps -aq | head -n 1)
+podman cp $container_id:$1 $2

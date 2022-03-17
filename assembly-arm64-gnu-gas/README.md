@@ -89,9 +89,10 @@ four types
 - excess 127 or excess (2^(n-1) - 1) 
 - two's complement
 
-# sign magnitude
+# sign magnitude representation
 
 most significant bit = bit furthest to left = bit at the start = sign bit
 
 most significant bit is used to store the sign of number
 
+addition subtraction is complicated

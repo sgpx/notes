@@ -91,8 +91,57 @@ four types
 
 # sign magnitude representation
 
-most significant bit = bit furthest to left = bit at the start = sign bit
+- most significant bit = bit furthest to left = bit at the start = sign bit
 
-most significant bit is used to store the sign of number
+- most significant bit is used to store the sign of number
 
-addition subtraction is complicated
+- addition subtraction is complicated
+
+- most integer CPUs do not support sign magnitude representation for addition, etc
+
+- sign magnitude representation is commonly used for mantissa in floating point numbers
+
+- mantissa = fractional part of floating point number
+
+- characteristic = integer part of floating point number
+
+- has two representations of zero which can cause problems
+
+# excess representation
+
+- stored number is N greater than its actual value
+
+- (stored number) = (actual value) + N
+
+- N = 2^(n-1) where n is the number of bits 
+
+- easy to interpret
+
+- example:
+
+```
+4-bit system
+
+n = 4
+N = 2**(4-1) = 2**3 = 8 = 1000
+
+stored_number(0) = actual_value(0) + 1000
+stored_number(0) = 0 + 8 = 8 = 1000
+
+stored_number(-1) = -1 + 8 = 7 = 0111
+
+stored_number(-2) = -2 + 8 = 6 = 0110
+
+stored_number(-4) = -4 + 8 = 4 = 0100
+
+stored_number(-8) = -8 + 8 = 0 = 0100
+
+stored_number(1) = 1 + 8 = 9 = 1001
+
+stored_number(2) = 2 + 8 = 10 = 1010
+
+stored_number(4) = 4 + 8 = 12 = 1100
+
+stored_number(7) = 7 + 8 = 15 = 1111
+
+```

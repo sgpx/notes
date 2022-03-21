@@ -5,7 +5,7 @@ msg:
 
 .text
 
-global _main
+.global _main
 
 _main:
 	adr x0, msg

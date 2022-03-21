@@ -145,3 +145,147 @@ stored_number(4) = 4 + 8 = 12 = 1100
 stored_number(7) = 7 + 8 = 15 = 1111
 
 ```
+
+# complement representation
+
+- negative numbers are represented as complements of positive counterparts
+
+- very efficient method of dealing with signed numbers
+
+- most significant digit of number is reserved to indicate whether is number is negative
+
+```
+if most_significant_digit < (radix/2):
+	sign = "positive"
+else:
+	sign = "negative"
+```
+
+- complement
+
+```
+complement(y, base=b, bits=n) = (b^n) - y
+```
+
+complement(0, base=2, bits=2) = 2**2 - 0 = 4 = 11
+
+
+# character representation
+
+ASCII = 7 bit code
+
+33/128 = non printable control characters
+
+95/128 = printable control characters
+
+# memory layout
+
+memory address are usually represented as hexadecimal
+
+each location can contain fixed number of bits
+
+most common size is 1 byte
+
+computers group bytes into words
+
+1 word = 2 bytes = 16 bits
+
+computers that access memory through bytes = byte addressable
+
+computers that access memory through words = word addressable
+
+on 32-bit system, four bytes are stored together to form a word
+
+BIG-ENDIAN SYSTEMS: store most significant byte of word in smallest address, store least significant byte in largest address
+
+LITTLE-ENDIAN SYSTEMS: store most significant byte of word in largest address, store least significant byte of word in smallest address
+
+linux by default configures ARM CPUs to run in little endian mode
+
+# memory layout of program
+
+each program contains following sections:
+
+- `.data`
+- `.rodata`
+- `.text`
+- `.bss`
+-  stack
+-  heap
+
+stack and heap are defined when program is loaded for execution
+
+`.data`, `.rodata`, `.bss` => contain static variables
+
+size of `.text`, `.data`, `.rodata`, `.bss` depends on size of program and size of declared static storage by programmer
+
+heap: contains variables allocated dynamically
+
+stack: stores parameters for function calls, stores return addresses, stores local and automatically declared variables
+
+in high level languages, storage space for variables can be allocated:
+
+- statically => .data, .rodata, .bss; space is reserved and initialized when program begins execution
+- dynamically => allocated on heap using `malloc()` `new` or similar equivalent
+- automatically (local variables) => stored on stack, using an offset from stack pointer
+
+# assembly program structure
+
+four basic elements
+
+- directives
+- labels
+- instructions
+- comments
+
+# assembly directives
+
+allows programmer to:
+
+- reserve memory for storage of variables
+
+- control which program section is being used
+
+- define macros
+
+- include other files
+
+- perform operations that control conversion of assembly instructions to machine code
+
+# assembly instructions
+
+- mnemonics
+
+- short character sequences easy to remember instead of machine code
+
+- most instructions require programmer to specify one or more operands
+
+# labels
+
+- modern assemblers make two passes through the program
+
+- first pass keeps track of location of each piece of data or instruction, building a symbol table
+
+- second pass assembly converts instructions to binary
+
+- labels are used to refer to address of data, functions, etc
+
+- in GAS, label declarations always end with `:` like `main:`
+
+# directives
+
+used to:
+
+- define symbols
+- allocate storage
+- control the behavior of the assembler
+
+all assembler directives begin with '.' e.g. `.data`, `.rodata`, `.section`
+
+# BSS
+
+block started by symbol
+
+
+
+

@@ -49,3 +49,8 @@ used to:
 
 assembler directives begin with `.` followed by sequence of letters. example `.data`
 
+# instructions
+
+commands executed on CPU
+
+

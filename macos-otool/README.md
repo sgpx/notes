@@ -21,6 +21,8 @@ $ otool -L "$(which python3)"
 	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1292.100.5)
 ```
 
+`libSystem.B.dylib` is macos C standard library
+
 # print mach header
 
 ```

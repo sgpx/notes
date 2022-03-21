@@ -1,6 +1,0 @@
-iwctl device list
-iwctl device wlan0 show
-iwctl adapter list
-iwctl adapter phy0 show
-
-iwctl station wlan0 connect My-Wi-Fi

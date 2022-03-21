@@ -286,6 +286,3 @@ all assembler directives begin with '.' e.g. `.data`, `.rodata`, `.section`
 
 block started by symbol
 
-
-
-

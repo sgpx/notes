@@ -1,5 +1,14 @@
 #!/bin/bash
-dl_link="https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-ubuntu2004-5.0.6.tgz"
+dl_link_aarch64="https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-ubuntu2004-5.0.6.tgz"
+dl_link_x86_64="https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-ubuntu2004-5.0.6.tgz"
+
+arch=$(uname -i)
+
+if [ "$arch" = "aarch64" ]; then
+	dl_link=dl_link_aarch64
+else
+	dl_link=dl_link_x86_64
+fi
 
 if [ ! -r mdb ]; then
 	apt update

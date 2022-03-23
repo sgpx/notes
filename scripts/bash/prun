@@ -1,5 +1,6 @@
 #!/bin/bash
 engine="podman" # or "docker"
+platform=$(uname -s)
 
 function exe(){
 	echo "$1";
@@ -9,7 +10,12 @@ function exe(){
 exe "$engine --version"
 
 if [ "$engine" = "podman" ]; then
-	podman_is_running=$(ps -ef | grep -i podman | grep -i gvproxy)
+	if [ "$platform" = "Darwin" ]; then
+		podman_is_running=$(ps -ef | grep -i podman | grep -i gvproxy)
+	else
+		podman_is_running=$(ps -ef | grep -i podman | grep -i qemu)
+	fi
+
 	if [ "$podman_is_running" = "" ]; then
 		exe "podman machine start"
 	fi

@@ -1,3 +1,16 @@
+# array length
+
+```
+foo=$("$@")
+echo ${#foo[@]}
+```
+
+# args to array
+
+```
+foo=("$@")
+```
+
 # substring syntax
 
 ```

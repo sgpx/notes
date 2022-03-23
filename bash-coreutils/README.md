@@ -1,3 +1,28 @@
+# substring syntax
+
+```
+str=foobar
+a=1
+b=2
+len=1
+
+echo ${str:$a:$len}
+echo ${str:$b:$len}
+```
+
+# string length
+
+```
+a=foobar
+echo ${#a}
+```
+
+# while loop
+
+```
+a=1; b=4; while (( $a < $b )); do echo $a; a=$(expr $a + 1); done
+```
+
 # NOT operator in conditional expressions (!)
 
 ```

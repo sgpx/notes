@@ -1,3 +1,11 @@
+# NOT operator in conditional expressions (!)
+
+```
+if [ ! -r foo.txt ]; then
+	echo foo.txt does not exist
+fi
+```
+
 # pushd && popd
 
 ```bash

@@ -24,6 +24,7 @@ fi
 
 opt=""
 dbdata_path=~/dbdata
+nx=""
 
 function set_opt(){
 	opt="--auth"
@@ -32,6 +33,10 @@ function set_opt(){
 function clear_dbdata(){
 	rm -rf $dbdata_path
 	mkdir $dbdata_path
+}
+
+function set_nohup(){
+	nx="nohup"
 }
 
 function process_arg(){
@@ -44,6 +49,12 @@ function process_arg(){
 		echo clearing dbdata
 		clear_dbdata;
 	fi
+
+	if [ "$1" = "n" ]; then
+		echo setting nohup;
+		set_nohup;
+	fi
+
 }
 
 arg="$1"
@@ -54,5 +65,5 @@ while (( $ctr < $arg_len )); do process_arg "${arg:$ctr:1}"; ctr=$(expr $ctr + 1
 
 cd mdb/bin
 pwd
-echo ./mongod --bind_ip 0.0.0.0 --port 5000 --dbpath $dbdata_path $opt
-./mongod --bind_ip 0.0.0.0 --port 5000 --dbpath $dbdata_path $opt
+echo $nx ./mongod --bind_ip 0.0.0.0 --port 5000 --dbpath $dbdata_path $opt
+$nx ./mongod --bind_ip 0.0.0.0 --port 5000 --dbpath $dbdata_path $opt

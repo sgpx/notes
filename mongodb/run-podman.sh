@@ -1,8 +1,9 @@
 #!/bin/bash
 dl_link_aarch64="https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-ubuntu2004-5.0.6.tgz"
-dl_link_x86_64="https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-ubuntu2004-5.0.6.tgz"
+dl_link_x86_64="https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-5.0.6.tgz"
 
 arch=$(uname -i)
+echo arch is $arch
 
 if [ "$arch" = "aarch64" ]; then
 	dl_link="$dl_link_aarch64"

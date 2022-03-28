@@ -355,4 +355,12 @@ used for global variables that need to be initialized to zero
 
 programmer can create extra subsections using the `.section` directive but needs to specify how to use those subsections using a linker script
 
+# link register
 
+`LR` or `R14`
+
+`bl` instruction uses link register compared to `b` which does not use `LR`
+
+special purpose register
+
+holds address to return to when function call completes

@@ -286,3 +286,73 @@ all assembler directives begin with '.' e.g. `.data`, `.rodata`, `.section`
 
 block started by symbol
 
+# `.size` directive
+
+sets size associated with a symbol
+
+COFF
+
+`.size EXPRESSION`
+
+ELF
+
+`.size name, EXPRESSION`
+
+
+# STP instruction
+
+stores pair of registers
+
+calculates address from a base register value and immediate offset
+
+stores two 32-bit words or 64-bit doublewords to the calculated address
+
+from two registers
+
+into calculated address
+
+# ADR instruction
+
+```
+adr register, expression
+```
+
+where expression evaluates to a non word-aligned address within 255 bytes 
+
+or a word-aligned address 1020 bytes
+
+# assembler process
+
+first variable inside .data block is stored at address 0000
+
+assembler declares defined and undefined values 
+
+linker uses undefined value to patch in values from linked libraries like glibc 
+
+# `.data` directive
+
+`.data X` instructs assembler to append data to data subsections numbered X
+
+if X is omitted it defaults to subsection number 0
+
+`.data` is used for global variables and constants which have labels
+
+# `.text` directive
+
+`.text X` instructs assembler to append following statements to subsection 0
+
+if X is omitted it defaults to 0
+
+this section is used for instructions
+
+# `.bss` directive
+
+defines data storage areas that are initialized to zero at the start of program execution
+
+used for global variables that need to be initialized to zero 
+
+# `.section` direction
+
+programmer can create extra subsections using the `.section` directive but needs to specify how to use those subsections using a linker script
+
+

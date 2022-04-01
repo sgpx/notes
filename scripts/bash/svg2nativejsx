@@ -1,0 +1,12 @@
+#!/bin/bash
+for i in $(ls *.svg); do
+	tn=$(sed -r "s/.svg//" <<< "$i");
+	fn="Svg$tn.jsx";
+	echo "converting $i -> $fn";
+	if [ ! -r "$fn" ]; then
+		echo "npx @svgr/cli --native $i > $fn";
+		npx @svgr/cli --native $i > $fn;
+	else
+		printf "$fn exists, skipping..\n\n"
+	fi;
+done

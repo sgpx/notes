@@ -4,6 +4,28 @@ to see list of devices:
 
 `adb devices -l`
 
+# open logcat/shell for specific device
+
+first, get transport ID of device
+
+```
+$ adb devices -l
+List of devices attached
+emulator-5554          device product:sdk_gphone64_arm64 model:sdk_gphone64_arm64 device:emulator64_arm64 transport_id:4
+emulator-5555          device product:sdk_gphone64_arm64 model:sdk_gphone64_arm64 device:emulator64_arm64 transport_id:5
+```
+
+```
+adb -t 5 logcat
+adb -t 4 shell
+```
+
+# wipe AVD data
+
+```
+emulator -avd Pixel5 -wipe-data
+```
+
 # to launch shell for connected device
 
 `adb shell` 

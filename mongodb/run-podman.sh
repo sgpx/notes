@@ -65,5 +65,6 @@ while (( $ctr < $arg_len )); do process_arg "${arg:$ctr:1}"; ctr=$(expr $ctr + 1
 
 cd mdb/bin
 pwd
-echo $nx ./mongod --bind_ip 0.0.0.0 --port 5000 --dbpath $dbdata_path $opt
-$nx ./mongod --bind_ip 0.0.0.0 --port 5000 --dbpath $dbdata_path $opt
+cmd="$nx ./mongod --bind_ip 0.0.0.0 --port 5000 --dbpath $dbdata_path $opt &"
+echo $cmd
+$cmd

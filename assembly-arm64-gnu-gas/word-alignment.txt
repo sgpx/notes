@@ -1,0 +1,11 @@
+# word alignment
+
+CPU always reads data in fixed size chunks according to architecture
+
+if data is not aligned into words, it can take more than one cycle to read the data
+
+if word size is 8 bytes and data is also aligned into 8 bytes, you only need to read one chunk
+
+if word size is 8 bytes and data is not aligned into 8 bytes, you need to read two chunks
+
+https://stackoverflow.com/a/1584284

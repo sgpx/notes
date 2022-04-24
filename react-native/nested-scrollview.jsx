@@ -11,6 +11,7 @@ const Xyz = () => (
       backgroundColor: "green",
       flexGrow: 1,
     }}
+	nestedScrollEnabled={true}
   >
     <View
       style={{ backgroundColor: "red", width: 100, height: 50, margin: 10 }}

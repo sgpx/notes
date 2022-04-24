@@ -1,3 +1,10 @@
+# nested scrollview
+
+nestedScrollEnabled Android
+Enables nested scrolling for Android API level 21+.
+
+https://reactnative.dev/docs/scrollview#nestedscrollenabled
+
 # logs
 
 use [`https://www.npmjs.com/package/react-native-logs`](https://www.npmjs.com/package/react-native-logs) for logging to logcat and ios sim process logs

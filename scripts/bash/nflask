@@ -17,3 +17,4 @@ pip3 freeze > requirements.txt
 
 touch app.py
 printf "import flask\nimport flask_cors\nimport pymongo\n\n\napp = flask.Flask(__name__)\nflask_cors.CORS(app)\n\n" >> app.py
+printf "venv/\n__pycache__/\nnode_modules/\n" >> .gitignore

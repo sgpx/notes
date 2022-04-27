@@ -1,3 +1,30 @@
+# DECORATORS
+
+```
+@blah
+def yada():
+	pass
+```
+
+is equivalent to
+
+```
+yada = blah(yada)
+```
+
+```
+@app.route("/")
+def root():
+	return "OK", 200
+```
+
+is equivalent to
+
+```
+root = lambda x: "OK", 200
+root = app.route("/")(root)
+```
+
 # pad zeroes at start of string
 
 ```

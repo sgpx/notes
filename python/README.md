@@ -1,3 +1,29 @@
+# lambdas
+
+no args
+
+```
+a = lambda : 123
+```
+
+default args
+
+```
+a = lambda x=1 : x*2
+```
+
+multiple args
+
+```
+a = lambda x,y=0 : x+y
+```
+
+tuple return
+
+```
+a = lambda x: (x,x+1)
+```
+
 # DECORATORS
 
 ```
@@ -21,7 +47,7 @@ def root():
 is equivalent to
 
 ```
-root = lambda x: "OK", 200
+root = lambda : "OK", 200
 root = app.route("/")(root)
 ```
 

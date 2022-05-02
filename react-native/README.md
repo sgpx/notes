@@ -1,3 +1,10 @@
+# touchablewithoutfeedback & scrollview conflict
+
+scrollview wrapped inside
+<TouchableWithoutFeedback onPress={Keyboard.dismiss}> </TouchableWithoutFeedback>
+
+will get stuck while scrolling and will only scroll if you tap other scrollable elements
+
 # nested scrollview
 
 nestedScrollEnabled Android

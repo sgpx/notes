@@ -50,9 +50,31 @@ uninstall app
 
 `adb logcat | grep ReactNative`
 
+# logcat filter
+
+```
+filterspecs are a series of 
+  <tag>[:priority]
+
+where <tag> is a log component tag (or * for all) and priority is:
+  V    Verbose (default for <tag>)
+  D    Debug (default for '*')
+  I    Info
+  W    Warn
+  E    Error
+  F    Fatal
+  S    Silent (suppress all output)
+```
+
+`adb logcat *:E` only shows errors
+
 # send a file to connected device
 
 `adb push localfile.ext /path/to/remotefile.ext`
+
+# get file from connected device
+
+`adb pull /path/to/remotefile.exe localcopy.ext`
 
 # get superuser (to deal with "Operation not permitted" etc errors)
 
@@ -71,8 +93,9 @@ USER=root
 
 # set device date (to prevent date drift errors with TLS etc)
 
-`Host-System % adb shell "su && date $(date +%m%d%H%M%Y.%S)" `
+`Host-System % adb shell "su root date $(date +%m%d%H%M%Y.%S)" `
 
 # insufficient permissions error
 
 https://itsfoss.com/fix-error-insufficient-permissions-device/
+

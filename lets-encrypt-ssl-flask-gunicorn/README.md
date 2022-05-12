@@ -38,3 +38,18 @@ cp certbot_config_dir/live/foo.example.com/*.pem certdir
 as root (needed for acces to port 80 and 443)
 
 `nohup gunicorn app:app -w 10 --certfile=certdir/cert.pem --keyfile=certdir/privkey.pem --bind 0.0.0.0:443 &`
+
+USE `fullchain.pem` to prevent android certificate trust validation errors
+
+`nohup gunicorn app:app -w 10 --certfile=certdir/fullchain.pem --keyfile=certdir/privkey.pem --bind 0.0.0.0:443 &`
+
+# check certificate with OpenSSL
+
+`openssl s_client -debug -connect foo.example.com:443`
+
+# how to create create fullchain.pem if missing
+
+```
+cp cert.pem fullchain.pem
+cat ca.pem >> fullchain.pem
+```

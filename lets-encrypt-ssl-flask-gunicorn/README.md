@@ -1,3 +1,7 @@
+# werkzeug
+
+`FLASK_DEBUG=1 sudo flask run --host 0.0.0.0 --port 443 --cert certdir/cert.pem --key certdir/privkey.pem`
+
 # https with gunicorn and lets encrypt
 
 # setup

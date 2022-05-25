@@ -51,6 +51,10 @@ ctr=0
 
 while (( $ctr < $arg_len )); do process_arg "${arg:$ctr:1}"; ctr=$(expr $ctr + 1); done
 
+if [ ! -r $dbdata_path ]; then
+	mkdir $dbdata_path;
+fi
+
 cd mdb/bin
 pwd
 echo ./mongod --bind_ip 0.0.0.0 --port 5000 --dbpath $dbdata_path $opt

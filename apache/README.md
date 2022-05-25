@@ -24,3 +24,10 @@ su -c 'cd /home/apacheuser && APACHE_RUN_DIR="$PWD/apache-run-dir/" APACHE_RUN_U
 ```
 
 
+# increase request size limit
+
+
+```
+sudo echo "LimitRequestBody 99999999" >> /etc/apache2/apache2.conf
+sudo systemctl restart apache2
+```

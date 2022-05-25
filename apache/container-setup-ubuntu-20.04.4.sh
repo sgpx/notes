@@ -1,6 +1,7 @@
 #!/bin/bash
 apt update
-apt install -y --allow-downgrades apache2 perl-base=5.30.0-9build1 perl
+# apt install -y --allow-downgrades apache2 perl-base=5.30.0-9build1 perl
+apt install --allow-downgrades -y libapache2-mod-php libapache2-mod-php7.4 php apache2 perl-base=5.30.0-9build1 perl
 sed -i.bak -r "s/Listen 80/Listen 5000/" /etc/apache2/ports.conf
 echo "ServerName 10.88.0.2" >> /etc/apache2/sites-available/000-default.conf
 

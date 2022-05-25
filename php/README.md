@@ -8,6 +8,27 @@
 
 e.g. `apt install -y php7.4-xml`
 
+# arrays
+
+actually an ordered map
+
+```
+<?php
+
+$a = array("hey" => "ya");
+echo $a["hey"];
+```
+
+without keys
+
+
+```
+<?php
+
+$a = array(1,2,3,4);
+echo $a[0];
+```
+
 # `print_r`
 
 display human readable info about any variable

@@ -2,6 +2,16 @@
 
 php package manager
 
+# setup (v2)
+
+```
+apt install -y php
+wget -v https://getcomposer.org/installer
+php installer
+echo #!/bin/bash > /usr/bin/composer
+echo COMPOSER_ALLOW_SUPERUSER=1 /root/composer.phar \$@ >> /usr/bin/composer
+```
+
 # setup (ubuntu)
 
 `apt install -y composer`
@@ -10,13 +20,17 @@ php package manager
 
 packagist.com
 
-# init
+# init (v1)
 
-`composer init --quiet`
+`composer init --quiet` 
 
 or 
 
 `composer init -q`
+
+# init (v2)
+
+`composer init --name myname/mypackage -q`
 
 # install package
 

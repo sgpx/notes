@@ -1,0 +1,21 @@
+#!/bin/bash
+a=( node_modules __pycache__ venv );
+b=$(echo ${#a[@]})
+
+c="0"
+
+if [ -r .gitignore ]; then
+	echo found .gitignore;
+else
+	echo creating .gitignore;
+	touch .gitignore;
+fi
+
+while [ $c -lt $b ]; do
+	tgt=$(echo ${a[$c]}/)
+	if [[ -d $tgt && $(grep $tgt .gitignore) = "" ]]; then
+		echo $tgt >> .gitignore
+		echo adding $tgt to .gitignore...
+	fi
+	c=$(expr $c "+" 1);
+done

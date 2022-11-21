@@ -1,0 +1,2 @@
+#!/bin/bash
+alias ios_simulator_running='xcrun simctl list | grep -i booted | sed -r "s/.+ \((.+)\) \(.+$/\1/"'

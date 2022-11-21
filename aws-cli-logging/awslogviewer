@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+import subprocess as s
+import json
+import datetime
+from sys import argv,exit
+
+nlg, nls = None, None
+
+if len(argv) >= 3:
+	_, nlg, nls = argv[:3]
+	nlg = int(nlg)
+	nls = int(nls)
+
+
+def execute(cmd):
+	x = s.check_output(cmd.split(" "))
+	x = x.decode("utf-8")
+	x = json.loads(x)
+	return x
+
+def print_evts(e):
+	if e:
+		for i in e:
+			print("=== event ===")
+			for j in i:
+				print(j,":",i[j])
+
+def load_next(nt):
+	cmd = f"aws logs get-log-events --log-group-name {log_group_name} --log-stream-name {log_stream_name} --start-from-head --next-token {nt}"
+	x = execute(cmd)
+	e = x.get("events")
+	print_evts(e)
+	nft = x.get("nextForwardToken")
+	return nft
+
+
+cmd = "aws logs describe-log-groups"
+x = execute(cmd).get("logGroups")
+
+print("=======")
+print("groups:")
+for n,i in enumerate(x):
+	print(n+1,"->",i.get("logGroupName"))
+print("=======")
+
+if nlg:
+	p = nlg - 1
+else:
+	p = int(input("enter number of log group: ")) - 1
+log_group_name = x[p].get("logGroupName")
+
+cmd = f"aws logs describe-log-streams --log-group-name {log_group_name}"
+x = execute(cmd).get("logStreams")
+
+print("=======")
+print("streams:")
+print("=======")
+for n,i in enumerate(x):
+	print(n+1,"->", i.get("logStreamName"), "# created at: ", str(datetime.datetime.fromtimestamp(i.get("creationTime")/1000)) )
+print("=======")
+
+if nls:
+	p = nls - 1
+else:
+	p = int(input("enter number of log stream: ")) - 1
+log_stream_name = x[p].get("logStreamName")
+
+print("=======")
+cmd = f"aws logs get-log-events --log-group-name {log_group_name} --log-stream-name {log_stream_name} --start-from-head"
+x = execute(cmd)
+
+print_evts(x.get("events"))
+sft = x.get("nextForwardToken")
+
+ft = sft
+
+while True:
+	nft = load_next(ft)
+	if nft == ft:
+		break
+	else:
+		ft = nft
+
+

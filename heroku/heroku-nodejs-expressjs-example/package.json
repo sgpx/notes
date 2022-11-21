@@ -1,0 +1,11 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/heroku/example.git",
+  "author": "s <s@example.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}

@@ -1,0 +1,1 @@
+alias svenv="if [ ! -r venv/ ]; then echo creating venv; virtualenv venv --python=python3; fi; source venv/bin/activate; if [ -r requirements.txt ]; then echo requirements.txt found; pip3 install -r requirements.txt; fi; echo venv/ >> .gitignore; echo __pycache__/ >> .gitignore; echo node_modules/ >> .gitignore; sort -n .gitignore | uniq > gitmp; mv -v gitmp .gitignore"

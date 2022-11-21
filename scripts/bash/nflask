@@ -1,0 +1,20 @@
+#!/bin/bash
+fn="lambda"
+
+if [ "$1" != "" ]; then
+	fn="$1"
+fi
+
+mkdir $fn
+cd $fn
+
+pwd
+
+virtualenv venv --python=python3
+source venv/bin/activate
+pip3 install flask flask_cors pymongo requests
+pip3 freeze > requirements.txt
+
+touch app.py
+printf "import flask\nimport flask_cors\nimport pymongo\n\n\napp = flask.Flask(__name__)\nflask_cors.CORS(app)\n\n" >> app.py
+printf "venv/\n__pycache__/\nnode_modules/\n" >> .gitignore

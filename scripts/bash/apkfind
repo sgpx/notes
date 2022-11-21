@@ -1,0 +1,8 @@
+#!/bin/bash
+if [ "$1" = "" ]; then
+	fn=~/x.apk
+else
+	fn="$1"
+fi
+
+cp -v $(find . -iname "*.apk" | head -n1) $fn

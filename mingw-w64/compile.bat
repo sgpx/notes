@@ -1,0 +1,1 @@
+g++ tmp.cpp -o tmp.exe

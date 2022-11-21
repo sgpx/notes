@@ -1,0 +1,1 @@
+#define ans 42

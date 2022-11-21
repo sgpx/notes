@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ "$1" = "" ]; then
+	fn="app";
+else
+	fn="$1";
+fi
+
+time expo init $fn --template blank
+cd $fn
+rm -rfv .git
+yarn remove react-native-web
+yarn add @types/react-native

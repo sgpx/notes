@@ -1,0 +1,4 @@
+telnet localhost 5554
+p=$(cat ~/.emulator_console_auth_token | xsel -b)
+auth $p
+geo fix 1.2 3.4

@@ -1,0 +1,3 @@
+#!/bin/bash
+echo podman rm $(podman ps -aq)
+podman rm $(podman ps -aq)

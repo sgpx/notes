@@ -1,0 +1,4 @@
+#!/bin/bash
+last=$(ls *.c | sort -n | tail -n 1)
+nano $last
+echo $last

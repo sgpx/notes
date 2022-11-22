@@ -1,3 +1,7 @@
+# entab detab problem
+
+refer to manpage for [tabs](https://www.freebsd.org/cgi/man.cgi?query=tabs)
+
 # output to stderr
 
 ```

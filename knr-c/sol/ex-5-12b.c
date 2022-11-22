@@ -1,52 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void entab(char s[], char t[], int argc, char *argv[]){
-	int tsc = 1;
-	int ts = tsc < argc ? atoi(argv[tsc]) : 8;
-	int cs = 0, ct = 0;
-	int wsc = 0;
-
-	while(s[cs] != '\0'){
-		char c = s[cs];
-		printf("ts : %d\n", ts);
-		if(ts == 0) {
-			printf("wsc : %d\n", wsc);
-
-			if(tsc+1 < argc) {
-				++tsc;
-				ts = tsc < argc ? atoi(argv[tsc]) : 8;
-			}
-			else ts = 8;
-			if(wsc){
-				t[ct++] = '\t';
-				wsc = 0;
-			}
+void detab(char s[], char t[], int argc, char *argv[]){
+	int ts = 0, tw = 8, start_col = 8;
+	for(int i = 1; i < argc; i++){
+		char *s = argv[i];
+		if(*s == '-'){
+			s++;
+			start_col = atoi(s);
 		}
-
-		if(c == '.'){
-			wsc += 1;
-			cs++;
-			ts--;
-		}
-		else {
-			if(wsc){
-				for(int u=0; u<wsc; u++)
-					t[ct++] = '.';
-				wsc = 0;
-			}
-			t[ct++] = s[cs++];
-			ts--;
+		else if(*s == '+'){
+			tw = atoi(s);
 		}
 	}
+	ts = start_col;
+	printf("start_col : %d\n", start_col);
+	printf("tw : %d\n", tw);
 
+	int cs = 0, ct = 0;
+	while(s[cs] != '\0'){
+		printf("===\nct : %d\n", ct);
+		printf("%s\n", t);
+		if(s[cs] == '\t'){
+			printf("ts : %d\n", ts);
+			while(ct < ts-1){
+				t[ct++] = '.';
+			}
+			cs++;
+			ts += tw;
+		}
+		else {
+			t[ct++] = s[cs++];
+		}
+	}
 	t[ct] = '\0';
 }
 
 int main(int argc, char *argv[]){
-	char s[100] = "a..b....ca.......ca.....b.c";
-	char  t[100];
-	entab(s, t, argc, argv);
+	char s[100] = "as\tsf\tewq\tsfsdf\t";
+	char t[100];
+	detab(s, t, argc, argv);
 	printf("s:\n%s\nt:\n%s\n", s, t);
-	return 0;
 }

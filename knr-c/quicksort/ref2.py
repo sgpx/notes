@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
 
-def swap(arr : list, i : int, j : int):
-	print(f"swapping x[{i}] : {arr[i]} <-> x[{j}] : {arr[j]}")
-	tmp = arr[i]
-	arr[i] = arr[j]
-	arr[j] = tmp
-
 def strcmp(x : str, y : str):
 	i = 0
 	lx = len(x)
@@ -13,11 +7,16 @@ def strcmp(x : str, y : str):
 		i += 1
 	if i == lx:
 		return 0
-	# print(x[i], y[i], ord(x[i]), ord(y[i]))
+	print(x[i], y[i], ord(x[i]), ord(y[i]))
 	res = ord(x[i]) - ord(y[i])
 	if res == 0: return 0
 	elif res > 0: return 1
 	else: return -1	
+
+def swap(arr : list, i : int, j : int):
+	tmp = arr[i]
+	arr[i] = arr[j]
+	arr[j] = tmp
 
 def part(arr : list, low : int, high : int):
 	print("part")

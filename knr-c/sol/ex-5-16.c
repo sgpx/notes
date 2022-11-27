@@ -9,10 +9,14 @@ typedef int (*fx)(const void*, const void*);
 
 static char allocbuf[BUFSIZE];
 static char * allocp = allocbuf;
+
+int directory_mode = 0;
+
 void dbg(){
 	for(int i = 0; i < 10; i++)
 		printf("%d '%c' %d\n", i, allocbuf[i], allocbuf[i]);
 }
+
 int numcmp(char *s, char *t){
 	double ds = atof(s);
 	double dt = atof(t);
@@ -35,12 +39,40 @@ char lower(char x){
 		return x;
 }
 
-int strcmp_fold(char *s, char *t){
+int invalidchar(char c){
+	if(c >= 'a' && c <= 'z') return 0;
+	else if(c >= 'A' && c <= 'Z') return 0;
+	else if(c >= '0' && c <= '9') return 0;
+	else if(c == ' ' || c == '\0') return 0;
+	else return 1;
+}
+
+int x_strcmp(char *s, char *t){
+	while(*s == *t){
+		if(*s == '\0')
+			return 0;
+		++s;
+		++t;
+	}
+	if(directory_mode){
+		while(invalidchar(*s)) s++;
+		while(invalidchar(*t)) t++;
+	}
+
+	return (*s)-(*t);
+}
+int x_strcmp_fold(char *s, char *t){
 	while(lower(*s) == lower(*t)){
 		if(*s == '\0')
 			return 0;
 		++s;
 		++t;
+	}
+// ab_cd0
+// ab0
+	if(directory_mode){
+		while(invalidchar(*s)) s++;
+		while(invalidchar(*t)) t++;
 	}
 	printf("%c %c %c %c %d\n", *s, *t, lower(*s), lower(*t), lower(*s)-lower(*t));
 	return lower(*s) - lower(*t);
@@ -112,19 +144,21 @@ int readlines(char *lineptr[], int maxlines){
 int main(int argc, char *argv[]){
 	int numeric = 0, dir = 0, fold = 0;
 	for(int i = 1; i < argc; i++)
-		if(strcmp(argv[i], "-n") == 0)
+		if(x_strcmp(argv[i], "-n") == 0)
 			numeric = 1;
-		else if(strcmp(argv[i], "-r") == 0)
+		else if(x_strcmp(argv[i], "-r") == 0)
 			dir = 1;
-		else if(strcmp(argv[i], "-f") == 0)
+		else if(x_strcmp(argv[i], "-f") == 0)
 			fold = 1;
+		else if(x_strcmp(argv[i], "-d") == 0)
+			directory_mode = 1;
 
 	fx fn;
 	if(numeric == 1)
 		fn = (fx) numcmp;
 	else {
-		if(fold == 1) fn = (fx) strcmp_fold;
-		else fn = (fx) strcmp;
+		if(fold == 1) fn = (fx) x_strcmp_fold;
+		else fn = (fx) x_strcmp;
 	}
 	char *lineptr[MAXLINES];
 	int nlines;

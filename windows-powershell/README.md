@@ -1,3 +1,9 @@
+# verify sha256 checksum
+
+```
+PS C:> $hash=$(Get-FileHash -Algorithm SHA256 -Path .\MyFile.ext).Hash
+```
+
 # powershell
 
 example 

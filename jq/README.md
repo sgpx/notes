@@ -45,3 +45,28 @@ $ echo '{"a":"{\"c\": 1}"}' | jq '.a | fromjson | .c'
 `jq '.dependencies | to_entries | map (.key)' package.json`
 
 gives an array of packages
+
+# iterating
+
+```
+$ echo '["a", "b", "c"]' | jq '.[]'
+"a"
+"b"
+"c"
+$ echo '["a", "b", "c"]' | jq '.[0]'
+"a"
+$ echo '["a", "b", "c"]' | jq '.[1:2]'
+[
+  "b"
+]
+$ echo '["a", "b", "c"]' | jq '.[1:]'
+[
+  "b",
+  "c"
+]
+$ echo '["a", "b", "c"]' | jq '.[0:2]'
+[
+  "a",
+  "b"
+]
+```

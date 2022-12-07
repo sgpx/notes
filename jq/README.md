@@ -36,3 +36,12 @@ $ echo '{"a":"{\"c\": 1}"}' | jq '.a | fromjson | .c'
 1
 ```
 
+# object to key-value pairs
+
+`jq '. | to_entries' a.json`
+
+# mapping
+
+`jq '.dependencies | to_entries | map (.key)' package.json`
+
+gives an array of packages

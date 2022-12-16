@@ -15,3 +15,4 @@ cleanup o
 cleanup obj
 cleanup save
 cleanup tgz
+cleanup tar.gz

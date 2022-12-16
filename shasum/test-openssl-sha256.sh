@@ -1,4 +1,6 @@
 #!/bin/bash
+cd chksum_testdir
+pwd
 a="https://www.openssl.org/source/openssl-1.1.1s.tar.gz"
 wget $a
 wget $a.sha256

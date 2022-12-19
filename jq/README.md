@@ -70,3 +70,7 @@ $ echo '["a", "b", "c"]' | jq '.[0:2]'
   "b"
 ]
 ```
+
+# pipe wget output to jq
+
+`wget https://jsonplaceholder.typicode.com/posts -q -O - | jq '.[0]'`

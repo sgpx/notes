@@ -1,3 +1,16 @@
+# const pointer syntax
+
+ref : Appendix A.8.5
+
+```
+int main(){
+	int z = 1;
+	int const *y = &z;
+	int const * const *x = &y;
+	int const * const * xyz = x;
+}
+```
+
 # entab detab problem
 
 refer to manpage for [tabs](https://www.freebsd.org/cgi/man.cgi?query=tabs)

@@ -1,3 +1,12 @@
+# type qualifier
+
+`const` : value cannot change once initialized
+
+```
+const unsigned int x = 5;
+// [type_qualifier] [type_specifier] [type_specifier] [name]
+```
+
 # const pointer syntax
 
 ref : Appendix A.8.5
@@ -11,6 +20,12 @@ int main(){
 }
 ```
 
+
+```
+	// gives duplicate const warning
+	const int z = 1;
+	const int const * y = &z;
+```
 # entab detab problem
 
 refer to manpage for [tabs](https://www.freebsd.org/cgi/man.cgi?query=tabs)

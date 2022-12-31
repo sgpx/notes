@@ -165,3 +165,52 @@ a.c:(.text+0x6a4): undefined reference to `sin'
 /usr/bin/ld: a.c:(.text+0x6c4): undefined reference to `exp'
 /usr/bin/ld: a.c:(.text+0x6e8): undefined reference to `pow'
 ```
+
+# declarator grammar
+
+declarator:
+- `pointer^opt direct_declarator`
+
+direct declarator:
+- `identifier`
+- `(declarator)`
+- `direct_declarator[constexpr]`
+- `direct_declarator(parameter_type_list)`
+
+pointer:
+- `type_qualifier_list^opt`
+- `type_qualifier_list^opt pointer`
+
+type_qualifier_list:
+- `type_qualifier`
+- `type_qualifier_list type_qualifier`
+
+----
+
+```
+dcl -> pointer* dirdcl
+
+dirdcl -> (dcl)
+dirdcl -> ident
+dirdcl -> dirdcl[constexpr]
+dirdcl -> dirdcl(param_type_list)
+
+pointer -> asterisk type_qualifier_list*
+pointer -> asterisk type_qualifier_list* pointer
+
+type_qualifier_list -> const
+type_qualifier_list -> volatile
+```
+
+# (make dcl recover from input errors)
+
+## error 1 
+
+```
+>>> int x(
+syntax error
+>>> int x()
+int :
+```
+
+happens because the new gettoken() call is made inside the previous dcl() call

@@ -6,6 +6,8 @@
 
 enum { NAME, PARENS, BRACKETS };
 
+int name_is_set = 0;
+
 void dcl(void);
 void dirdcl(void);
 int gettoken(void);
@@ -26,15 +28,6 @@ void ungetch(char c){
 	xbuf[++bufc] = c;
 }
 
-void reset(void){
-	printf("resetting..\n");
-	tokentype = '\n';
-	token[0] = '\0';
-	name[0] = '\0';
-	datatype[0] = '\0';
-	out[0] = '\0';
-}
-
 void dcl(void){
 	// number of pointer asterisks
 	int ns;
@@ -42,7 +35,7 @@ void dcl(void){
 	for(ns = 0; gettoken() == '*';) ns++;
 	// run dirdcl()
 	dirdcl();
-	// put " pointer to pointer to...." ns times in out[]
+	// put " pointer to pointer to...." ${ns} times in out[]
 	while(ns-- > 0)
 		strcat(out, " pointer to");
 }
@@ -56,22 +49,26 @@ void dirdcl(){
 
 	if(tokentype == '(') {
 		dcl();
-		if(tokentype != ')'){
-			printf("error: missing\n");
-			reset();
-		}
+		if(tokentype != ')')
+			printf("error: missing closing parenthesis ') \n");
 	}
-	else if(tokentype == NAME)
+	else if(tokentype == NAME) {
 		// copy token[] to name[]
-		strcpy(name, token);
+		if(name_is_set == 0) strcpy(name, token);
+		name_is_set = 1;
+	}
 	else
 		printf("error: expected name or dcl\n");
 
 	// looks for parenthesis and brackets
 	while( (type=gettoken()) == PARENS || type == BRACKETS )
-		if(type == PARENS)
-			// function returning
-			strcat(out, " function returning");
+		if(type == PARENS) {
+			// put "function returning" to out[]
+			//strcat(out, " function returning");
+			strcat(out, " function");
+			strcat(out, token);
+			strcat(out, " returning");
+		}
 		else {
 			// if token is brackets
 			// put "array" to out[]
@@ -104,11 +101,21 @@ int gettoken(void){
 			// else
 			// push back the input
 			// set tokentype as '(' and return '('
-			ungetch(c);
-			return tokentype = '(';
+			if(name_is_set){
+				token[0] = '(';
+				token[1] = c;
+				int tmpctr = 2;
+				while( (c=getch()) != ')' ) token[tmpctr++] = c;
+				token[tmpctr++] = ')';
+				token[tmpctr] = '\0';
+				return tokentype = PARENS;
+			}
+			else {
+				ungetch(c);
+				return tokentype = '(';
+			}
 		}
 	}
-
 	else if (c == '[') {
 		// if input is '['
 		// store input characters in token[] via *p until ']' is found
@@ -144,7 +151,7 @@ int main(){
 		// run dcl() once again
 		dcl();
 		// if tokentype is not newline then throw a syntax error
-		if( tokentype != '\n' ){ printf("syntax error\n"); reset(); }
+		if( tokentype != '\n' ) printf("syntax error\n");
 		// print sequence : name[], out[], datatype[]
 		printf("%s: %s %s\n", name, out, datatype);
 	}

@@ -1,0 +1,180 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#define MAXTOKEN 1000
+
+enum { NAME, PARENS, BRACKETS };
+
+int name_is_set = 0;
+
+void dcl(void);
+void dirdcl(void);
+int gettoken(void);
+int tokentype;
+char token[MAXTOKEN];
+char name[MAXTOKEN];
+char datatype[MAXTOKEN];
+char out[MAXTOKEN];
+char xbuf[MAXTOKEN];
+
+int bufc = 0;
+
+char getch(void){
+	return bufc ? xbuf[bufc--] : getchar();
+}
+
+void ungetch(char c){
+	xbuf[++bufc] = c;
+}
+
+int is_type_qualifier(char *s){
+	return (strcmp(s, "const") == 0) || (strcmp(s, "volatile") == 0);
+}
+
+void dcl(void){
+	char tmp[1000];
+	gettoken();
+	while(1){
+		if(tokentype == '*')
+			strcat(tmp, " pointer to");
+		else if(tokentype == NAME && is_type_qualifier(token)) {
+			gettoken();
+			if(tokentype == '*'){
+				strcat(tmp, " ");
+				strcat(tmp, token);
+				strcat(tmp, " pointer to");
+			}
+		}
+		else break;
+		gettoken();
+	}
+	dirdcl();
+	strcat(out, tmp);
+}
+
+void dirdcl(){
+	// holds output of gettoken()
+	int type;
+
+	// if tokentype is '(' call dcl()
+	// dcl (checks asterisk and runs dirdcl)
+
+	if(tokentype == '(') {
+		dcl();
+		if(tokentype != ')')
+			printf("error: missing closing parenthesis ') \n");
+	}
+	else if(tokentype == NAME) {
+		// copy token[] to name[]
+		if(name_is_set == 0) strcpy(name, token);
+		name_is_set = 1;
+	}
+	else
+		printf("error: expected name or dcl\n");
+
+	// looks for parenthesis and brackets
+	while( (type=gettoken()) == PARENS || type == BRACKETS )
+		if(type == PARENS) {
+			// put "function returning" to out[]
+			//strcat(out, " function returning");
+			strcat(out, " function");
+			strcat(out, token);
+			strcat(out, " returning");
+		}
+		else {
+			// if token is brackets
+			// put "array" to out[]
+			strcat(out, " array");
+			// copy token[] to out[]
+			strcat(out, token);
+			// put "of" in out[]
+			strcat(out, " of");
+		}
+	return;
+}
+
+int gettoken(void){
+	char c; // input holder
+	char *p = token; // pointer to token string
+	while( (c=getch()) == ' ' || c == '\t'); // keep moving until non-whitespace character is found
+
+	// if input is '('
+	if(c == '('){
+		// if subsequent input is ')'
+		if( (c = getch()) == ')' ) {
+
+			// copy "()" to token[]
+			strcpy(token, "()");
+			// return PARENS
+			// set tokentype as PARENS
+			return tokentype = PARENS;
+		}
+		else {
+			// else
+			// push back the input
+			// set tokentype as '(' and return '('
+			if(name_is_set){
+				token[0] = '(';
+				token[1] = c;
+				int tmpctr = 2;
+				while( (c=getch()) != ')' ) token[tmpctr++] = c;
+				token[tmpctr++] = ')';
+				token[tmpctr] = '\0';
+				return tokentype = PARENS;
+			}
+			else {
+				ungetch(c);
+				return tokentype = '(';
+			}
+		}
+	}
+	else if (c == '[') {
+		// if input is '['
+		// store input characters in token[] via *p until ']' is found
+		for(*p++ = c; (*p++ = getch()) != ']'; );
+		*p = '\0';
+		// set tokentype as BRACKETS
+		// return BRACKETS
+		return tokentype = BRACKETS;
+	}
+	else if(isalpha(c)) {
+		// if input is an alphabet
+		// stores characters in token[] via *p, until a non alphanumeric character is found
+		for(*p++ = c; isalnum(c = getch()); ) *p++ = c;
+		*p = '\0';
+		// push back input non-alphanumeric character
+		ungetch(c);
+		// set tokentype as NAME
+		// return NAME
+		return tokentype = NAME;
+	}
+	else {
+		// set tokentype as character
+		// return character
+		return tokentype = c;
+	}
+}
+
+
+int main(){
+	while( gettoken() != EOF ){
+		// copy last token[] to datatype[]
+		strcpy(datatype, token);
+		if(is_type_qualifier(token)) {
+			gettoken();
+			strcat(datatype, " ");
+			strcat(datatype, token);
+		}
+		out[0] = '\0';
+		// run dcl() once again
+		dcl();
+		// if tokentype is not newline then throw a syntax error
+		if( tokentype != '\n' ) printf("syntax error\n");
+		// print sequence : name[], out[], datatype[]
+		printf("%s: %s %s\n", name, out, datatype);
+	}
+
+	return 0;
+}
+

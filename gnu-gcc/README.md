@@ -44,3 +44,10 @@ a.c:(.text+0x6a4): undefined reference to `sin'
 /usr/bin/ld: a.c:(.text+0x6c4): undefined reference to `exp'
 /usr/bin/ld: a.c:(.text+0x6e8): undefined reference to `pow'
 ```
+
+# building gcc from source
+
+- needs GMP, MPFR and MPC
+- use `./configure --disable-multilib` to only build 64bit compiler libraries and not 32bit
+- is written in c++ and requires `g++` to build itself
+

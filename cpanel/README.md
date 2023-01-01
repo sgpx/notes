@@ -18,4 +18,5 @@ HostKeyAlgorithms +ssh-rsa
 PubkeyAcceptedKeyTypes +ssh-rsa
 ```
 8. `chmod 600 id_rsa`
-9. `ssh -v $username@$ip_address` or `ssh -i $private_key_path $username@$ip_address`
+9. `ssh-add ~/.ssh/id_rsa` to avoid repeated passphrase prompts
+10. `ssh -v $username@$ip_address` or `ssh -i $private_key_path $username@$ip_address`

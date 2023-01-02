@@ -26,9 +26,12 @@ qemu copy on write disk image format
 
 qemu network block device server
 
-## install
+## setup
 
-`sudo apt install -y qemu-utils`
+```
+sudo apt install -y qemu-utils libnbd
+sudo modprobe nbd
+```
 
 ## connect to QCOW2 image
 
@@ -37,6 +40,13 @@ sudo qemu-nbd --connect=/dev/nbd0 foo.qcow2
 sudo fdisk -l /dev/nbd0 # get list of filesystems inside image
 sudo mount -r /dev/nbd0p3 /mnt/point
 ``` 
+
+## disconnect QCOW2 nbd
+
+```
+sudo umount /mnt/point
+sudo qemu-nbd --disconnect /dev/nbd0
+```
 
 # ref
 

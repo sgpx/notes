@@ -1,3 +1,11 @@
+# "C compiler cannot create executables" build error
+
+```
+LD_LIBRARY_PATH=/usr/local/lib ./configure
+LD_LIBRARY_PATH=/usr/local/lib make -j11
+sudo LD_LIBRARY_PATH=/usr/local/lib make install
+```
+
 # android emulator QEMU 0.0.0.0/127.0.0.1/ipaddr not reachable connection refused
 
 use `http://10.0.2.2:PORT/` instead

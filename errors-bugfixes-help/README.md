@@ -1,3 +1,7 @@
+# df cannot find filesystems after util-linux upgrade on 2.6
+
+downgrade util-linux to the chronologically closest release
+
 # "C compiler cannot create executables" build error
 
 ```

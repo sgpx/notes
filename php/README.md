@@ -2,6 +2,14 @@
 
 `apt install -y php`
 
+# php interactive shell
+
+`php -a`
+
+# start built in web server
+
+`php -S localhost:8080 --docroot /foo/bar`
+
 # SimpleXMLElement not found error
 
 `apt install -y php$php_version-xml`
@@ -89,4 +97,10 @@ $sdk = new Aws\Sdk($sharedConfig);
 
 $s3Client = $sdk->createS3();
 print_r(get_class_methods($s3Client));
+```
+
+# get_object_vars()
+
+```
+$name = get_object_vars(json_decode("php://input"))["name"];
 ```

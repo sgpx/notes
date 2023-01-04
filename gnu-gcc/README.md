@@ -51,3 +51,17 @@ a.c:(.text+0x6a4): undefined reference to `sin'
 - use `./configure --disable-multilib` to only build 64bit compiler libraries and not 32bit
 - is written in c++ and requires `g++` to build itself
 
+# compile and install to preset root
+
+``` 
+mkdir cstinstall && mkdir cstinstall/bin cstinstall/lib cstinstall/lib64 cstinstall/include;
+extract_source_tarball_archives; # extract dependencies to folders
+export myprefix="$HOME/cstinstall";
+export PATH="$myprefix/bin:$PATH";
+cd m4 && ./configure --prefix=$myprefix && make -j20 && make install && cd .. 
+cd gmp && ./configure --prefix=$myprefix && make -j20 && make install && cd ..
+cd mpfr && ./configure --prefix=$myprefix --with-gmp=$myprefix && make -j20 && make install && cd ..
+cd mpc && ./configure --prefix=$myprefix --with-gmp=$myprefix --with-mpfr=$myprefix && make -j20 && make install && cd ..
+cd gcc && ./configure --prefix=$myprefix --with-gmp=$myprefix --with-mpfr=$myprefix --with-mpc=$myprefix --disable-multilib && make -j20 && make install && cd ..
+```
+

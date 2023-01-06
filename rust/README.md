@@ -31,3 +31,18 @@ it does things that functions can't do:
 - It has a variable number of arguments
 - It has named arguments ("keyword arguments") 
 ```
+
+# build from source
+
+```
+./configure --prefix=$foo
+python3 x.py build
+```
+
+# build a project
+
+```
+$ ls
+Cargo.toml
+$ cargo build
+```

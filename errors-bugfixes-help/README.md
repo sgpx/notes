@@ -1,3 +1,7 @@
+# Z_OK undeclared error while building binutils
+
+install [zlib](zlib.net)
+
 # df cannot find filesystems after util-linux upgrade on 2.6
 
 downgrade util-linux to the chronologically closest release

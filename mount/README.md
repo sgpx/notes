@@ -1,5 +1,11 @@
 # mount
 
+## mount /proc
+
+procfs is a special filesystem that holds process info and other system info
+
+`sudo mount -t proc none /proc`
+
 ## mount NTFS filesystem (readonly)
 
 `sudo mount -r -t ntfs-3g /dev/my-ntfs-partition my-mount-point`

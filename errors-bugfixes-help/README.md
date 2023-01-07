@@ -1,3 +1,11 @@
+# /bin/bash not found while chroot-ing
+
+use `bincp` or copy all object dependenies to chroot equivalent folders
+
+```
+$ ldd /bin/bash
+```
+
 # Z_OK undeclared error while building binutils
 
 install [zlib](zlib.net)

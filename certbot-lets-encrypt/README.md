@@ -20,3 +20,13 @@ sudo certbot
 # get certificate status
 
 `sudo certbot certificates`
+
+# renew certs
+
+`sudo certbot renew`
+
+# use webroot
+
+multiple domains :
+
+`certbot -d mydomain.com,www.mydomain.com certonly --webroot --webroot-path /path/to/www/ --config-dir certbot-config --logs-dir certbot-logs --work-dir certbot-work`

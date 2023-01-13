@@ -1,3 +1,9 @@
+# CPanel WHM API setup
+
+0. login to cpanel
+1. go to [security] > [manage api tokens]
+2. create API token
+
 # SSH setup (mac)
 
 valid for version 102.0.24

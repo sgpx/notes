@@ -3,16 +3,17 @@ exe(){
 	echo "$1";
 	$1;
 }
+engine="docker"
 
-exe "podman stop $(podman ps -aq)"
+exe "$engine stop $($engine ps -aq)"
 
 if [ "$1" = "-a" ]; then
-	exe "podman rm $(podman ps -aq)"
-	exe "podman machine stop"
+	exe "$engine rm $($engine ps -aq)"
+	exe "$engine machine stop"
 fi
 
 if [ "$1" = "-k" ]; then
-	exe "podman machine stop"
+	exe "$engine machine stop"
 	exe "pkill gvproxy qemu-system-aarch64"
 fi
 

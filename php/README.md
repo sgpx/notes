@@ -104,3 +104,4 @@ print_r(get_class_methods($s3Client));
 ```
 $name = get_object_vars(json_decode("php://input"))["name"];
 ```
+

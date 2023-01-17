@@ -15,3 +15,7 @@
 `iwctl station wlan0 show`
 
 `iwctl station wlan0 connect My-WiFi-Network`
+
+# start systemd service
+
+`systemctl start iwd`

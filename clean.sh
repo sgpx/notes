@@ -1,5 +1,6 @@
 #!/bin/bash
 if [ $(find --version | grep -i gnu) != "" ]; then
+	echo GNU find
 	args="" # GNU find
 else
 	args="-depth" # BSD find on MacOS

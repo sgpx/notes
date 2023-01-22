@@ -22,3 +22,4 @@ cleanup obj
 cleanup save
 cleanup tgz
 cleanup tar.gz
+cleanup swp

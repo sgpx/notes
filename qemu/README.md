@@ -12,6 +12,10 @@
 
 `qemu-system-x86_64 -enable-kvm -cdrom alpine.iso`
 
+alternatively
+
+`qemu-system-x86_64 -accel kvm -cdrom slax.iso`
+
 # qcow2
 
 qemu copy on write disk image format

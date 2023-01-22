@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ $(find --version | grep -i gnu) != "" ]; then
+if [ "$(find --version | grep -i gnu)" != "" ]; then
 	echo GNU find
 	args="" # GNU find
 else

@@ -13,3 +13,7 @@ procfs is a special filesystem that holds process info and other system info
 ## mount 9PFS share
 
 `sudo mount -t 9p -o trans=virtio $host_id /mnt/9pshare -oversion=9p2000.L`
+
+## mount an ISO file
+
+`sudo mount -r -t iso9660 slax.iso /mnt/slax`

@@ -3,6 +3,7 @@ if [ $(find --version | grep -i gnu) != "" ]; then
 	echo GNU find
 	args="" # GNU find
 else
+	echo BSD find
 	args="-depth" # BSD find on MacOS
 fi
 

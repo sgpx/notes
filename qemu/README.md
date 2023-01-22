@@ -22,9 +22,15 @@ qemu copy on write disk image format
 
 ## create
 
+`qemu-img create example.qcow2 10G # creates raw image`
+
 `qemu-img create -f qcow2 /var/lib/libvirt/images/disk1.img 100M`
 
 `qemu-img create -f qcow2 /var/lib/libvirt/images/disk1.img 1G`
+
+## convert images
+
+`qemu-img convert -f raw -O qcow2 raw.img foo.qcow`
 
 # qemu-nbd
 

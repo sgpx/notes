@@ -1,5 +1,9 @@
 # qemu
 
+## fullscreen toggle shortcut
+
+`Ctrl` + `Alt` + `F`
+
 ## installation
 
 `sudo apt install -y qemu-system`

@@ -18,10 +18,15 @@ reference wayland compositor with integrated terminal and desktop shell
 
 # config file
 
+ref : https://manpages.ubuntu.com/manpages/bionic/man5/weston.ini.5.html
+
 `$HOME/.config/weston.ini`
 
 ```
 [shell]
 background-image=/home/arch/wallpaper.jpg
 mode=1366x768
+
+[terminal]
+path=/usr/bin/terminator
 ```

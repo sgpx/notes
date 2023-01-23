@@ -16,6 +16,16 @@ alternatively
 
 `qemu-system-x86_64 -accel kvm -cdrom slax.iso`
 
+## use VNC display
+
+`qemu-system-x86_64 -accel kvm -cdrom slax.iso -display vnc=$DISPLAYNAME`
+
+```
+export DISPLAYNAME=2
+qemu-system-x86_64 -accel kvm -cdrom slax.iso -display vnc=":$DISPLAYNAME" &
+gvncviewer localhost:$DISPLAYNAME
+```
+
 # qcow2
 
 qemu copy on write disk image format

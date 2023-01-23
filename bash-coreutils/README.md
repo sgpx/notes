@@ -1,3 +1,28 @@
+# `test`
+
+utility for checking file types and comparing values
+
+```
+$ ls
+foo
+$ if [ -r foo ]; then echo foo exists; else echo foo doesn't exist; fi
+foo exists
+$ if test -r foo; then echo foo exists; else echo foo doesn't exist; fi
+foo exists
+```
+
+# single brackets vs double brackets
+
+brackets are equivalent of coreutils utility `test`
+
+single brackets are POSIX, double brackets are a bash/zsh extension for clearer syntax
+
+# `-a` conditional
+
+in single brackets, evaluates to POSIX boolean expression comparison operator
+
+in bash double brackets, evalutes to `-a : True if file exists` (https://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html)
+
 # array length
 
 ```
@@ -40,7 +65,7 @@ a=1; b=4; while (( $a < $b )); do echo $a; a=$(expr $a + 1); done
 
 ```
 if [ ! -r foo.txt ]; then
-	echo foo.txt does not exist
+	echo foo.txt foo doesn't exist
 fi
 ```
 

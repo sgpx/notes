@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ ! -a hurd.qcow2 ]; then
+if [ ! -r hurd.qcow2 ]; then
 	qemu-img create hurd.qcow2 20G;
 fi
 

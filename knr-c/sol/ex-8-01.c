@@ -43,6 +43,7 @@ void printfile(char *fn)
 		char *buf = (char *)malloc(size_in_bytes);
 		read(fd, buf, size_in_bytes);
 		write(STDOUT_FILENO, buf, size_in_bytes);
+		free(buf);
 	}
 	// ssize_t rs = read(fd, buf, 1000);
 	// printf("%ld\n", rs);

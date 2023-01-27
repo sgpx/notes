@@ -1,3 +1,11 @@
+# casting `malloc()`
+
+K&R and pre-1989 C uses casts for malloc. C++ also requires use of casting malloc()
+
+https://stackoverflow.com/questions/20094394/why-do-we-cast-return-value-of-malloc
+
+https://stackoverflow.com/questions/605845/do-i-cast-the-result-of-malloc
+
 # type qualifier
 
 `const` : value cannot change once initialized

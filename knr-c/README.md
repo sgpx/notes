@@ -1,3 +1,25 @@
+# unistd.h
+
+unistd.h is the name of the header file that provides access to the POSIX operating system API
+
+# system calls
+
+mac os
+
+https://opensource.apple.com/source/xnu/xnu-201/bsd/sys/errno.h
+https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man2/read.2.html
+https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man2/open.2.html
+https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man2/stat.2.html
+https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man2/write.2.html
+
+linux
+
+https://man7.org/linux/man-pages/man2/open.2.html
+https://man7.org/linux/man-pages/man2/read.2.html
+https://man7.org/linux/man-pages/man2/stat.2.html
+https://man7.org/linux/man-pages/man2/write.2.html
+https://linux.die.net/man/2/stat
+
 # casting `malloc()`
 
 K&R and pre-1989 C uses casts for malloc. C++ also requires use of casting malloc()

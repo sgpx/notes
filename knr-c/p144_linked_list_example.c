@@ -30,7 +30,6 @@ void print_ll(node *ref){
 
 void free_ll(node *ref){
 	node *p = ref, *q;
-	p = p->next;
 	while(p != NULL){
 		q = p;
 		p = p->next;
@@ -39,9 +38,9 @@ void free_ll(node *ref){
 }
 
 int main(){
-	node base;
-	assign_ll(&base);
-	print_ll(&base);
-	free_ll(&base);
+	node *base = malloc(sizeof(node));
+	assign_ll(base);
+	print_ll(base);
+	free_ll(base);
 }
 

@@ -47,3 +47,7 @@ explorer
 control panel
 
 `wine control.exe`
+
+# install CA CRT certificates
+
+run `wine control.exe` > internet settings > content > Certificates > import

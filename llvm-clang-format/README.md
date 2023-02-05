@@ -10,6 +10,8 @@ see: building llvm-clang
 
 `clang-format --style=LLVM --verbose -i a.c`
 
+`clang-format --style="{BasedOnStyle: llvm, IndentWidth: 4}" -i a.c`
+
 # in place editing
 
 `clang-format -i a.c`

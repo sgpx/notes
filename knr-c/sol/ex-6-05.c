@@ -1,177 +1,322 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 #define HASHSIZE 101
+#define NUM_INPUT_LINES 100
+#define MACRO_LEN 100
 
-char *x_strdup(char *x)
+struct snode
 {
-	char *p = (char *)malloc(strlen(x));
-	strcpy(p, x);
-	return p;
-}
-
-struct nlist
-{
-	struct nlist *next;
-	char *name;
-	char *defn;
+  char *name;
+  char *defn;
+  struct snode *next;
 };
 
-struct nlist blank;
+typedef struct snode node;
+typedef node *nodeptr;
 
-static struct nlist *hashtab[HASHSIZE];
+node base[101];
+nodeptr root = NULL;
+nodeptr rptr = NULL;
 
-unsigned hash(char *s)
-{
-	unsigned hashval;
-	for (hashval = 0; *s != '\0'; s++)
-		hashval = *s + 31 * hashval;
-	return 5; // hashval % HASHSIZE;
+unsigned hash(char *s) {
+        unsigned hashval;
+	printf("calculating hash for '%s'\n", s);
+        for (hashval = 0; *s != '\0'; s++)
+                hashval = *s + 31 * hashval;
+	printf("hashval is %d\n", hashval % HASHSIZE);
+        return (hashval % HASHSIZE);
 }
 
-struct nlist *lookup(char *s)
-{
-	struct nlist *np;
-	for (np = hashtab[hash(s)]; np != NULL; np = np->next)
-		if (strcmp(s, np->name) == 0)
-			return np;
-	return NULL;
+int check_node(nodeptr n, char *name) {
+	return strcmp(n->name, name) == 0;
 }
 
-struct nlist *install(char *name, char *defn)
-{
-	struct nlist *np;
-	unsigned hashval;
-	if ((np = lookup(name)) == NULL)
-	{
-		//  if definition for name is null
-		np = (struct nlist *)malloc(sizeof(*np));
-		if (np == NULL || (np->name = x_strdup(name)) == NULL)
-		{
-			return NULL;
+void move_to_last_node(){
+	while(rptr->next != NULL)
+		rptr = rptr->next;
+}
+
+void set_root(char *name) {
+	unsigned hashvalue = hash(name);
+	printf("setting root = base[%d]\n", hashvalue);
+	root = &base[hashvalue];
+	rptr = root;
+}
+
+nodeptr node_init() {
+	nodeptr n = malloc(sizeof(node));
+	n->next = NULL;
+	n->name = NULL;
+	n->defn = NULL;
+	return n;
+}
+
+nodeptr lookup(char *name){
+	set_root(name);
+	nodeptr res = NULL;
+
+	for(rptr = root; rptr != NULL && rptr->name != NULL; rptr = rptr->next)
+		if(check_node(rptr, name)) {
+			res = rptr;
+			break;
 		}
-		hashval = hash(name);
-		np->next = hashtab[hashval];
-		hashtab[hashval] = np;
-	}
-	else
-	{
-		// erase previous definition
-		free((void *)np->defn);
-	}
-	if ((np->defn = x_strdup(defn)) == NULL)
-		return NULL;
-	return np;
+
+	return res;
 }
 
-int check_node(struct nlist *ref, char *name, char *defn)
-{
-	return (strcmp(ref->name, name) == 0 && strcmp(ref->defn, defn) == 0);
-}
-
-void remove_node(struct nlist *ref, char *name, char *defn)
-{
-	struct nlist *p = ref;
-	struct nlist *q = p->next;
-	printf("rm p : %p\n", p);
-	printf("rm q : %p\n", q);
-	if (p == NULL)
-		return;
-	else
-	{
-		printf("name : %s, defn : %s\n", p->name, p->defn);
-		printf("nodematch : %d\n", check_node(p, name, defn) == 1);
-	}
-
-	if (check_node(p, name, defn) && q != NULL)
-	{
-		printf("i1\n");
-		struct nlist tmp = *p;
-		*p = *(p->next);
-		free(tmp.next);
+void install(char *name, char *defn) {
+	set_root(name);
+	nodeptr tmp = lookup(name);
+	if(tmp != NULL) {
+		printf("setting %s : %s after lookup\n", name, defn);
+		(*tmp).defn = defn;
 		return;
 	}
-	else if (q != NULL && check_node(q, name, defn) && q->next == NULL)
-	{
-		printf("i2\n");
+	move_to_last_node(); // for installation
+	printf("root is %p\n", root);
+	printf("installing %s : %s @ [%p]\n", name, defn, rptr);
 
-		free(p->next);
-		p->next = NULL;
-		return;
+	rptr->name = name;
+	rptr->defn = defn;
+
+	nodeptr next_node_ptr = node_init();
+	rptr->next = next_node_ptr;
+	rptr = rptr->next;
+}
+
+
+void undef(char *name) {
+	set_root(name);
+	printf("undef :: rptr : %p\n", rptr);
+	nodeptr prev = NULL;
+
+	while(rptr != NULL) {
+		if(rptr->name == NULL) break;
+		if(check_node(rptr, name)) {
+			printf("erasing %s @ %p\n", rptr->name, rptr);
+			// first node
+
+				// first node, nonsingle node
+
+				// first node, single node
+
+			// non-first node
+
+				// non-last node
+
+				// last node
+			if(prev == NULL) { // first node
+				if(rptr->next == NULL) { // first node, single node
+					rptr->name = NULL;
+					rptr->defn = NULL;
+					rptr->next = NULL;
+					return;
+				}
+				else { // first node, nonsingle node
+					/*
+					base @ b1:
+						name: a1
+						next: p1
+
+					node1 @ p1:
+						name: a2
+						next: p2
+
+					node2 @ p2:
+						name: a3
+						next: p3
+
+					------------
+
+					base @ b1:
+						name: a1
+						next: p2
+
+					node2 @ p2:
+						name: a3
+						next: p3
+					*/
+					nodeptr tmp = rptr->next;
+					rptr->name = tmp->name;
+					rptr->defn = tmp->defn;
+					rptr->next = tmp->next;
+					free(tmp);
+				}
+			}
+			else { // non-first node
+				nodeptr tmp = rptr->next;
+				rptr->name = tmp->name;
+				rptr->defn = tmp->defn;
+				rptr->next = tmp->next;
+				free(tmp);
+			}
+		}
+		prev = rptr;
+		rptr = rptr->next;
 	}
-	else
-	{
-		printf("i3\n");
+}
 
-		p = p->next;
-		return remove_node(p, name, defn);
+
+void freesub() {
+	rptr = root->next;
+	while(1) {
+		if(rptr == NULL) break;
+
+		nodeptr tmp = rptr;
+		printf("free : %p\n", tmp);
+
+		if(rptr->next) {
+			rptr = rptr->next;
+			free(tmp);
+		}
+		else {
+			free(tmp);
+			break;
+		}
 	}
 }
 
-void undef(char *name, char *defn)
-{
-	struct nlist *np = lookup(name);
-	if (np == NULL)
-		return;
-	unsigned hashval = hash(name);
-	struct nlist *base = hashtab[hashval];
-	remove_node(base, name, defn);
-}
-
-void overwrite_check()
-{
-	install("a1", "b1");
-	install("a1", "b2");
-	printf("%s\n", lookup("a1")->defn);
-}
-void basic_check()
-{
-	install("a1", "b1");
-	install("a2", "b2");
-	printf("%p\n", lookup("a1"));
-	undef("a1", "b1");
-	printf("%p %s\n", lookup("a1"), lookup("a1")->name);
-}
-
-void basic_check2()
-{
-	install("a1", "b1");
-	install("a244", "b2");
-	install("a321", "b3");
-	struct nlist *res = lookup("a244");
-	if (res != NULL)
-		printf("%s : %s\n", res->name, res->defn);
-	printf("res : %p, next : %p\n", res, res->next);
-}
-
-void undef_check()
-{
-	install("a2", "b2");
-	install("a1", "b1");
-	printf("erasing..\n");
-	printf("before : %p\n", lookup("a1"));
-	undef("a1", "b1");
-	printf("after : %p\n", lookup("a1"));
-	if (lookup("a1") != NULL)
-	{
-		printf("%s\n", lookup("a1")->defn);
+void freetree(){
+	for(int i = 0; i < HASHSIZE; i++) {
+		root = &base[i];
+		freesub();
 	}
 }
 
-void testrun()
-{
-	 char *testname = "a2", *testdefn = "b2";
-	install("a1", "b1");
-	install("a2", "b2");
-	install("a3", "b3");
-	printf("before delete, found : %d\n", lookup(testname) != NULL);
-	undef(testname, testdefn);
-	printf("after delete, found : %d\n", lookup(testname) != NULL);
-	// printf("%s %s\n", lookup("a1")->name, lookup("a1")->defn);
+
+void print_tree() {
+	for(int i = 0; i < HASHSIZE; i++)
+		for(rptr = &base[i]; rptr != NULL && rptr->name != NULL; rptr = rptr->next)
+			printf("print :: sub %d [%p] :: %p %s\n", i, &base[i], rptr, rptr->name);
 }
 
-int main()
+void test1()
 {
+	install("a1", "a1");
+	install("a2", "a2");
+	install("a3", "a3");
+	print_tree();
+	undef("a1");
+	undef("a2");
+	undef("a3");
+	install("a4", "a4");
+	print_tree();
+	freetree();
+}
+
+void test2() {
+	install("a1", "a1");
+	undef("a1");
+	//freetree();
+}
+
+void test3() {
+	install("a1", "a1");
+	install("a3", "a3");
+	print_tree();
+	undef("a3");
+	print_tree();
+	freetree();
+}
+
+void test4() {
+	install("a1", "a1");
+	undef("a1");
+	print_tree();
+}
+
+void test5() {
+	install("a1", "a1");
+	install("a2", "a1");
+	install("a3", "a1");
+	install("a4", "a1");
+	undef("a4");
+	undef("a1");
+	print_tree();
+}
+
+void test6() {
+	install("a1", "a1");
+	install("a2", "a1");
+	install("a3", "a1");
+	install("a4", "a1");
+	undef("a4");
+	undef("a3");
+	undef("a2");
+	undef("a1");
+	print_tree();
+	freetree();
+}
+
+void test7() {
+	install("a1", "a1");
+	install("a2", "a1");
+	install("a3", "a1");
+	install("a4", "a1");
+	print_tree();
+	freetree();
+}
+
+char dpairlist[NUM_INPUT_LINES][2][MACRO_LEN];
+int dpctr = 0;
+
+void process_input(){
+	printf("process_input\n");
+	char *name = dpairlist[dpctr][0], *defn = dpairlist[dpctr][1];
+	char cmd[10];
+	do {
+		scanf("%s", cmd);
+		if(cmd[0] == EOF)
+			break;
+		else if(strcmp(cmd, "#define") == 0){
+			scanf("%s %s", name, defn);
+			install(name, defn);
+		}
+		else if(strcmp(cmd, "#undef") == 0){
+			scanf("%s", name);
+			undef(name);
+		}
+		else if(strcmp(cmd, "#printdef") == 0){
+			scanf("%s", name);
+			nodeptr res = lookup(name);
+			printf("printdef %s : %s\n", name, res ? res->defn : "not found");
+		}
+		dpctr++;
+	}
+	while(cmd[0] != EOF);
+
+}
+
+void test8(){
+	process_input();
+}
+
+void test9() {
+	install("a1", "a1");
+	install("a2", "a1");
+	install("a3", "a1");
+	install("a4", "a1");
+	printf("lookup result : %p\n", lookup("a1"));
+	printf("lookup result : %p\n", lookup("a5"));
+}
+
+void testZ() {
+	install("a1", "a1");
+	printf("\n\nlookup result : %s\n\n", lookup("a1")->defn);
+	install("a1", "z");
+	printf("\n\nlookup result : %s\n\n", lookup("a1")->defn);
+}
+
+//void testN() {}
+
+void testrun() {
+	test8();
+}
+
+
+int main() {
 	testrun();
+	return 0;
 }
+

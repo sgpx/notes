@@ -311,7 +311,7 @@ void testZ() {
 //void testN() {}
 
 void testrun() {
-	test6();
+	test8();
 }
 
 

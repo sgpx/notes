@@ -1,3 +1,19 @@
+# stdarg.h
+
+contains macros for unnamed function arguments
+
+```
+#include <stdarg.h>
+
+void fxn(int a, int b, ...){
+	va_list ap;
+	va_start(ap, b); // points to first unnamed arg, takes last named arg as argument
+	i = va_arg(arg, dt); // gets argument of datatype dt;
+	va_end(ap); // cleanup
+}
+
+```
+
 # unistd.h
 
 unistd.h is the name of the header file that provides access to the POSIX operating system API

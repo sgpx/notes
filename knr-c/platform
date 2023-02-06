@@ -1,5 +1,6 @@
 #!/bin/bash
-if [ "$(uname -s)" = "Darwin" ]; then 
+
+if [ "$(uname -s)" = "Darwin" ]; then
         platform=mac; 
 else
         platform=linux; 

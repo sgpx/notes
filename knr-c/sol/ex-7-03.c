@@ -49,6 +49,10 @@ void minprintf(char *fmt, ...)
 					int ival = va_arg(ap, int);
 					nchars_printed += printf(xf2, ival);
 				}
+				else if(dtype == 's'){
+					char *cptr = va_arg(ap, char*);
+					printf("%s", cptr);
+				}
 				else if (dtype == 'n')
 				{
 					int *ipval = va_arg(ap, int *);
@@ -120,5 +124,8 @@ int main()
 	minprintf("mprf: %p\n", &nc);
 	printf("orig: %ld\n", 50420402L);
 	minprintf("mprf: %ld\n", 50420402L);
+	char tstr[50] = "foobar";
+	printf("orig: '%s' '%s'\n", tstr, tstr);
+	minprintf("mprf: '%s' '%s'\n", tstr, tstr);
 }
 

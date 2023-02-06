@@ -1,3 +1,55 @@
+# scanf behavior
+
+using test program
+
+```
+#include <stdio.h>
+
+int main(){
+	int x = 0, y = 0, z = 0;
+	scanf("%d_%d_%d,", &x, &y, &z);
+	printf("x : %d, y : %d, z : %d\n", x, y, z);
+	return 0;
+}
+```
+
+```
+$ ./a.out # perfect match
+1_2_3,
+x : 1, y : 2, z : 3
+
+$ ./a.out # does not care about characters after format has no more format strings left
+1_2_3
+x : 1, y : 2, z : 3
+
+$ ./a.out # collects inputs only until input format is valid
+1_2 3,
+x : 1, y : 2, z : 0
+
+$ ./a.out
+1 2 3,
+x : 1, y : 0, z : 0
+```
+
+```
+// does not work as intended because immediately after second int it looks for a character and gets '\n' or ' ' or '\0' or EOF
+
+#include <stdio.h>
+
+int main()
+{
+	int nc = 0, nd = 0, ne = 0;
+	scanf("%d", &nc);
+	scanf("%d", &nd);
+	scanf("%c", &ne);
+	printf("nc : %d\n", nc);
+	printf("nd : %d\n", nd);
+	printf("ne : %c\n", ne);
+}
+
+
+```
+
 # stdarg.h
 
 contains macros for unnamed function arguments

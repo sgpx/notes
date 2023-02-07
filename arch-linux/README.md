@@ -12,4 +12,6 @@
 
 ## chroot DNS resolution issues
 
+DNS resolution is usually provided by `systemd-resolved`
+
 `echo nameserver 127.0.0.53 > /etc/resolv.conf`

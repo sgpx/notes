@@ -1,3 +1,21 @@
+# ex 7-09 space vs time saving (speed)
+
+```
+# a.c => ex-7-09b.c
+$ grep "define VERSION" a.c && gcc a.c && time ./a.out
+#define VERSION 1
+
+real    0m0.025s
+user    0m0.024s
+sys     0m0.000s
+$ grep "define VERSION" a.c && gcc a.c && time ./a.out
+#define VERSION 2
+
+real    0m0.023s
+user    0m0.018s
+sys     0m0.004s
+```
+
 # scanf behavior
 
 using test program

@@ -26,9 +26,9 @@ function chk_sudo(){
 
 function deps_prep(){
 	if [ "$(get_dist_id)" = "ubuntu" ]; then
-		chk_sudo apt install -y python3 python3-pip gcc g++ make build-essential wget simh
+		chk_sudo apt install -y python3 python3-pip gcc g++ make build-essential wget git simh
 	elif [ "$(get_dist_id)" = "arch" ]; then
-		chk_sudo pacman -Sy python python-pip gcc make wget simh
+		chk_sudo pacman -Sy python python-pip gcc make wget git simh
 	else
 		echo distribution not supported
 		exit

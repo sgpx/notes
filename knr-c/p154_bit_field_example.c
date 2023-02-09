@@ -1,12 +1,15 @@
 #include <stdio.h>
 
 struct {
-	unsigned char f1 : 1;
+	unsigned char left : 1;
+	unsigned char right : 1;
 } flags;
 
 int main() {
-	//flags.f1 |= 01;
-	flags.f1 ^= 01;
-	printf("%d\n", flags.f1);
+	//flags.left |= 01;
+	flags.left &= 01;
+	flags.right |= 01;
+	printf("%d\n", flags.left);
+	printf("%d\n", flags.right);
 	return 0;
 }

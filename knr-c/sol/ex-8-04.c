@@ -166,6 +166,9 @@ int fflush(FILE *fp)
 	return 0;
 }
 
+int get_file_size(FILE *fp){
+}
+
 FILE *fopen(char *name, char *mode)
 {
 	int fd;
@@ -208,14 +211,34 @@ FILE *fopen(char *name, char *mode)
 	if (*mode == 'r')
 		fp->file_flag.read = 1;
 	else
-		fp->file_flag.write = 1;
+			fp->file_flag.write = 1;
 
 	return fp;
 }
 
 int fread(char *buf, size_t sz, FILE *fp)
 {
-	return read(fp->fd, buf, sz);
+	fp->cnt -= read(fp->fd, buf, sz);
+}
+
+int fseek(FILE *fp, long offset, int origin){
+	return lseek(fp->fd, offset, origin);
+	// if(origin == 0){ 
+	// 	// SEEK START
+	// 	fp->ptr = fp->base + offset;
+	// 	fp->cnt = (fp->ptr + fp->cnt - fp->base - offset);
+	// }
+	// else if(origin == 1){
+	// 	// SEEK 
+	// 	fp->ptr += offset;
+	// 	fp->cnt -= offset;
+	// }
+	// else if(origin == 2){
+	// 	// SEEK END
+	// 	fp->ptr = fp->ptr + fp->cnt - offset;
+	// 	fp->cnt = offset;
+	// }
+	// fp->base = fp->ptr;
 }
 
 void test_fopen()
@@ -227,8 +250,19 @@ void test_fopen()
 	fclose(fp);
 }
 
+void test_fseek()
+{
+	FILE *fp = fopen("Makefile", "r");
+	char zbuf[4096] = "initstr";
+	fseek(fp, 15, 0);
+	fread(zbuf, 4096, fp);
+	x_print_str(zbuf);
+	fclose(fp);
+}
+
+
 int main()
 {
-	test_fopen();
+	test_fseek();
 	return 0;
 }

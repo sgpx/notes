@@ -2,7 +2,8 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #define PERMS 0666
-
+#define FSEEK_OK 0
+#define FSEEK_ERROR 1
 void x_print_str(char *pbuf)
 {
 	char *p = pbuf;
@@ -222,7 +223,9 @@ int fread(char *buf, size_t sz, FILE *fp)
 }
 
 int fseek(FILE *fp, long offset, int origin){
-	return lseek(fp->fd, offset, origin);
+	int r = lseek(fp->fd, offset, origin);
+	if(r == -1) return FSEEK_ERROR;
+	else return FSEEK_OK;
 	// if(origin == 0){ 
 	// 	// SEEK START
 	// 	fp->ptr = fp->base + offset;

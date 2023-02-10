@@ -1,3 +1,26 @@
+# pointer address increment
+
+When a pointer is incremented, it actually increments by the number equal to the size of the data type for which it is a pointer.
+
+```
+#include <stdio.h>
+
+int main(){
+	int a = 5;
+	int *x = &a;
+	int *y = x + 1;
+	printf("y : %p\nx : %p\ny-x : %lu\nly-lx : %lu\n", y, x, y - x, (long)y - (long)x);
+	return 0;
+}
+
+
+OUTPUT:
+y : 0x7ffe21dce478
+x : 0x7ffe21dce474
+y-x : 1
+ly-lx : 4	
+```
+
 # ex 7-09 space vs time saving (speed)
 
 ```

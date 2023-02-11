@@ -1,6 +1,10 @@
 all:
-	gcc a.c
+	gcc a.c -lm
 	./a.out
+
+gdb:
+	gcc -g a.c
+	gdb ./a.out
 
 vl:
 	gcc a.c

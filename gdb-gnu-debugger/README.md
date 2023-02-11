@@ -31,6 +31,16 @@ use `gcc -g`
 
 use [Ctrl] + [X] + [A]
 
+# use python interpreter
+
+```
+(gdb) python
+>import platform
+>print(platform.python_version())
+>end
+3.10.6
+```
+
 # ref
 
 - [Debugging with GDB, the GNU source level debugger](https://www.eecs.umich.edu/courses/eecs373/readings/Debugger.pdf) by R. Stallman, Pesch and Shebs

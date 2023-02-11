@@ -18,8 +18,14 @@ int main()
     }
     for (int i = 0; i < n; i++)
     {
-        printf("%p %p %d %d\n", p+(i*sizeof(elem)), &p[i], p[i].a, p[i].b);
+        printf("i : %d | p+i : %p, p+sz : %p,  &p[i] : %p | %d %d\n", i, p+i, p+(i*sizeof(elem)), &p[i], p[i].a, p[i].b);
     }
+    // elem *q = p;
+    // ++q;
+    // printf("%p %p %ld\n", q, p, q-p);
+
+    elem *q = p + 1;
+    printf("%p %p %ld\n", q, p, q-p);
 
     free(p);
     return 0;

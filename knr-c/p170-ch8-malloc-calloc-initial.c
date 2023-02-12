@@ -25,6 +25,7 @@ static Header *freep = NULL;
 
 void x_free(void *ap)
 {
+    printf("freeing %p\n", ap);
     Header *bp = NULL, *p = NULL;
     bp = (Header *)ap - 1;
     printf("ap : %p, bp = ap - 1 : %p\n", ap, bp);
@@ -76,6 +77,7 @@ static Header *morecore(unsigned int nu)
     printf("setting *(up).s.size : %u\n", nu);
     up = (Header *)cp;
     up->s.size = nu;
+    // up->s.ptr = NULL;
 
     printf("x_free((void*)(up + 1)), up+1 : %p\n", (up + 1));
     x_free((void *)(up + 1));
@@ -120,7 +122,9 @@ void *x_malloc(unsigned int nbytes)
             }
             freep = prevp;
             printf("returning p : %p, p+1 : %p, p->s.size : %u, p->s.ptr : %p\n", p, p + 1, p->s.size, p->s.ptr);
-            return (void *)(p + 1);
+            unsigned char *z = (unsigned char*)(p+1);
+            *z = 0;
+            return (void *)(z);
         }
         if (p == freep)
         {
@@ -153,6 +157,13 @@ void t2()
 {
     char *a1 = (char *)x_malloc(5);
     char *a2 = (char *)x_malloc(5);
+    printf("%d\n", *a1);
+    printf("%d\n", *(a1+1));
+    printf("%d\n", *(a1+15));
+    // printf("%d\n", *(a1+16)); //segfaults if run, exceeds mapped region size limit
+    return;
+    strcpy(a1, "h01");
+    strcpy(a2, "h02");
     // unsigned long long ull1 = (unsigned long long)a1;
     // unsigned long long ull2 = (unsigned long long)a2;
     // Header *b1 = (Header *)(ull1 - sizeof(Header));

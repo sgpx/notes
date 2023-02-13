@@ -1,3 +1,11 @@
+# reduce example
+
+```
+> a = (x,y) => x + y;
+[Function: a]
+> [1,2,3].reduce(a)
+6
+```
 # integer to binary string
 
 ```

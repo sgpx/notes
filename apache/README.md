@@ -1,3 +1,11 @@
+# force HTTPS with `.htaccess`
+
+```
+RewriteEngine On 
+RewriteCond %{HTTPS} off 
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+```
+
 # setup (container, without systemd)
 
 ```

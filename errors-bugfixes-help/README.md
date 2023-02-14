@@ -1,3 +1,13 @@
+# SCP/SFTP gives `received message too long`
+
+bashrc motd etc have to be silent for noninteractive sessions in order to not interfere with scp
+
+```
+.bashrc, .bash_profile, .cshrc, .profile, etc., have to be silent for non-interactive sessions or they interfere with the sftp / scp connection protocol. 
+```
+
+https://unix.stackexchange.com/questions/61580/sftp-gives-an-error-received-message-too-long-and-what-is-the-reason
+
 # /bin/bash not found while chroot-ing
 
 use `bincp` or copy all object dependenies to chroot equivalent folders

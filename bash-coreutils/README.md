@@ -1,3 +1,14 @@
+# `export`
+
+with an argument it provides the declared variable to all subsequent child processes of the shell
+
+if used without any arguments it will echo list of commands to export environment variables
+
+```
+$ export
+declare -x HOME="/home/ubuntu"
+```
+
 # `test`
 
 utility for checking file types and comparing values

@@ -1,5 +1,7 @@
 # SCP/SFTP gives `received message too long`
 
+newlines after export in bashrc can cause bash to echo environment variables when it loads
+
 bashrc motd etc have to be silent for noninteractive sessions in order to not interfere with scp
 
 ```

@@ -96,6 +96,8 @@ source:       IANA
 
 `dig github.com`
 
+`dig github.com @8.8.8.8 # use custom server`
+
 ```
 
 ; <<>> DiG 9.10.6 <<>> github.com

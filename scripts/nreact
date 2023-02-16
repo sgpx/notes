@@ -1,0 +1,10 @@
+#!/bin/bash
+name="new-react-app"
+
+if test "$1" != ""; then
+	name="$1";
+fi
+
+yarn create react-app $name
+cd $name
+yarn add @types/react @types/react-dom prop-types

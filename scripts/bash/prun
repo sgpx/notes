@@ -1,7 +1,8 @@
 #!/bin/bash
 # engine="podman" # or "docker"
 engine="docker"
-distroname="fedora"
+#distroname="fedora"
+distroname="ubuntu"
 
 function exe(){
 	echo "$1";
@@ -27,7 +28,7 @@ fi
 container_exists="$($engine ps -a | grep $container_name)"
 
 if [ "$container_exists" = "" ]; then
-	exe "$engine run --name $container_name -it -d -p 5000:5000 ${distroname} bash"
+	exe "$engine run --name $container_name -it -d -p 5000:5000 -p 5432:5432 -p 27017:27017 -p 3306:3306 ${distroname} bash"
 else
 	exe "$engine start $container_name"
 fi

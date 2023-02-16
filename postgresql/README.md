@@ -4,6 +4,7 @@
 
 ```
 $ apt install -y postgresql
+$ pg_lsclusters
 $ pg_ctlcluster 12 main start
 $ pg_ctlcluster 12 main status
 $ su postgres
@@ -37,6 +38,8 @@ mydb=# create user myuser with password 'mypassword';
 CREATE ROLE
 mydb=# grant all privileges on mydb to myuser;
 ERROR:  relation "mydb" does not exist
+mydb=# grant all privileges on database mydb to myuser;
+GRANT
 mydb=# grant all privileges on mytable to myuser;
 GRANT
 mydb=# \dt+
@@ -150,3 +153,14 @@ $ psql postgres://myuser:mypwd@abc.com:5432/mydb?sslmode=require
 ```
 $ psql postgres://myuser:mypwd@abc.com:5432/mydb?requiressl=true
 ```
+
+## allow remote connections
+
+```
+pg_ctlcluster 12 main stop
+echo "listen_addresses = '*'" >> /etc/postgresql/12/main/postgresql.conf
+printf "host\tall\tall\t0.0.0.0/0\tmd5" >> /etc/postgresql/12/main/pg_hba.conf
+printf "host\tall\tall\t::/0\tmd5" >> /etc/postgresql/12/main/pg_hba.conf
+pg_ctlcluster 12 main start
+```
+ref : https://www.bigbinary.com/blog/configure-postgresql-to-allow-remote-connection

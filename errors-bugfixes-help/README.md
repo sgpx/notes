@@ -1,3 +1,7 @@
+# firefox CORS TypeError SameOrigin error
+
+check if an HTTPS endpoint is being called from an HTTP hosted page
+
 # SCP/SFTP gives `received message too long`
 
 newlines after export in bashrc can cause bash to echo environment variables when it loads

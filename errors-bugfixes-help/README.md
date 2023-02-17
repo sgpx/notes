@@ -1,3 +1,10 @@
+# expressjs middleware priority
+
+```
+app.get("/api/", (_, res) => res.send("OK"));
+app.use(expressStatic("public"));
+```
+
 # firefox CORS TypeError SameOrigin error
 
 check if an HTTPS endpoint is being called from an HTTP hosted page

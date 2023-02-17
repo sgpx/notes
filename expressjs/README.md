@@ -14,3 +14,9 @@ app.use("/api/:path", (req, res, next) => {
 });
 app.listen(3000);
 ```
+
+
+```
+app.get("/api/", (_, res) => res.send("OK"));
+app.use(expressStatic("public"));
+```

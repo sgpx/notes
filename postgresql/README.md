@@ -1,5 +1,30 @@
 # postgresql
 
+## setup (macOS native, built from source)
+
+```
+export postgres_install_dir=$HOME/pginstall
+wget https://ftp.postgresql.org/pub/source/v12.14/postgresql-12.14.tar.gz -O p.tgz
+tar xvzf p.tgz
+cd postgresql-12.14/
+./configure --prefix=$postgres_install_dir
+nohup make -j20 && nohup make install
+```
+
+### starting postgres on mac
+
+```
+export postgres_dbdata=$HOME/pg-dbdata
+cd $postgres_install_dir
+cd bin
+./pg_ctl -D $postgres_dbdata init
+./pg_ctl -D $postgres_dbdata start
+./createdb mydb
+#./createuser --superuser myuser
+./createuser --superuser myuser --pwprompt
+psql postgres://127.0.0.1:5432/mydb -U myuser --password
+```
+
 ## setup (ubuntu container)
 
 ```

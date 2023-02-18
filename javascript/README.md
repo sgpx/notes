@@ -1,3 +1,18 @@
+# set computed property names as key values for object initializer
+
+```
+const a = 'xyz';
+const b = { [a] : 5 };
+console.log(b); // { 'xyz' : 5 }
+```
+
+equivalent to doing
+
+```
+const b = {}
+b[a] = 5;
+```
+
 # reduce example
 
 ```

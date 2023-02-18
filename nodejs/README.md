@@ -1,3 +1,10 @@
+# global namespace
+
+```
+global.foo = 1;
+console.log(require("./echo_global.foo_module.js")()); // gives 1
+```
+
 # syntax check script without running
 
 `node --check a.js`

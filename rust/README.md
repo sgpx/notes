@@ -1,3 +1,22 @@
+# range
+
+`1..5`
+
+`1..=5`
+
+```
+let r1 = 1..5;
+let r2 = 1..=5;
+let g = 5;
+let v1 = r1.contains(&g);
+let v2 = r2.contains(&g);
+print!("{v1} {v2}\n");
+```
+
+# homebrew setup (mac OS)
+
+`brew install rust rustfmt rust-analyzer`
+
 # rustup
 
 rust toolchain installer

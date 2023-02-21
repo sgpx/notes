@@ -1,3 +1,13 @@
+# char.to_digit(radix)
+
+can only convert chars to digits in a number system
+
+like for radix=11, 'a'.to_digit(11) works because 'a' represents the base11 digit 'a' = value "10" in base10 notation
+
+0123456789a
+
+similarly {char}.to_digit(radix = {position} + 10) will fail if char's position in the number system isn't less than the radix
+
 # range
 
 `1..5`

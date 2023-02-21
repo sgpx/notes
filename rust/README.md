@@ -1,3 +1,18 @@
+# block/function expression return value
+
+```   
+let x = {
+	let y = 5;
+        y + 1 // value without semicolon is block return value
+};
+```
+
+# statements vs expressions
+
+statements perform an action and do not return a value
+
+expressions return a value
+
 # char.to_digit(radix)
 
 can only convert chars to digits in a number system

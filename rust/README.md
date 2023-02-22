@@ -1,3 +1,32 @@
+# ownership rules
+
+rust uses move() and drop() functions to move pointers and clear variables
+
+```
+    let s1 = String::from("hello");
+    let s2 = s1;
+    // s1 is invalidated and cannot be used
+    // s1 data is moved completely to s2
+    println!("{}, world!", s1);
+    // throws a borrow error "borrow of moved value"
+```
+
+
+no restriction for integer values
+```
+
+	let s1 : i32 = 1;
+	let s2 = s1;
+	println("{s1} {s2}");
+```
+
+
+https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html
+
+- Each value in Rust has an owner.
+- There can only be one owner at a time.
+- When the owner goes out of scope, the value will be dropped.
+
 # block/function expression return value
 
 ```   

@@ -29,10 +29,11 @@ psql postgres://127.0.0.1:5432/mydb -U myuser --password
 
 ```
 $ apt install -y postgresql
+$ export PG_VERSION=14 # PG_VERSION=12
 $ pg_lsclusters
-$ pg_ctlcluster 12 main start
-$ pg_ctlcluster 12 main status
-$ su postgres
+$ pg_ctlcluster $PG_VERSION main start
+$ pg_ctlcluster $PG_VERSION main status
+$ sudo su postgres
 $ psql
 ```
 
@@ -180,6 +181,19 @@ $ psql postgres://myuser:mypwd@abc.com:5432/mydb?requiressl=true
 ```
 
 ## allow remote connections
+
+postgres 14
+
+```
+pg_ctlcluster 14 main stop
+echo "listen_addresses = '*'" >> /etc/postgresql/12/main/postgresql.conf
+printf "host\tall\tall\t0.0.0.0/0\tscram-sha-256" >> /etc/postgresql/12/main/pg_hba.conf
+printf "host\tall\tall\t::/0\tscram-sha-256" >> /etc/postgresql/12/main/pg_hba.conf
+pg_ctlcluster 14 main start
+```
+
+
+postgres 12
 
 ```
 pg_ctlcluster 12 main stop

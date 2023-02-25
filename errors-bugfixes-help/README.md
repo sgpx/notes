@@ -1,3 +1,11 @@
+# avoid letsencrypt cert chain not verified error
+
+```
+sudo certbot certonly -d mywebsite.com
+sudo cp /etc/letsencrypt/live/mywebsite.com/fullchain.pem cert-with-chain.pem
+sudo cat /etc/letsencrypt/live/mywebsite.com/cert.pem >> cert-with-chain.pem
+```
+
 # expressjs middleware priority
 
 ```

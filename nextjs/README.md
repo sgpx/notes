@@ -26,5 +26,5 @@ yarn next
 yarn add serve
 yarn next build
 yarn next export
-serve -s out/
+yarn serve -s out/
 ```

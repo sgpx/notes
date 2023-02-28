@@ -74,3 +74,32 @@ $ echo '["a", "b", "c"]' | jq '.[0:2]'
 # pipe wget output to jq
 
 `wget https://jsonplaceholder.typicode.com/posts -q -O - | jq '.[0]'`
+
+# gets keys of object
+
+```
+jq -r '.dependencies | keys | .[]' package.json
+```
+
+```
+$ echo '{"a":{"pkgs":{"p1":1,"p2":2,"p3":3}}}' | jq '.a.pkgs'
+{
+  "p1": 1,
+  "p2": 2,
+  "p3": 3
+}
+$ echo '{"a":{"pkgs":{"p1":1,"p2":2,"p3":3}}}' | jq '.a.pkgs | keys'
+[
+  "p1",
+  "p2",
+  "p3"
+]
+$ echo '{"a":{"pkgs":{"p1":1,"p2":2,"p3":3}}}' | jq '.a.pkgs | keys | .[]'
+"p1"
+"p2"
+"p3"
+$ echo '{"a":{"pkgs":{"p1":1,"p2":2,"p3":3}}}' | jq -r '.a.pkgs | keys | .[]'
+p1
+p2
+p3
+```

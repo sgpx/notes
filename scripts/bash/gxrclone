@@ -1,0 +1,4 @@
+#!/bin/bash
+u=sgpx
+p=$token
+git clone https://$u:$p@github.com/$u/$1

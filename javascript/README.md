@@ -1,3 +1,13 @@
+# convert `<input>` file to base64
+
+```
+const targetFile = e.target.files[0];
+console.log(targetFile);
+const reader = new FileReader();
+reader.readAsDataURL(targetFile);
+reader.addEventListener("load", () => console.log(reader.result));
+```
+
 # set computed property names as key values for object initializer
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names

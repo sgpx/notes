@@ -28,3 +28,17 @@ yarn next build
 yarn next export
 yarn serve -s out/
 ```
+
+# start dev server on ip address
+
+```
+yarn next build
+yarn next dev --hostname 192.168.0.1 --port 3000
+```
+
+# serve build on ip address
+
+```
+yarn next build
+yarn next start -H 192.168.0.1 -p 3000
+```

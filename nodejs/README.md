@@ -1,3 +1,14 @@
+# square bracket assignment (assign keys by variable value)
+
+```
+> a = 5
+5
+> {a: a}
+{ a: 5 }
+> {[a]: a}
+{ '5': 5 }
+```
+
 # global namespace
 
 ```

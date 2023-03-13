@@ -203,3 +203,33 @@ printf "host\tall\tall\t::/0\tmd5" >> /etc/postgresql/12/main/pg_hba.conf
 pg_ctlcluster 12 main start
 ```
 ref : https://www.bigbinary.com/blog/configure-postgresql-to-allow-remote-connection
+
+# JSONB array example
+
+```
+mydb=> create table mytable(data jsonb);
+CREATE TABLE
+mydb=> insert into mytable(data) values('["foo","bar","baz"]');
+INSERT 0 1
+mydb=> insert into mytable(data) values('["foo","baz"]');
+INSERT 0 1
+mydb=> select * from mytable;
+         data          
+-----------------------
+ ["foo", "bar", "baz"]
+ ["foo", "baz"]
+(2 rows)
+
+mydb=> select * from mytable where data ? 'baz';
+         data          
+-----------------------
+ ["foo", "bar", "baz"]
+ ["foo", "baz"]
+(2 rows)
+
+mydb=> select * from mytable where data ? 'bar';
+         data          
+-----------------------
+ ["foo", "bar", "baz"]
+(1 row)
+```

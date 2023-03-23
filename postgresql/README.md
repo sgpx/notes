@@ -90,6 +90,10 @@ Type "help" for help.
 mydb=>
 ```
 
+```
+psql -h my.database-url.com -p 5432 -d mydb -U myusername -W
+```
+
 connect with postgres URI
 
 ```
@@ -186,9 +190,9 @@ postgres 14
 
 ```
 pg_ctlcluster 14 main stop
-echo "listen_addresses = '*'" >> /etc/postgresql/12/main/postgresql.conf
-printf "host\tall\tall\t0.0.0.0/0\tscram-sha-256" >> /etc/postgresql/12/main/pg_hba.conf
-printf "host\tall\tall\t::/0\tscram-sha-256" >> /etc/postgresql/12/main/pg_hba.conf
+echo "listen_addresses = '*'" >> /etc/postgresql/14/main/postgresql.conf
+printf "host\tall\tall\t0.0.0.0/0\tscram-sha-256" >> /etc/postgresql/14/main/pg_hba.conf
+printf "host\tall\tall\t::/0\tscram-sha-256" >> /etc/postgresql/14/main/pg_hba.conf
 pg_ctlcluster 14 main start
 ```
 
@@ -233,3 +237,4 @@ mydb=> select * from mytable where data ? 'bar';
  ["foo", "bar", "baz"]
 (1 row)
 ```
+

@@ -1,3 +1,29 @@
+# express + nextjs trailing slash and MIME issue
+
+using nextJS request handler solves this issue
+
+```
+const nextJsHandler = nextJsApp.getRequestHandler();
+app.use('/', (req, res) => nextJsHandler(req, res));
+app.use('/', (req, res) => nextJsApp.render(req, res));
+```
+
+
+```
+app.use('/', (req, res) => nextJsApp.render(req, res, req.path, req.query));
+```
+
+fails to work for trailing slashes probably because of how express routing works for paths/subpaths
+
+this works sometimes
+
+```
+app.use('*', (req, res) => nextJsApp.render(req, res, req.path, req.query));
+```
+
+but will cause problems with other routes and may mess up the application
+
+
 # avoid letsencrypt cert chain not verified error
 
 ```

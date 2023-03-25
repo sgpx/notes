@@ -2,6 +2,20 @@
 
 server side rendering for react
 
+# READ!!
+
+## express + nextjs trailing slash and MIME issue
+
+using nextJS request handler solves this issue
+
+```
+const nextJsHandler = nextJsApp.getRequestHandler();
+app.use('/', (req, res) => nextJsHandler(req, res));
+app.use('/', (req, res) => nextJsApp.render(req, res));
+```
+
+ref : https://nextjs.org/docs/advanced-features/custom-server
+
 # quick start
 
 ```
@@ -42,3 +56,9 @@ yarn next dev --hostname 192.168.0.1 --port 3000
 yarn next build
 yarn next start -H 192.168.0.1 -p 3000
 ```
+
+# trailing slash
+
+`const nextConfig = { trailingSlash: true };`
+
+in `next.config.mjs` gives a [http 308 redirect](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/308) to the slash included path if you try to access the path without the slash

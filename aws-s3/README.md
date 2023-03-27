@@ -1,4 +1,28 @@
-# restricted put policy
+# IAM policy
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::mybucket/*",
+                "arn:aws:s3:::mybucket"
+            ]
+        }
+    ]
+}
+```
+
+# restricted putobject policy
 
 ```
 {
@@ -10,8 +34,8 @@
             "Principal": "*",
             "Action": "s3:GetObject",
             "Resource": [
-                "arn:aws:s3:::lplt-static/*",
-                "arn:aws:s3:::lplt-static"
+                "arn:aws:s3:::mybucket/*",
+                "arn:aws:s3:::mybucket"
             ]
         },
         {
@@ -22,8 +46,8 @@
             },
             "Action": "s3:PutObject",
             "Resource": [
-                "arn:aws:s3:::lplt-static/*",
-                "arn:aws:s3:::lplt-static"
+                "arn:aws:s3:::mybucket/*",
+                "arn:aws:s3:::mybucket"
             ]
         }
     ]

@@ -19,3 +19,10 @@ https://medium.com/@chandrapal/bucket-policy-for-your-public-s3-bucket-7549c7e50
     ]
 }
 ```
+
+# SDK reference
+
+
+https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getObject-property
+https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property
+https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#listObjects-property

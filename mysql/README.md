@@ -1,3 +1,9 @@
+# dump tables to files for backup
+
+```
+2>/dev/null mysqldump mydb mytable --password --user myuser --compact --result-file=my-dump-file.sql
+```
+
 # downloads
 
 `https://dev.mysql.com/downloads/mysql/`

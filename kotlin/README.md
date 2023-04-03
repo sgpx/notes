@@ -19,11 +19,14 @@ outputs java classes with title case names and Kt attached to the end. numerical
 
 ```
 $ kotlinc a.kt
+
 $ ls
 AKt.class META-INF  a.kt
+
 $ kotlin AKt
 hello world
-$ java AKt
+
+$ java AKt ### this may give missing library errors
 hello world
 ```
 
@@ -144,4 +147,49 @@ fun main()
 foo
 {1=foo, 2=bar}
 {1=foo, 2=bar, 3=baz}
+```
+
+# class constructor
+
+```
+>>> data class Coordinate(val x : Double, val y : Double, val pointName : String){ val dist : Double = Math.sqrt((x*x)+(y*y)); }
+>>> data class Coordinate constructor(val x : Double, val y : Double, val pointName : String){ val dist : Double = Math.sqrt((x*x)+(y*y)); }
+```
+
+# arrays
+
+```
+data class Coordinate(val x : Int, val y : Int);
+
+fun main(){
+	val CoordinateArray : Array<Coordinate> = arrayOf<Coordinate>(
+		Coordinate(1,2),
+		Coordinate(3,4),
+	);
+	println(CoordinateArray[0]);
+	println(CoordinateArray[1]);
+	println("size of CoordinateArray is ${CoordinateArray.size}");
+}
+```
+
+# if else expressions
+
+```
+>>> val x = 5;
+>>> val y = if(x < 4) 3 else 2;
+>>> println(y);
+2
+```
+
+# lists
+
+immutable collection
+
+```
+>>> val x : List<Int> = listOf<Int>(1,2,3)
+>>> println(x)
+[1, 2, 3]
+>>> val y : Array<Int> = x.toTypedArray()
+>>> println(y[0])
+1
 ```

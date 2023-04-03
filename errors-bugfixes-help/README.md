@@ -1,3 +1,17 @@
+# android `findViewById(R.id.my_element) must not be null`
+
+make sure layout is inflated before trying to access view objects with findViewById
+
+```
+// this will cause null pointer errors
+findViewById(R.id.something) 
+setContentView(R.layout.activity_main)
+
+// this will work
+setContentView(R.layout.activity_main)
+findViewById(R.id.something)
+```
+
 # express + nextjs trailing slash and MIME issue
 
 using nextJS request handler solves this issue

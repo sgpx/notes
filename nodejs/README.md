@@ -1,3 +1,15 @@
+# console input
+
+```
+const rl = require("readline/promises");
+const i = rl.createInterface({ input: process.stdin, output: process.stdout });
+i.question("what is 1+1\n").then(r => {
+	console.log(r);
+	process.exit(0);
+});
+```
+
+
 # square bracket assignment (assign keys by variable value)
 
 ```

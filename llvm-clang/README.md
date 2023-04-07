@@ -1,3 +1,13 @@
+# compile for target architecture
+
+set `-triple`
+
+`clang -target x86_64-apple-darwin-macho a.c`
+
+`clang -target x86_64-pc-linux-gnu a.c`
+
+https://clang.llvm.org/docs/CrossCompilation.html
+
 # building from source (mac) (make)
 
 ```

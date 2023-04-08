@@ -1,3 +1,10 @@
+# hide JSX source files from appearing the debugger in production
+
+```
+yarn build
+rm build/static/js/*.map
+```
+
 # check component performance with `<React.Profiler>`
 
 ```

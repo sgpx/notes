@@ -1,3 +1,11 @@
+# change directory
+
+```
+console.log(fs.readdirSync("foo"));
+process.chdir("foo");
+console.log(fs.readFileSync("a.txt").toString());
+```
+
 # console input
 
 ```

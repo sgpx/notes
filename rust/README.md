@@ -1,3 +1,13 @@
+# string slice
+
+```
+let s = String::from("hello world");
+let len = s.len();
+let slice1 : &str = &s[0..3];
+let slice2 : &str = &s[..len];
+println!("{} {}", slice1, slice2);
+```
+
 # options and expect()
 
 if you put .expect() after a function call that creates an Option<T> you get T instead

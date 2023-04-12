@@ -1,3 +1,7 @@
+# expo go not launching in iOS simulator (FBScene failed)
+
+update macOS and xcode
+
 # android `findViewById(R.id.my_element) must not be null`
 
 make sure layout is inflated before trying to access view objects with findViewById

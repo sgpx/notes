@@ -1,0 +1,6 @@
+#!/bin/bash
+rustc -o a.out $1
+if [ "$?" = "0" ]; then 
+	echo running $1
+	./a.out; 
+fi

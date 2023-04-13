@@ -1,3 +1,26 @@
+# struct member access is not allowed inside format string
+
+`println!("{x.a} {x.b}");` will fail
+
+`println!("{} {}", x.a, x.b);` will work
+
+# `option<T>` and `None`
+
+```
+fn odd_only(x : i32) -> Option<i32> {
+	if x % 2 == 1 { Some(x) }
+	else { None }
+}
+
+fn main() {
+	let a = odd_only(5);
+	match a {
+		Some(i) => println!("odd number : {}");
+		None => println!("even number");
+	}
+}
+```
+
 # string slice
 
 ```

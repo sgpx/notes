@@ -1,3 +1,21 @@
+# addition/subtraction/etc
+
+```
+$ a=1
+$ b=2
+$ c=$((a+b))
+$ echo $c
+3
+$ echo $((5-3))
+2
+$ echo $((2*33*44))
+2904
+$ echo $((100/9))
+11
+$ echo $((8%5))
+3
+```
+
 # `export`
 
 with an argument it provides the declared variable to all subsequent child processes of the shell

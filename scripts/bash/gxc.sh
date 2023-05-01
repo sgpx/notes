@@ -1,7 +1,11 @@
 #!/bin/bash
 
-a="$(ls . | grep clean.sh)"
-if [ "$a" = "clean.sh" ]; then
+if [ -a gx-exec.sh ]; then
+	echo executing gx-exec.sh;
+	bash gx-exec.sh
+fi
+
+if [ -a clean.sh ]; then
 	echo executing clean step;
 	bash clean.sh;
 fi;

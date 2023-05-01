@@ -1,3 +1,12 @@
+# square bracket assignment (assign keys by variable value)
+
+```
+a = "foo";
+b = {[a] : "bar"};
+console.log(b);
+> Object { foo: "bar" }
+```
+
 # get arrays entries for an object with Object.entries()
 
 ```

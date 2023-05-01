@@ -103,3 +103,10 @@ p1
 p2
 p3
 ```
+
+# keys with spaces
+
+```
+$ echo '{"foo bar":"baz"}' | jq '."foo bar"'
+baz
+```

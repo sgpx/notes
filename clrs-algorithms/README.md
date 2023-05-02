@@ -160,3 +160,44 @@ n*log2(n) = t
 
 -- time = 1s, t = 1000, n = 140.25 approx
 -- time = 1m, t = 60*1000, n = 4896
+
+## ch2
+
+- sorting
+
+-- input: sequence of n numbers A = (a1, a2, ... an)
+-- output: permutation A' = (a1', a2', ..., an') where a1' < a2' < ... < an'
+-- numbers to be sorted are also known as `keys`
+-- keys are associated with data called `satellite data`
+-- `key` + `satellite data` = `record`
+
+- insertion sort
+
+-- efficient for sorting small number of elements
+
+```
+def insertion_sort(a : list) -> list:
+	for i in range(1,len(a)):
+		key = a[i]
+		j = i - 1
+		while j >= 0 and a[j] > key:
+			a[j+1] = a[j]
+			j -= 1
+		a[j+1] = key
+	return a
+```
+
+```
+def insertion_sort(a : list) -> list:
+        for i in range(1,len(a)):
+		print("\n\nkey i:", i)
+                key = a[i]
+                j = i - 1
+		print("key j:", j)
+                while j >= 0 and a[j] > key:
+			print("key j:", j)
+                        a[j+1] = a[j]
+                        j -= 1
+                a[j+1] = key
+        return a
+```

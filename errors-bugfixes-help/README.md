@@ -1,3 +1,12 @@
+# disable touchpad lock while pressing keyboard buttons
+
+see `../xinput/touchpad-disable-lock-while-keypress.sh`
+
+```
+xinput --list
+xinput list-props $device_id | grep -i "disable while typing"
+xinput set-prop $device_id $prop_id 0
+
 # expo go not launching in iOS simulator (FBScene failed)
 
 update macOS and xcode

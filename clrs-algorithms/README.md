@@ -27,7 +27,7 @@ output: `y` = `[1,2,3,4]`
 
 - `NP-complete` problems: problems for which no efficient algorithm is proven to exist
 
-## exercises
+### exercises
 
 - 1.1-1
 
@@ -190,14 +190,60 @@ def insertion_sort(a : list) -> list:
 ```
 def insertion_sort(a : list) -> list:
         for i in range(1,len(a)):
+		print("a:", a)
 		print("\n\nkey i:", i)
                 key = a[i]
                 j = i - 1
 		print("key j:", j)
                 while j >= 0 and a[j] > key:
+			print("a:", a)
 			print("key j:", j)
                         a[j+1] = a[j]
                         j -= 1
                 a[j+1] = key
         return a
 ```
+
+`loop invariant`: property of a program that is true before and after each loop iteration
+
+to show use of a loop invariant, show three things:
+
+1. initialization: condition is true prior to first iteration of the loop
+2. maintenance: true before an iteration of the loop, true before the next iteration
+3. termination: loop terminates and when it terminates the invariant gives a useful property that shows algorithm is correct
+
+when first two properties hold, loop invariant is true prior to every iteration of the loop
+
+loop invariant proof is a type of mathematical induction
+
+to prove a property holds, you prove base step and inductive stepp
+
+showing the invariant holds before the first iteration corresponds to the base step
+
+showing that the invariant holds from iteration to iteration corresponds to inductive step
+
+in loop invariant induction stops when loop terminates
+
+### exercises
+
+- 2.1-1
+
+```
+>>> arr = [31, 41, 59, 26, 41, 58]
+>>> insertion_sort(arr)
+a: [31, 41, 59, 26, 41, 58]
+a: [31, 41, 59, 59, 41, 58]
+a: [31, 41, 41, 59, 41, 58]
+a: [26, 31, 41, 59, 41, 58]
+a: [26, 31, 41, 41, 59, 58]
+```
+- 2.1-2
+
+```
+def sum_array(a):
+	res = 0
+	for i in a:
+		res += i
+	return res
+```
+

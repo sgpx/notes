@@ -131,11 +131,17 @@ n = 2^t
 ```
 
 -- time = 1s, t = 1000, n = 2^1000
+
 -- time = 1m, t = 60*1000, n = 2^(60000)
+
 -- time = 1h, t = 3600*1000, n = 2^(3600000)
+
 -- time = 1d, t = 86400 * 1000, n = 2^(86400*1000)
+
 -- time = 1 month, t = 30 * 86400 * 1000, n = 2^(30 * 86400 * 1000)
+
 -- time = 1 year, t = 12 * 30 * 86400 * 1000, n = 2^(12 * 30 * 86400 * 1000)
+
 -- time = 1 century, t = 12 * 30 * 86400 * 1000, n = 2^(100 * 12 * 30 * 86400 * 1000)
 
 ```
@@ -145,7 +151,9 @@ n = t^2
 ```
 
 -- time = 1s, t = 1000, n = 1000^2
+
 -- time = 1m, t = 60*1000, n = (60000)^2
+
 -- time = 1h, t = 3600*1000, n = (3600000)^2
 
 ```
@@ -159,6 +167,7 @@ n*log2(n) = t
 ```
 
 -- time = 1s, t = 1000, n = 140.25 approx
+
 -- time = 1m, t = 60*1000, n = 4896
 
 ## ch2
@@ -166,9 +175,13 @@ n*log2(n) = t
 - sorting
 
 -- input: sequence of n numbers A = (a1, a2, ... an)
+
 -- output: permutation A' = (a1', a2', ..., an') where a1' < a2' < ... < an'
+
 -- numbers to be sorted are also known as `keys`
+
 -- keys are associated with data called `satellite data`
+
 -- `key` + `satellite data` = `record`
 
 - insertion sort

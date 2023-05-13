@@ -190,25 +190,19 @@ def insertion_sort(a : list) -> list:
 ```
 def insertion_sort(a : list) -> list:
         for i in range(1,len(a)):
-<<<<<<< HEAD
 		print(a)
 		print(f"\n\ni : {i}, a[i] : {a[i]}")
-=======
 		print("a:", a)
 		print("\n\nkey i:", i)
->>>>>>> refs/remotes/origin/master
                 key = a[i]
                 j = i - 1
 		print(f"j : {j}, a[j] : {a[j]}")
                 while j >= 0 and a[j] > key:
-<<<<<<< HEAD
 			print(f"inside loop j : {j}, a[j] : {a[j]}")
 			print(f"setting a[j+1] {j+1} as a[j] {j}")
 			print(a)
-=======
 			print("a:", a)
 			print("key j:", j)
->>>>>>> refs/remotes/origin/master
                         a[j+1] = a[j]
 			print(a)
                         j -= 1
@@ -218,7 +212,6 @@ def insertion_sort(a : list) -> list:
         return a
 ```
 
-<<<<<<< HEAD
 example progression
 
 ```
@@ -231,8 +224,6 @@ example progression
 [1, 2, 4, 5]
 ```
 
-
-=======
 `loop invariant`: property of a program that is true before and after each loop iteration
 
 to show use of a loop invariant, show three things:
@@ -276,4 +267,3 @@ def sum_array(a):
 	return res
 ```
 
->>>>>>> refs/remotes/origin/master

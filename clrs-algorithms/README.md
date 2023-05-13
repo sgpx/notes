@@ -190,14 +190,34 @@ def insertion_sort(a : list) -> list:
 ```
 def insertion_sort(a : list) -> list:
         for i in range(1,len(a)):
-		print("\n\nkey i:", i)
+		print(a)
+		print(f"\n\ni : {i}, a[i] : {a[i]}")
                 key = a[i]
                 j = i - 1
-		print("key j:", j)
+		print(f"j : {j}, a[j] : {a[j]}")
                 while j >= 0 and a[j] > key:
-			print("key j:", j)
+			print(f"inside loop j : {j}, a[j] : {a[j]}")
+			print(f"setting a[j+1] {j+1} as a[j] {j}")
+			print(a)
                         a[j+1] = a[j]
+			print(a)
                         j -= 1
+		print(f"setting j+1 : {j+1}, a[j+1] : {a[j+1]}, key : {key}")
                 a[j+1] = key
+		print(a)
         return a
 ```
+
+example progression
+
+```
+[4, 5, 1, 2]
+[4, 5, 5, 2]
+[4, 4, 5, 2]
+[1, 4, 5, 2]
+[1, 4, 5, 5]
+[1, 4, 4, 5]
+[1, 2, 4, 5]
+```
+
+

@@ -7,6 +7,21 @@ $ echo '{"a":"b"}' | jq '.'
 }
 ```
 
+# set values
+
+use `jq '.$keyname = $value'`
+
+```
+$ echo '{"a":"b"}' | jq '.a = 1'
+{
+  "a": 1
+}
+$ echo '{"a":"b"}' | jq '.a = "c"'
+{
+  "a": "c"
+}
+```
+
 # file
 
 `jq '.' a.json`

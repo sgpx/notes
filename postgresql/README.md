@@ -238,3 +238,9 @@ mydb=> select * from mytable where data ? 'bar';
 (1 row)
 ```
 
+# append/prepend strings
+
+```
+update mytable set mycolumn = 'foobar ' || mycolumn;
+update mytable set mycolumn = mycolumn || ' baz';
+```

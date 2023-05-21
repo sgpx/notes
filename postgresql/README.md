@@ -244,3 +244,10 @@ mydb=> select * from mytable where data ? 'bar';
 update mytable set mycolumn = 'foobar ' || mycolumn;
 update mytable set mycolumn = mycolumn || ' baz';
 ```
+
+# regex search
+
+```
+select name from mytable where name ~ '^test.+';
+select name from mytable where name !~ '^blah.+';
+```

@@ -8,6 +8,5 @@ ers on your team. ")
 
 1. https://docs.expo.dev/build-reference/variables/
 2. https://stackoverflow.com/a/42750187
-3. https://stackoverflow.com/questions/37358340/should-i-add-the-google-services-json-from-fireba
-se-to-my-repository
+3. https://stackoverflow.com/questions/37358340/should-i-add-the-google-services-json-from-firebase-to-my-repository
 4. https://groups.google.com/g/firebase-talk/c/bamCgTDajkw

@@ -11,6 +11,11 @@ if [ ! -r "$HOME/.ftpsend" ]; then
 	echo $ipaddr > $HOME/.ftpsend
 fi
 
+if [ ! -r $1 ]; then
+	echo error: file \"$1\" does not exist
+	exit
+fi
+
 fn=$(realpath $1)
 tfn=$(sed -r "s/^.+\/(.+)$/\1/" <<< $fn)
 u=ftp

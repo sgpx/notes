@@ -63,3 +63,11 @@ If a class has no modifier (the default, also known as package-private), it is v
 `source activate-openj9.sh`
 
 supposedly faster than openjdk/hotspot for IO etc but I didn't see any big performance difference on amd64 (openjdk 11 vs openj9 11). android gradle builds are actually faster on hotspot
+
+# create and run a jar
+
+```
+javac -d classes foo.java
+jar --create --file foo.jar --main-class Abc -C classes/ foo.class
+java -jar foo.jar
+```

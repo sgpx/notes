@@ -68,6 +68,6 @@ supposedly faster than openjdk/hotspot for IO etc but I didn't see any big perfo
 
 ```
 javac -d classes foo.java
-jar --create --file foo.jar --main-class Abc -C classes/ foo.class
+jar --create --file foo.jar --main-class foo -C classes/ foo.class
 java -jar foo.jar
 ```

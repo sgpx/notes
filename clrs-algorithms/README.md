@@ -280,3 +280,76 @@ def sum_array(a):
 	return res
 ```
 
+# big O notation O(n)
+
+worst case time complexity
+
+O(f(n)) = g(n) such that there exists c > 0 for which c*g(n) >= f(n) for all values of n>0
+O(4n^3 + n^2) = n^3 because 
+
+4n^3 + n^2 =< kn^3
+
+(k-4)*(n^3) >= 1n^2
+
+(k-4)*n >= 1
+
+(5-4)*n >= 1
+
+# big omega notation omega(n)
+
+best case time complexity
+
+omega(f(n)) = g(n) such that there exists c > 0 such that g(n) <= c*f(n)
+
+f(n) = 4n^3 + n^2
+
+g(n) = n^3
+
+n^3 <= k(4*n^3 + n^2)
+
+(1-4k)n^3 <= n^2
+
+(1-4k)n <= 1
+
+taking n = 1, fits for any k >= 0
+
+# theta notation theta(n)
+
+omega(f(n)) = g(n) such that g(n) = O(f(n)) and g(n) = omega(f(n))
+
+# greedy algorithms
+
+try to find a localized optimum solution, which may eventually lead to globally optimized solutions
+
+example 1: use denominations of 1,2,5,10 coins to get 18 with the fewest number of coins
+
+greedy solution:
+
+1. pick the highest possible number (10), balance = 18 - 10 = 8
+2. pick the highest possible number (5), balance = 8 - 5 = 3
+3. pick the highest possible number (2), balance = 3 - 2 = 1
+4. pick the highest possible number (1), balance = 0
+
+example 2: use denominations of 1,7,10 coins to get 18
+
+greedy solution: 10 + 7 + 1
+
+example 3: use denominations of 1,7,10 coins to get 15
+
+greedy solution: 10 + 1 + 1 + 1 + 1 + 1
+
+optimal solution: 7 + 7 + 1
+
+greedy example: djisktra's MST
+
+# divide and conquer
+
+divide the problem into smaller subproblems, recursively merge the solutions back
+
+divide and conquer example: merge sort
+
+# dynamic programming
+
+divide problem into smaller subproblems, solve subproblems independently and use the solution of one subproblem to help with the other subproblems
+
+e.g. tower of hanoi, fibonacci

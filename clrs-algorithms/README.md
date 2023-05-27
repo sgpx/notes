@@ -450,3 +450,24 @@ int main() {
 }
 ```
 
+# linked list
+
+collection of nodes connected together via links
+
+nodes consist of:
+
+- data to be stored
+- pointed to the next node in the linked list
+
+no size is defined in linked lists
+
+singly linked list: nodes point to next node
+
+doubly linked list: nodes point to previous and next node
+
+circular linked list: last node will point to first node in the list, can be singly linkedd or doubly linked
+
+first element in linked list is called HEAD
+
+
+

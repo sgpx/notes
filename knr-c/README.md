@@ -1,3 +1,9 @@
+# pass by value 
+
+function parameters are passed by value by default
+
+changes made to the parameter inside the function will not affect the original variable passed as an argument
+
 # pointer address increment
 
 When a pointer is incremented, it actually increments by the number equal to the size of the data type for which it is a pointer.

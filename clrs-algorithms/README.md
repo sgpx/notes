@@ -353,3 +353,100 @@ divide and conquer example: merge sort
 divide problem into smaller subproblems, solve subproblems independently and use the solution of one subproblem to help with the other subproblems
 
 e.g. tower of hanoi, fibonacci
+
+# data operations
+
+- travere
+- search
+- merge
+- insert
+- delete
+- sort
+
+# linear data structures
+
+- data is stored sequentially
+- easy to implement but complexity increases when time and space complexities increase
+
+- disadvantage is memory allocation
+- each element in sequence uses one block of memory
+- if data uses less memory than block size then memory is wasted
+
+examples: arrays, linked lists, stacks, queues
+
+# static linear data structures
+
+- allocation is not scalable
+- once all memory is used no more space can be retrieved to store more data
+- example: array
+
+# dynamic linear data structures
+
+- in dynamic linear data structures memory allocation can be done dynamically when required
+- these data structures are efficient considering space complexity
+- example: linked list, stack, queue
+
+# non linear data structures
+
+- non linear data structures store data in form of a hierarchy
+- data can be found at multiple levels
+- example: graphs, trees, tries, maps
+
+# array
+
+- linear data structure
+- collection of elements with similar data types
+- exists in single and multiple dimensions
+
+- used when need to store multiple elements together in one place
+
+`int x[3] = { 1,2,3 };`
+
+# array element
+
+each item stored in an array is called an element
+
+## array index vs memory address
+
+- array index: key to label elements in array
+- memory address: reference to specific memory location
+
+# array traversal
+
+```
+#include <stdio.h>
+
+void array_print(int x[], int len) {
+	for(int i = 0; i < len; i++)
+		printf("%d", x[i]);
+	
+}
+
+void array_insert_at(int x[], int pos, int val, int len) {
+	int replace = val;
+	for(int i = pos; i < len; i++){
+		int cval = x[pos];
+		x[pos] = replace;
+		replace = cval;
+	}
+}
+
+void array_search(int x[], int target, int len){
+	for(int i = 0; i < len; i++)
+		if(x[i] == target) {
+			printf("%d", i);
+			break;
+		}
+}
+
+void array_update(int x[], int target, int replace) {
+	x[target] = replace;
+}
+
+int main() {
+	int x[5] = { 6,7,8 };
+	array_insert_at(x, 2, 10, 3);
+	array_print(x);
+}
+```
+

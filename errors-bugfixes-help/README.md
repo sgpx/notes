@@ -1,3 +1,9 @@
+# error `<qpa/qplatformdialoghelper.h>` missing while building LXQT components
+
+on ubuntu 22.04 LTS
+
+`sudo apt install -y qtbase5-private-dev`
+
 # disable touchpad lock while pressing keyboard buttons
 
 see `../xinput/touchpad-disable-lock-while-keypress.sh`

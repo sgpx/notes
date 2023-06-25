@@ -213,28 +213,28 @@ ref : https://www.bigbinary.com/blog/configure-postgresql-to-allow-remote-connec
 ```
 mydb=> create table mytable(data jsonb);
 CREATE TABLE
-mydb=> insert into mytable(data) values('["foo","bar","baz"]');
+mydb=> insert into mytable(data) values('["foo","bar","fee"]');
 INSERT 0 1
-mydb=> insert into mytable(data) values('["foo","baz"]');
+mydb=> insert into mytable(data) values('["foo","fee"]');
 INSERT 0 1
 mydb=> select * from mytable;
          data          
 -----------------------
- ["foo", "bar", "baz"]
- ["foo", "baz"]
+ ["foo", "bar", "fee"]
+ ["foo", "fee"]
 (2 rows)
 
-mydb=> select * from mytable where data ? 'baz';
+mydb=> select * from mytable where data ? 'fee';
          data          
 -----------------------
- ["foo", "bar", "baz"]
- ["foo", "baz"]
+ ["foo", "bar", "fee"]
+ ["foo", "fee"]
 (2 rows)
 
 mydb=> select * from mytable where data ? 'bar';
          data          
 -----------------------
- ["foo", "bar", "baz"]
+ ["foo", "bar", "fee"]
 (1 row)
 ```
 
@@ -242,7 +242,7 @@ mydb=> select * from mytable where data ? 'bar';
 
 ```
 update mytable set mycolumn = 'foobar ' || mycolumn;
-update mytable set mycolumn = mycolumn || ' baz';
+update mytable set mycolumn = mycolumn || ' fee';
 ```
 
 # regex search
@@ -250,4 +250,39 @@ update mytable set mycolumn = mycolumn || ' baz';
 ```
 select name from mytable where name ~ '^test.+';
 select name from mytable where name !~ '^blah.+';
+```
+
+# search with a list of values
+
+```
+select * from mytable where myvalue in ("a","b");
+```
+
+# JSON match
+
+```
+mydb=# create table abc(a jsonb);
+CREATE TABLE
+mydb=# insert into abc(a) values('["foo","bar"]');
+INSERT 0 1
+mydb=# select * from abc where a @> '["foo"]';
+       a       
+---------------
+ ["foo", "bar"]
+(1 row)
+
+mydb=# insert into abc(a) values('["foo2","bar2"]');
+INSERT 0 1
+mydb=# select * from abc where a @> '["foo2"]';
+        a        
+-----------------
+ ["foo2", "bar2"]
+(1 row)
+mydb=# insert into abc(a) values('{"fee":"fum"}');
+INSERT 0 1
+mydb=# select * from abc where a @> '{"fee":"fum"}';
+       a        
+----------------
+ {"fee": "fum"}
+(1 row)
 ```

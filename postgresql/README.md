@@ -286,3 +286,9 @@ mydb=# select * from abc where a @> '{"fee":"fum"}';
  {"fee": "fum"}
 (1 row)
 ```
+
+# GROUP BY and COUNT
+
+```
+select field_name, count(field_name) from table_name where some_value @> '{"foo":"bar"}' group by field_name;
+```

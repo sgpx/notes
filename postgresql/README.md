@@ -287,8 +287,32 @@ mydb=# select * from abc where a @> '{"fee":"fum"}';
 (1 row)
 ```
 
-# GROUP BY and COUNT
+# `GROUP BY` and `COUNT`
 
 ```
 select field_name, count(field_name) from table_name where some_value @> '{"foo":"bar"}' group by field_name;
+```
+
+# print all tables in databasae
+
+```
+select table_name from information_schema.tables where table_schema = 'public'; 
+```
+
+# drop column from table
+
+```
+alter table mytable drop my_column;
+```
+
+# rename column
+
+```
+alter table mytable rename my_column to mycol;
+```
+
+# get type of column
+
+```
+select pg_typeof(my_column) from mytable;
 ```

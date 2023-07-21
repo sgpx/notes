@@ -1,3 +1,9 @@
+# connect to wifi via command line on macOS
+
+```
+networksetup -setairportnetwork en0 mynetworkSSID mypassword
+```
+
 # error `<qpa/qplatformdialoghelper.h>` missing while building LXQT components
 
 on ubuntu 22.04 LTS

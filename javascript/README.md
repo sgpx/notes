@@ -1,3 +1,14 @@
+# assignment operator returns assigned value
+
+```
+> console.log(a = 2)
+2
+> b = (a = 3)
+3
+> console.log(b)
+3
+```
+
 # square bracket assignment (assign keys by variable value)
 
 ```

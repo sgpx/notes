@@ -1,3 +1,7 @@
+# next head html tag client side error
+
+do not use `<html lang="en" />` inside `<Head>` from `next/head`
+
 # connect to wifi via command line on macOS
 
 ```

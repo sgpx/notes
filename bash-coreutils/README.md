@@ -1,3 +1,7 @@
+# sed replace inplace without backup file
+
+`sed -i "" -r "s/foo/bar/g" foo.txt`
+
 # addition/subtraction/etc
 
 ```

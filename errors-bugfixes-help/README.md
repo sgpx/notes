@@ -1,3 +1,14 @@
+# nextjs automatic margin added to body tag
+
+```
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body style={{ margin: 0 }}>{children}</body>
+    </html>
+  );
+}
+```
 # next head html tag client side error
 
 do not use `<html lang="en" />` inside `<Head>` from `next/head`

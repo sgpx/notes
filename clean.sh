@@ -23,3 +23,4 @@ cleanup save
 cleanup tgz
 cleanup tar.gz
 cleanup swp
+cleanup vscode

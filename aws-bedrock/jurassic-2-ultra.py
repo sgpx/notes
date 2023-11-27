@@ -23,4 +23,4 @@ ctime = int(time.time())
 fn = f"j2-resp-{ctime}.txt"
 
 open(fn, "w").write(raw_response)
-print("wrote to", fn)
+print("\n\nwrote to", fn)

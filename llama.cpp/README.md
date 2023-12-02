@@ -25,4 +25,4 @@ python3 convert-llama-ggml-to-gguf.py --input old.bin --output new.bin
 
 https://github.com/ggerganov/llama.cpp/issues/1697
 
-
+only q4_0 is supported on metal as of dec 2023

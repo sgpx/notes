@@ -24,3 +24,6 @@ cleanup tgz
 cleanup tar.gz
 cleanup swp
 cleanup vscode
+cleanup pdf
+cleanup epub
+

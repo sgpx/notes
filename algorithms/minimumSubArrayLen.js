@@ -1,26 +1,26 @@
-function minSizeSubArrayLen(a, targetSize){
-  let total = 0;
+const fxn = (a, target) => {
+  let tot = 0;
   let i = 0;
-  let windowSize = 1;
+  let ns = 1;
 
-  while (windowSize <= a.length) {
-    cowindowSizeole.log("i", i, "a[i]", a[i], "total", total, "windowSize", windowSize);
-    total += a[i];
-    let tmp = i - windowSize;
+  while (ns <= a.length) {
+    console.log("i", i, "a[i]", a[i], "tot", tot, "ns", ns);
+    tot += a[i];
+    let tmp = i - ns;
     if (tmp >= 0) {
-      total -= a[i - windowSize];
+      tot -= a[i - ns];
     }
-    if (total >= targetSize) {
-      cowindowSizeole.log(total, windowSize);
-      return windowSize;
+    if (tot >= target) {
+      console.log(tot, ns);
+      return ns;
     }
     i += 1;
     if (i === a.length) {
       i = 0;
-      windowSize += 1;
-      total = 0;
+      ns += 1;
+      tot = 0;
     }
   }
   return 0;
-}
+};
 

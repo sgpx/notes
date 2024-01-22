@@ -1,6 +1,6 @@
 from pathlib import Path
 from openai import OpenAI
-client = OpenAI()
+client = OpenAI("YOUR API KEY HERE!")
 
 txt = "Pizza Time!"
 

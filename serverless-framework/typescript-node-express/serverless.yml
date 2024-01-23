@@ -1,0 +1,17 @@
+service: ts-testing-1
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: dev
+  region: ap-south-1
+ 
+functions:
+  app:
+    handler: index.handler
+    events:
+      - http: ANY /
+      - http: ANY {proxy+}
+
+plugins:
+  - serverless-esbuild

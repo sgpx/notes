@@ -318,6 +318,12 @@ to search till a particular depth use `-maxdepth` and `-mindepth` instead
 find . -maxdepth 3 -mindepth 2 foobar.txt
 ```
 
+find exec
+
+```
+find . -iname "*.bak" -exec rm -v "{}" \;
+```
+
 # printf
 ```
 $ printf "%02.1f" "12.34"

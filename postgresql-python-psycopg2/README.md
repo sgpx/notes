@@ -6,6 +6,8 @@ requires libpq
 
 requires libpq binaries in `$PATH`
 
+(ALSO REQUIRES libcrypto* and libssl* to be in the same path as libpq/lib/libpq.dylib, copy from homebrew cellar or make from source and copy)
+
 ```
 brew install libpq
 echo 'export PATH=$PATH:/opt/homebrew/opt/libpq/bin/' > ~/.zshrc

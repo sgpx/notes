@@ -1,3 +1,18 @@
+# unwrap options
+
+
+```
+	let ditem = cursor.next()
+	if let Some(di2) = ditem {
+		println("{:#?}", di2);
+	}
+
+	# ---- VERSUS ----
+
+        let ditem = cursor.next();
+        let di2 = ditem.unwrap();
+```
+
 # struct member access is not allowed inside format string
 
 `println!("{x.a} {x.b}");` will fail

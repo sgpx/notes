@@ -315,6 +315,10 @@ global options like `-depth` must always precede filename paths
 to search till a particular depth use `-maxdepth` and `-mindepth` instead
 
 ```
+find . -maxdepth 1 -iname "foo-*" -type d -exec rm -rfv "{}" \;
+```
+
+```
 find . -maxdepth 3 -mindepth 2 foobar.txt
 ```
 

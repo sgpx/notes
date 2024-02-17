@@ -1,3 +1,14 @@
+# wildcard for
+
+```
+bash-3.2$ for i in *; do echo $i; done
+Dockerfile
+index.js
+node_modules
+package.json
+yarn.lock
+```
+
 # sed replace inplace without backup file
 
 `sed -i "" -r "s/foo/bar/g" foo.txt`

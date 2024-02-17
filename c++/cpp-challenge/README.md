@@ -57,15 +57,15 @@
 - ~~**Day 1-2: Smart Pointers and Memory Management**~~
   - *Challenge*: Implement a program using smart pointers (e.g., std::unique_ptr, std::shared_ptr) to manage memory efficiently.
 
-- **Day 3-4: Exception Handling and Error Management**
+- ~~**Day 3-4: Exception Handling and Error Management**~~
   - *Challenge*: Develop a program that demonstrates proper exception handling techniques to manage errors effectively.
 
 ## Week 2: Template Metaprogramming and STL Algorithms
 
-- **Day 5-6: Template Metaprogramming**
+- ~~**Day 5-6: Template Metaprogramming**~~
   - *Challenge*: Create a template metaprogram that performs compile-time computations or type transformations.
 
-- **Day 7-8: STL Algorithms**
+- ~~**Day 7-8: STL Algorithms**~~
   - *Challenge*: Utilize standard library algorithms (e.g., std::sort, std::find) to solve complex problems efficiently.
 
 ## Week 3: Advanced Data Structures and Algorithms

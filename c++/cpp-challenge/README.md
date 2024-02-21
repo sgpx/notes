@@ -70,8 +70,8 @@
 
 ## Week 3: Advanced Data Structures and Algorithms
 
-- **Day 9-10: Graph Algorithms**
-  - *Challenge*: Implement graph algorithms (e.g., Dijkstra's algorithm, Depth-First Search) to solve graph-related problems.
+- ~~**Day 9-10: Graph Algorithms**~~
+  - ~~*Challenge*: Implement graph algorithms (e.g., Dijkstra's algorithm, Depth-First Search) to solve graph-related problems.~~
 
 - **Day 11-12: Dynamic Programming**
   - *Challenge*: Solve dynamic programming problems (e.g., knapsack problem, longest common subsequence) to optimize solutions.

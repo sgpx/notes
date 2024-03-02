@@ -15,8 +15,8 @@ function e() {
 
 function n() {
 	x=$(ls *.cpp | sort -n | tail -n1)
-	a=$(sed -r "s/a(.+)\.cpp/\1/" <<< "$a")
-	b=a$(printf "%02d" $(expr $a '+' 1)).cpp
+	a=$(sed -r "s/a(.+)\.cpp/\1/" <<< "$x")
+	b=a$(printf "%02d" $(expr "$a" '+' 1)).cpp
 	cp -v $x $b
 	nano $b
 }

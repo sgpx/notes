@@ -55,7 +55,7 @@ x = execute(cmd).get("logStreams")
 print("=======")
 print("streams:")
 print("=======")
-for n,i in enumerate(x):
+for n,i in enumerate(sorted(x, key = lambda x: x.get("creationTime"))):
 	print(n+1,"->", i.get("logStreamName"), "# created at: ", str(datetime.datetime.fromtimestamp(i.get("creationTime")/1000)) )
 print("=======")
 

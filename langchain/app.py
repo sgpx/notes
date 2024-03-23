@@ -13,15 +13,48 @@ from langchain_community.document_loaders.chromium import AsyncChromiumLoader
 from langchain_community.document_transformers.beautiful_soup_transformer import (
     BeautifulSoupTransformer,
 )
-from sys import argv
 import re
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from time import sleep
+import re
 
-
+open("output.txt","w").write("output start here\n\n")
 llm = ChatOpenAI(model_name="gpt-4-vision-preview")
+summary_model_token_limit = 100000
+ff = webdriver.Firefox(keep_alive=False)
+ff.install_addon("./venv/extra/ublock.xpi", temporary=False)
+summary_template = "summarize this text:\n`{mydata}` put all the valid URL links found in the bottom of the text. remove any invalid links or URLs. remove any duplicate URLs or URLs that might be corrupted or contain special characters. if the text is garbage, do not return anything"
+
+summary_prompt_template = PromptTemplate(
+    input_variables=["mydata"], template=summary_template
+)
+summary_llm_chain = LLMChain(
+    llm=ChatOpenAI(model="gpt-3.5-turbo"), prompt=summary_prompt_template
+)
+
+summarize = lambda x: summary_llm_chain.invoke({"mydata": x}).get("text") or ""
+
+
+def count_llm_tokens(text):
+    return len([i for i in text.split(" ") if i])
+
+
+def split_long_text(mytext):
+    words = mytext.split(" ")
+    split_lines = []
+    acc = []
+    for i in words:
+        acc.append(i)
+        if len(acc) == 3000:
+            print(len(acc))
+            split_lines.append(" ".join(acc))
+            acc = []
+    if acc:
+        split_lines.append(" ".join(acc))
+    return split_lines
+
 
 wanted_tags = [
     "p",
@@ -115,18 +148,69 @@ def get_google_search_results(searchTerm):
     args:
         searchTerm - type: str, the search term string
     """
-    ff = webdriver.Firefox(keep_alive=False)
     ff.get("https://www.google.com/")
     textarea = ff.find_element(value="textarea", by=By.CSS_SELECTOR)
     textarea.send_keys(searchTerm)
     textarea.send_keys(Keys.ENTER)
     sleep(2)
+    raw_text = ""
+    for ctag in ["span", "a"]:
+        elem = ff.find_elements(value=ctag, by=By.TAG_NAME)
+        for i in elem:
+            if ctag == "a":
+                link = i.get_attribute("href")
+                if link:
+                    raw_text += link + "\n"
+            raw_text += i.text
+
+    # ff.close()
+    token_count = count_llm_tokens(raw_text)
+    text_list = [raw_text]
+    print("before split the token_count is", token_count)
+    if token_count > summary_model_token_limit:
+        print("splitting text")
+        text_list = split_long_text(raw_text)
+
+    print("summarizing...")
+    rv2 = ""
+    for i in text_list:
+        res2 = summarize(i)
+        rv2 += res2 + "\n"
+    return rv2[0:1000]
+
+
+def visit_web_link(link):
+    """
+    takes a web URL as input and returns all the text contained on the page at that URL. link must be in a valid HTTP URL format
+
+    args:
+        link - type: str, the URL for the page to be visited
+    """
+    crap_domains = ["educba.com", "investors.com"]
+    if any([crap in link.lower() for crap in crap_domains]):
+        return "INVALID LINK"
+    ff.get(link)
+    raw_text = ""
+    for ctag in wanted_tags:
+        print("looking for tag", ctag)
+        elem = ff.find_elements(value=ctag, by=By.TAG_NAME)
+        for i in elem:
+            try:
+                raw_text += i.text
+            except:
+                pass
+    print("splitting..")
+    split_lines = split_long_text(raw_text)
+    print("split ok")
     rv = ""
-    elem = ff.find_elements(value="span", by=By.TAG_NAME)
-    for i in elem:
-        rv += i.text + " "
-    ff.close()
-    return rv[0:1000]
+    llx = len(split_lines)
+    for ctr, i in (split_lines):
+        print("summarizing line..")
+        rv += summarize(i)
+        sleep(2)
+    rv = summarize(rv)
+    print("final summary OK")
+    return rv
 
 
 def google_search_link_getter(searchTerm) -> str:
@@ -140,18 +224,50 @@ def google_search_link_getter(searchTerm) -> str:
     return f"https://www.google.com/search?q={searchTerm}"
 
 
-def run_my_agent(template):
+def ask_chatgpt(question) -> str:
+    """
+    takes a question for chatgpt and returns the answer as a string. only valid for information before 2022
+
+    args:
+        question : str
+    """
+    l2c = LLMChain(
+        llm=ChatOpenAI(model="gpt-3.5-turbo"), prompt=PromptTemplate(template="{input}", input_variables=["input"])
+    )
+    return l2c.invoke({"input": question}).get("text")
+
+def save_text(text):
+    """
+    saves text to hard disk
+
+    args:
+        text - str, text to be saved
+    """
+    open("output.txt","a").write(text)
+
+def run_my_agent(my_prompt):
     my_tools = [
-        Tool(
-            name="wikisearch",
-            func=wikisearch,
-            description="searches wikipedia and returns a multiline string containing all the links found for the searchTerm given",
-        ),
+        # Tool(
+        #     name="wikisearch",
+        #     func=wikisearch,
+        #     description="searches wikipedia and returns a multiline string containing all the links found for the searchTerm given",
+        # ),
         Tool(
             name="get_google_search_results",
             func=get_google_search_results,
             description="takes a search term string as input and returns the output of the google search result for it",
         ),
+        Tool(
+            name="visit_web_link",
+            func=visit_web_link,
+            description="open a web URL (link) and get all the text listed on the page. link must be in a valid HTTP URL format",
+        ),
+        Tool(name="save_text", func=save_text, description="saves input text to hard disk")
+        # Tool(
+        #     name="ask_chatgpt",
+        #     func=ask_chatgpt,
+        #     description="ask a question to chatgpt for any information before 2022. takes a question string as input for chatgpt and returns the answer as a string",
+        # ),
         # Tool(
         #     name="google_search_link_getter",
         #     func=google_search_link_getter,
@@ -171,14 +287,15 @@ def run_my_agent(template):
     react_prompt = hub.pull("hwchase17/react")
     my_agent = create_react_agent(llm=llm, tools=my_tools, prompt=react_prompt)
     aexec = AgentExecutor(agent=my_agent, tools=my_tools, verbose=True)
-    prompt_template = PromptTemplate(
-        input_variables=["entity"],
-        template=template,
-    )
-    result = aexec.invoke(input={"input": prompt_template})
+    result = aexec.invoke(input={"input": my_prompt})
     print(result)
+    ff.close()
 
 
 if __name__ == "__main__":
     print("testing..")
-    run_my_agent(argv[-1])
+    my_prompt = """collect information to write an investment report for tesla motors in 2024"""
+    try:
+        run_my_agent(my_prompt=my_prompt)
+    finally:
+        ff.close()

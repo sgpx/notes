@@ -31,7 +31,7 @@ summary_prompt_template = PromptTemplate(
     input_variables=["mydata"], template=summary_template
 )
 summary_llm_chain = LLMChain(
-    llm=Ollama(model="llama2"), prompt=summary_prompt_template
+    llm=Ollama(model="mistral"), prompt=summary_prompt_template
 )
 
 summarize = lambda x: summary_llm_chain.invoke({"mydata": x}).get("text") or ""

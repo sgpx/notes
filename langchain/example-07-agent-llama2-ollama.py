@@ -21,8 +21,8 @@ from time import sleep
 import re
 
 open("output.txt","w").write("output start here\n\n")
-llm = Ollama(model="mistral")
-summary_model_token_limit = 8000
+llm = Ollama(model="llama2")
+summary_model_token_limit = 100000
 ff = webdriver.Firefox(keep_alive=False)
 ff.install_addon("./venv/extra/ublock.xpi", temporary=False)
 summary_template = "summarize this text:\n`{mydata}` put all the valid URL links found in the bottom of the text. remove any invalid links or URLs. remove any duplicate URLs or URLs that might be corrupted or contain special characters. if the text is garbage, do not return anything"
@@ -189,7 +189,6 @@ def visit_web_link(link):
     crap_domains = ["educba.com", "investors.com"]
     if any([crap in link.lower() for crap in crap_domains]):
         return "INVALID LINK"
-    if link[0] == "<" and link[-1] == ">": link = link[1:-1]
     ff.get(link)
     raw_text = ""
     for ctag in wanted_tags:

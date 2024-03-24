@@ -24,7 +24,7 @@ open("output.txt","w").write("output start here\n\n")
 llm = Ollama(model="llama2")
 summary_model_token_limit = 100000
 ff = webdriver.Firefox(keep_alive=False)
-ff.install_addon("./venv/extra/ublock.xpi", temporary=False)
+ff.install_addon("./ublock.xpi", temporary=False)
 summary_template = "summarize this text:\n`{mydata}` put all the valid URL links found in the bottom of the text. remove any invalid links or URLs. remove any duplicate URLs or URLs that might be corrupted or contain special characters. if the text is garbage, do not return anything"
 
 summary_prompt_template = PromptTemplate(

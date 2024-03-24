@@ -274,7 +274,7 @@ def run_my_agent(my_prompt):
     ]
     react_prompt = hub.pull("hwchase17/react")
     my_agent = create_react_agent(llm=llm, tools=my_tools, prompt=react_prompt)
-    aexec = AgentExecutor(agent=my_agent, tools=my_tools, verbose=True)
+    aexec = AgentExecutor(agent=my_agent, tools=my_tools, verbose=True, handle_parsing_errors=True)
     result = aexec.invoke(input={"input": my_prompt})
     print(result)
     ff.close()

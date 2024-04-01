@@ -17,3 +17,15 @@ print(c)
 print(c[-1])
 print(c[1:3])
 ```
+
+# arange
+
+```
+>>> import numpy as np
+>>> a = np.arange(5)
+>>> a
+array([0, 1, 2, 3, 4])
+>>> a.fill(0)
+>>> a
+array([0, 0, 0, 0, 0])
+```

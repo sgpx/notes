@@ -316,3 +316,9 @@ alter table mytable rename my_column to mycol;
 ```
 select pg_typeof(my_column) from mytable;
 ```
+
+# fix serial issues after db dump load
+
+```
+SELECT setval(pg_get_serial_sequence('mytable', 'id'), coalesce(max(id)+1, 1), false) FROM mytable;
+```

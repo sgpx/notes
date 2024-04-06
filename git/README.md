@@ -1,3 +1,7 @@
+# install git LFS on ubuntu
+
+`sudo apt install -y git-lfs`
+
 # get commit diff
 
 `git diff`

@@ -15,7 +15,7 @@ const generateImage = async (prompt) => {
 };
 
 const main = async () => {
-  console.log(await generateImage("dense rainforest"));
+  console.log(await generateImage("icon for a job posting website called ReferJob.io. the icon should be a simple white solid colosky blue letters R and J arranged creatively on a sky blue background"));
 };
 
 main();

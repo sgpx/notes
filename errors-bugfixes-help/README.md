@@ -1,3 +1,9 @@
+# nginx cannot find files 404
+
+```
+sudo chown -R www-data /var/www/html
+```
+
 # nextjs automatic margin added to body tag
 
 ```

@@ -20,7 +20,6 @@ from selenium.webdriver.common.keys import Keys
 from time import sleep
 import re
 
-open("output.txt","w").write("output start here\n\n")
 llm = ChatOpenAI(model_name="gpt-4-vision-preview")
 summary_model_token_limit = 100000
 ff = webdriver.Firefox(keep_alive=False)

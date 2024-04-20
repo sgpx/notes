@@ -1,10 +1,8 @@
-{
-  "redirects": [
+[
     {
-      "source": "</^[^.]+$|\\.(?!(css|gif|ico|jpg|js|png|txt|svg|woff|ttf)$)([^.]+$)/>",
-      "target": "/index.html",
-      "status": "200",
-      "condition": null
+        "source": "</^[^.]+$|\\.(?!(css|gif|ico|jpg|js|png|txt|svg|woff|ttf)$)([^.]+$)/>",
+        "target": "/index.html",
+        "status": "200",
+        "condition": null
     }
-  ]
-}
+]

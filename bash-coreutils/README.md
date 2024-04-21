@@ -1,3 +1,13 @@
+# print ISO 8601 dates with `date`
+
+```
+$ echo $(date -Iminutes)
+2024-04-21T12:33+00:00
+
+$ echo $(date -Iseconds)
+2024-04-21T12:33:41+00:00
+```
+
 # wildcard for
 
 ```

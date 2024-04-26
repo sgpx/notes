@@ -17,5 +17,4 @@ everything should be installed locally before zipping
 ```
 pip3 install -r requirements.txt -t .
 zip -r ../a.zip .
-
 ```

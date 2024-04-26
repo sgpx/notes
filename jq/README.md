@@ -125,3 +125,14 @@ p3
 $ echo '{"foo bar":"baz"}' | jq '."foo bar"'
 baz
 ```
+
+# contains
+
+```
+#!/bin/bash
+a=$(docker ps -a --format json | jq -r '. | select(.Names | contains("foobar-db-1")) | .Status' | grep -E "^Up")
+
+if [ "$a" = "" ]; then
+        docker start foobar-db-1
+fi
+```

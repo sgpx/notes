@@ -39,3 +39,21 @@ aws ec2 describe-instances --instance-ids i-0123123123213
 ws ec2 describe-instances --instance-id i-0123123123123 | jq '.Reservations[0].Instances[0].State'
 ```
 
+# delete security group
+
+```
+aws ec2 delete-security-group --group-id sg-XXXXXXX
+```
+
+# get all security groups for each instance
+
+
+```
+aws ec2 describe-instances | jq -r '.Reservations[].Instances[] | .InstanceId + " # "  + .SecurityGroups.[].GroupId + " # " + (.Tags.[] | .Value)'
+```
+
+# get security group of an instance
+
+```
+aws ec2 describe-instances --instance-id i-XXXXXX | jq '.Reservations[].Instances[].SecurityGroups'
+```

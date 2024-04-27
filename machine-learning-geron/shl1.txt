@@ -1,0 +1,266 @@
+>>> import pandas as pd
+>>> import matplotlib.pyplot as plt
+>>> import numpy as np
+>>> housing = pd.read_csv("housing.csv")
+>>> housing.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 20640 entries, 0 to 20639
+Data columns (total 10 columns):
+ #   Column              Non-Null Count  Dtype  
+---  ------              --------------  -----  
+ 0   longitude           20640 non-null  float64
+ 1   latitude            20640 non-null  float64
+ 2   housing_median_age  20640 non-null  float64
+ 3   total_rooms         20640 non-null  float64
+ 4   total_bedrooms      20433 non-null  float64
+ 5   population          20640 non-null  float64
+ 6   households          20640 non-null  float64
+ 7   median_income       20640 non-null  float64
+ 8   median_house_value  20640 non-null  float64
+ 9   ocean_proximity     20640 non-null  object 
+dtypes: float64(9), object(1)
+memory usage: 1.6+ MB
+>>> housing["ocean_proximity"].value_counts()
+ocean_proximity
+<1H OCEAN     9136
+INLAND        6551
+NEAR OCEAN    2658
+NEAR BAY      2290
+ISLAND           5
+Name: count, dtype: int64
+>>> housing.describe()
+          longitude      latitude  housing_median_age  ...    households  median_income  median_house_value
+count  20640.000000  20640.000000        20640.000000  ...  20640.000000   20640.000000        20640.000000
+mean    -119.569704     35.631861           28.639486  ...    499.539680       3.870671       206855.816909
+std        2.003532      2.135952           12.585558  ...    382.329753       1.899822       115395.615874
+min     -124.350000     32.540000            1.000000  ...      1.000000       0.499900        14999.000000
+25%     -121.800000     33.930000           18.000000  ...    280.000000       2.563400       119600.000000
+50%     -118.490000     34.260000           29.000000  ...    409.000000       3.534800       179700.000000
+75%     -118.010000     37.710000           37.000000  ...    605.000000       4.743250       264725.000000
+max     -114.310000     41.950000           52.000000  ...   6082.000000      15.000100       500001.000000
+
+[8 rows x 9 columns]
+>>> housing.hist(bins=50, figsize=(12,8))
+array([[<Axes: title={'center': 'longitude'}>,
+        <Axes: title={'center': 'latitude'}>,
+        <Axes: title={'center': 'housing_median_age'}>],
+       [<Axes: title={'center': 'total_rooms'}>,
+        <Axes: title={'center': 'total_bedrooms'}>,
+        <Axes: title={'center': 'population'}>],
+       [<Axes: title={'center': 'households'}>,
+        <Axes: title={'center': 'median_income'}>,
+        <Axes: title={'center': 'median_house_value'}>]], dtype=object)
+>>> plt.show()
+>>> np.random.permutation(len(data))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'data' is not defined
+>>> np.random.permutation(len(housing))
+array([ 9600,  5249,  4830, ..., 19871,  2396, 14193])
+>>> housing.iloc[np.random.permutation(len(housing))]
+       longitude  latitude  housing_median_age  ...  median_income  median_house_value  ocean_proximity
+7429     -118.40     34.16                34.0  ...         4.2989            364700.0        <1H OCEAN
+5414     -122.10     37.66                34.0  ...         4.6875            200600.0         NEAR BAY
+7583     -118.09     33.77                27.0  ...         1.7208             67500.0        <1H OCEAN
+5722     -122.48     37.75                51.0  ...         4.4000            318400.0         NEAR BAY
+532      -118.18     34.04                36.0  ...         1.5500            129000.0        <1H OCEAN
+...          ...       ...                 ...  ...            ...                 ...              ...
+7291     -121.04     37.67                16.0  ...         0.5360            162500.0           INLAND
+11070    -117.95     34.05                34.0  ...         5.8722            204800.0        <1H OCEAN
+7659     -122.35     37.57                52.0  ...        10.4286            500001.0       NEAR OCEAN
+17104    -117.93     33.79                34.0  ...         5.2129            193400.0        <1H OCEAN
+11780    -117.12     32.70                37.0  ...         1.1681             78100.0       NEAR OCEAN
+
+[20640 rows x 10 columns]
+>>> np.int64
+<class 'numpy.int64'>
+>>> np.int64("abbb")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: invalid literal for int() with base 10: 'abbb'
+>>> np.int64(1232112)
+1232112
+>>> from zlib import crc32
+>>> crc32(np.int64(1232112))
+3756694860
+>>> from sklearn.model_selection import train_test_split
+>>> train_test_split(housing, test_size=0.2, random_state=42)
+[       longitude  latitude  housing_median_age  ...  median_income  median_house_value  ocean_proximity
+14196    -117.22     32.75                34.0  ...         4.5878            291000.0       NEAR OCEAN
+8267     -117.03     32.69                10.0  ...         4.6648            156100.0       NEAR OCEAN
+17445    -122.27     37.74                28.0  ...         3.6875            353900.0         NEAR BAY
+14265    -121.82     37.25                25.0  ...         5.1663            241200.0        <1H OCEAN
+2271     -115.98     33.32                 8.0  ...         1.4688             53800.0           INLAND
+...          ...       ...                 ...  ...            ...                 ...              ...
+11284    -122.37     37.94                49.0  ...         1.3167             71600.0         NEAR BAY
+11964    -118.38     33.89                35.0  ...         6.5745            379300.0        <1H OCEAN
+5390     -119.33     36.28                16.0  ...         2.1250            104200.0           INLAND
+860      -117.19     34.08                22.0  ...         2.6536             84700.0           INLAND
+15795    -118.86     34.22                22.0  ...         6.2708            251400.0        <1H OCEAN
+
+[16512 rows x 10 columns],        longitude  latitude  housing_median_age  ...  median_income  median_house_value  ocean_proximity
+20046    -122.38     40.67                10.0  ...         2.2120             65600.0           INLAND
+3024     -118.37     33.83                35.0  ...         4.7308            353400.0        <1H OCEAN
+15663    -117.24     32.72                39.0  ...         7.5925            466700.0       NEAR OCEAN
+20484    -118.44     34.05                18.0  ...         4.4674            500001.0        <1H OCEAN
+9814     -118.44     34.18                33.0  ...         4.3750            286100.0        <1H OCEAN
+...          ...       ...                 ...  ...            ...                 ...              ...
+15362    -121.92     40.52                13.0  ...         2.2993             99500.0           INLAND
+16623    -122.08     37.68                26.0  ...         2.6563            184100.0         NEAR BAY
+18086    -119.00     35.39                42.0  ...         3.7708             79400.0           INLAND
+2144     -117.92     33.63                39.0  ...         7.8496            490800.0        <1H OCEAN
+3665     -118.39     34.02                38.0  ...         3.5909            279400.0        <1H OCEAN
+
+[4128 rows x 10 columns]]
+>>> tr, ts = train_test_split(housing, test_size=0.2, random_state=42)
+>>> tr
+       longitude  latitude  housing_median_age  ...  median_income  median_house_value  ocean_proximity
+14196    -117.22     32.75                34.0  ...         4.5878            291000.0       NEAR OCEAN
+8267     -117.03     32.69                10.0  ...         4.6648            156100.0       NEAR OCEAN
+17445    -122.27     37.74                28.0  ...         3.6875            353900.0         NEAR BAY
+14265    -121.82     37.25                25.0  ...         5.1663            241200.0        <1H OCEAN
+2271     -115.98     33.32                 8.0  ...         1.4688             53800.0           INLAND
+...          ...       ...                 ...  ...            ...                 ...              ...
+11284    -122.37     37.94                49.0  ...         1.3167             71600.0         NEAR BAY
+11964    -118.38     33.89                35.0  ...         6.5745            379300.0        <1H OCEAN
+5390     -119.33     36.28                16.0  ...         2.1250            104200.0           INLAND
+860      -117.19     34.08                22.0  ...         2.6536             84700.0           INLAND
+15795    -118.86     34.22                22.0  ...         6.2708            251400.0        <1H OCEAN
+
+[16512 rows x 10 columns]
+>>> ts
+       longitude  latitude  housing_median_age  ...  median_income  median_house_value  ocean_proximity
+20046    -122.38     40.67                10.0  ...         2.2120             65600.0           INLAND
+3024     -118.37     33.83                35.0  ...         4.7308            353400.0        <1H OCEAN
+15663    -117.24     32.72                39.0  ...         7.5925            466700.0       NEAR OCEAN
+20484    -118.44     34.05                18.0  ...         4.4674            500001.0        <1H OCEAN
+9814     -118.44     34.18                33.0  ...         4.3750            286100.0        <1H OCEAN
+...          ...       ...                 ...  ...            ...                 ...              ...
+15362    -121.92     40.52                13.0  ...         2.2993             99500.0           INLAND
+16623    -122.08     37.68                26.0  ...         2.6563            184100.0         NEAR BAY
+18086    -119.00     35.39                42.0  ...         3.7708             79400.0           INLAND
+2144     -117.92     33.63                39.0  ...         7.8496            490800.0        <1H OCEAN
+3665     -118.39     34.02                38.0  ...         3.5909            279400.0        <1H OCEAN
+
+[4128 rows x 10 columns]
+>>> pd.cut
+<function cut at 0x118178fe0>
+>>> help(pd.cut)
+
+>>> median_income = housing["median_income"]
+>>> pd.cut(median_income, bins=[0,1.5,3.0,4.5,6,np.inf], labels=[1,2,3,4,5])
+0        5
+1        5
+2        5
+3        4
+4        3
+        ..
+20635    2
+20636    2
+20637    2
+20638    2
+20639    2
+Name: median_income, Length: 20640, dtype: category
+Categories (5, int64): [1 < 2 < 3 < 4 < 5]
+>>> pd.cut(median_income, bins=[0,1.5,3.0,4.5,6,np.inf], labels=[1,2,3,4,5])
+0        5
+1        5
+2        5
+3        4
+4        3
+        ..
+20635    2
+20636    2
+20637    2
+20638    2
+20639    2
+Name: median_income, Length: 20640, dtype: category
+Categories (5, int64): [1 < 2 < 3 < 4 < 5]
+>>> pd.cut(np.array[11,12,44,55],bins=[0,10,20])
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'builtin_function_or_method' object is not subscriptable
+>>> pd.cut(np.array([11,12,44,55]),bins=[0,10,20])
+[(10.0, 20.0], (10.0, 20.0], NaN, NaN]
+Categories (2, interval[int64, right]): [(0, 10] < (10, 20]]
+>>> median_income.value_counts()
+median_income
+3.1250     49
+15.0001    49
+2.8750     46
+4.1250     44
+2.6250     44
+           ..
+4.2670      1
+2.1217      1
+4.9706      1
+3.4450      1
+2.0943      1
+Name: count, Length: 12928, dtype: int64
+>>> help(median_income.value_counts)
+
+>>> median_income.value_counts().sort_index()
+median_income
+0.4999     12
+0.5360     10
+0.5495      1
+0.6433      1
+0.6775      1
+           ..
+14.4219     1
+14.5833     1
+14.9009     1
+15.0000     2
+15.0001    49
+Name: count, Length: 12928, dtype: int64
+>>> median_income.value_counts().sort_index().plot.bar(rot=0, grid=True)
+
+<Axes: xlabel='median_income'>
+>>> pd.cut(median_income, bins=[0,1.5,3,np.inf], labels=[1,2,3,4,5]).value_counts().sort_index().plot.bar(rot=0, grid=True)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/root/venv/lib/python3.12/site-packages/pandas/core/reshape/tile.py", line 257, in cut
+    fac, bins = _bins_to_cuts(
+                ^^^^^^^^^^^^^^
+  File "/root/venv/lib/python3.12/site-packages/pandas/core/reshape/tile.py", line 493, in _bins_to_cuts
+    raise ValueError(
+ValueError: Bin labels must be one fewer than the number of bin edges
+>>> pd.cut(median_income, bins=[0,1.5,3,np.inf], labels=[1,2,3,4]).value_counts().sort_index().plot.bar(rot=0, grid=True)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/root/venv/lib/python3.12/site-packages/pandas/core/reshape/tile.py", line 257, in cut
+    fac, bins = _bins_to_cuts(
+                ^^^^^^^^^^^^^^
+  File "/root/venv/lib/python3.12/site-packages/pandas/core/reshape/tile.py", line 493, in _bins_to_cuts
+    raise ValueError(
+ValueError: Bin labels must be one fewer than the number of bin edges
+>>> pd.cut(median_income, bins=[0,1.5,3,np.inf], labels=[1,2,3,4,5,6]).value_counts().sort_index().plot.bar(rot=0, grid=True)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/root/venv/lib/python3.12/site-packages/pandas/core/reshape/tile.py", line 257, in cut
+    fac, bins = _bins_to_cuts(
+                ^^^^^^^^^^^^^^
+  File "/root/venv/lib/python3.12/site-packages/pandas/core/reshape/tile.py", line 493, in _bins_to_cuts
+    raise ValueError(
+ValueError: Bin labels must be one fewer than the number of bin edges
+>>> pd.cut(median_income, bins=[0,1.5,np.inf], labels=[1,2,3,4]).value_counts().sort_index().plot.bar(rot=0, grid=True) 
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/root/venv/lib/python3.12/site-packages/pandas/core/reshape/tile.py", line 257, in cut
+    fac, bins = _bins_to_cuts(
+                ^^^^^^^^^^^^^^
+  File "/root/venv/lib/python3.12/site-packages/pandas/core/reshape/tile.py", line 493, in _bins_to_cuts
+    raise ValueError(
+ValueError: Bin labels must be one fewer than the number of bin edges
+>>> pd.cut(median_income, bins=[0,1.5,np.inf], labels=[1,2]).value_counts().sort_index().plot.bar(rot=0, grid=True) 
+<Axes: xlabel='median_income'>
+>>> plt.show()
+>>> plt.xlabel("Income category")
+Text(0.5, 0, 'Income category')
+>>> plt.ylabel("Number of districts")
+Text(85.06944444444443, 0.5, 'Number of districts')
+>>> plt.show()
+>>> pd.cut(median_income, bins=[0,1.5,np.inf], labels=[1,2]).value_counts().sort_index().plot.bar(rot=0, grid=True)
+<Axes: xlabel='median_income'>
+>>> plt.show()
+>>>

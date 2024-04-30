@@ -12,8 +12,6 @@ training_args = TrainingArguments(
     # per_device_train_batch_size=4,
     # save_steps=10_000,
     # save_total_limit=2,
-    use_mps_device=True,
-    remove_unused_columns=False
 )
 
 dx = Dataset.from_csv("a.csv")

@@ -322,3 +322,11 @@ select pg_typeof(my_column) from mytable;
 ```
 SELECT setval(pg_get_serial_sequence('mytable', 'id'), coalesce(max(id)+1, 1), false) FROM mytable;
 ```
+
+# json query
+
+if foobar_json is {"mydata":1} and type TEXT
+
+```
+select foobar_json::json ->> 'mydata' as mydata from my_requests where xid = '123123';
+```

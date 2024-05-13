@@ -1,0 +1,18 @@
+{
+    "Comment": "Create a new DNS record",
+    "Changes": [
+        {
+            "Action": "UPSERT",
+            "ResourceRecordSet": {
+                "Name": "foo.bar.com",
+                "Type": "A",
+                "TTL": 300,
+                "ResourceRecords": [
+                    {
+                        "Value": "1.2.3.4"
+                    }
+                ]
+            }
+        }
+    ]
+}

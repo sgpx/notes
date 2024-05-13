@@ -19,13 +19,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from time import sleep
 import re
+my_prompt = None
 
-open("output.txt","w").write("output start here\n\n")
 llm = ChatOpenAI(model_name="gpt-4-vision-preview")
 summary_model_token_limit = 100000
 ff = webdriver.Firefox(keep_alive=False)
 ff.install_addon("./ublock.xpi", temporary=False)
-summary_template = "summarize this text:\n`{mydata}` put the summary and all the valid URL links found in the bottom of the text. remove any invalid links or URLs. remove any duplicate URLs or URLs that might be corrupted or contain special characters. if the text is garbage, do not return anything"
+summary_template = "in context of the query {my_prompt}, summarize this text:\n`{mydata}` put the summary and all the valid URL links found in the bottom of the text. remove any invalid links or URLs. remove any duplicate URLs or URLs that might be corrupted or contain special characters. if the text is garbage, do not return anything"
 
 summary_prompt_template = PromptTemplate(
     input_variables=["mydata"], template=summary_template
@@ -286,9 +286,9 @@ def run_my_agent(my_prompt):
     ]
     react_prompt = hub.pull("hwchase17/react")
     my_agent = create_react_agent(llm=llm, tools=my_tools, prompt=react_prompt)
-    aexec = AgentExecutor(agent=my_agent, tools=my_tools, verbose=True)
+    aexec = AgentExecutor(agent=my_agent, tools=my_tools, verbose=False)
     result = aexec.invoke(input={"input": my_prompt})
-    print(result)
+    print(result.get("output"))
 
 
 if __name__ == "__main__":

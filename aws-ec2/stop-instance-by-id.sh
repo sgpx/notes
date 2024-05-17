@@ -7,6 +7,6 @@ st=$(aws ec2 describe-instances --instance-ids $inst | jq '.Reservations[0].Inst
 
 while [ "$st" != "stopped" ]; do
 	echo waiting..
-	st=$(aws ec2 describe-instances --instance-ids $inst | jq '.Reservations[0].Instances[0].State.Name')
+	st=$(aws ec2 describe-instances --instance-ids $inst | jq -r '.Reservations[0].Instances[0].State.Name')
 	sleep 5
 done

@@ -44,3 +44,9 @@ $ pkg-config --cflags cairo-svg
 $ pkg-config --libs cairo-svg
 -lcairo
 ```
+
+## installed `.pc` files location
+
+```bash
+ls /usr/share/pkgconfig/*.pc
+```

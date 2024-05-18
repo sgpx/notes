@@ -4,6 +4,8 @@ clear
 echo enter domain
 read domain
 
+cp -v example.json tmp.json
+
 pushd ~/prog/notes/aws-route53
 bash route53-list-zones.sh
 popd
@@ -19,11 +21,12 @@ echo ip address
 read ip_addr
 
 cd ~
-cp -v prog/notes/aws-route53/example.json ~/a.json
+cp -v prog/notes/aws-route53/example.json ~/tmp.json
 
-sed -i.bak -r "s/foo.bar.com/$domain/g" a.json
-sed -i.bak -r "s/1.2.3.4/$ip_addr/g" a.json
+sed -i.bak -r "s/foo.bar.com/$domain/g" tmp.json
+sed -i.bak -r "s/1.2.3.4/$ip_addr/g" tmp.json
 
-cat a.json
+cat tmp.json
 
-aws route53 change-resource-record-sets --hosted-zone-id $hosted_zone_id --change-batch file://a.json
+aws route53 change-resource-record-sets --hosted-zone-id $hosted_zone_id --change-batch file://tmp.json
+rm tmp.json

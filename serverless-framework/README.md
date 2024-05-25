@@ -1,3 +1,5 @@
+# REMINDER: SERVERLESS FRAMEWORK IS PAID NOW, DO NOT USE
+
 # python3.9 ENOENT error in ubuntu
 
 `sudo apt install -y python3.9`

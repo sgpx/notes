@@ -14,11 +14,12 @@ target_id_1 = "element-id1"
 target_id_2 = "element-id2"
 target_selector = "a#element"
 
-print(i.find_element(By.ID, target_id_1).text)
-print(i.find_element(By.CLASS_NAME, target_class).text)
-print(i.find_element(By.CSS_SELECTOR, target_selector).get_dom_attribute("href"))
-print(i.find_elements(By.CLASS_NAME, target_class))
 
-i.find_element(By.ID, target_id_1).find_element(By.ID, target_id_2)
+print(driver.find_element(By.ID, target_id_1).text)
+print(driver.find_element(By.CLASS_NAME, target_class).text)
+print(driver.find_element(By.CSS_SELECTOR, target_selector).get_dom_attribute("href"))
+print(driver.find_elements(By.CLASS_NAME, target_class))
+
+driver.find_element(By.ID, target_id_1).find_element(By.ID, target_id_2)
 
 

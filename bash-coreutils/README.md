@@ -432,3 +432,9 @@ Under normal circumstances every UNIX program has three streams opened for it wh
 # chown
 
 `sudo chown username /path/to/file`
+
+# du
+
+check filesystem
+
+`du -hT`

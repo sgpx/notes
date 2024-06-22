@@ -1,2 +1,2 @@
 #!/bin/bash
-aws route53domains check-domain-availability --domain-name $1
+AWS_DEFAULT_REGION=us-east-1 aws route53domains check-domain-availability --domain-name $1

@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-import c
 from langchain import hub
 from langchain.chains import LLMChain
-from langchain_openai import ChatOpenAI
+from langchain_community.llms import Ollama
 from langchain_core.prompts import PromptTemplate
 from langchain_core.tools import Tool
 from langchain.agents import create_react_agent, AgentExecutor
@@ -17,23 +16,29 @@ import re
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from time import sleep
+from time import sleep, time
 import re
 
-llm = ChatOpenAI(model_name="gpt-4-vision-preview")
+output_filename = f"output-{int(time())}.txt"
+open(output_filename, "w").write("text dump starts here:\n\n")
+llm = Ollama(model="phi3")
 summary_model_token_limit = 100000
-ff = webdriver.Firefox(keep_alive=False)
-ff.install_addon("./ublock.xpi", temporary=False)
-summary_template = "summarize this text:\n`{mydata}` put the summary and all the valid URL links found in the bottom of the text. remove any invalid links or URLs. remove any duplicate URLs or URLs that might be corrupted or contain special characters. if the text is garbage, do not return anything"
+ff = None
+summary_template = "summarize this text:\n`{mydata}` put all the URL links found in the bottom of the text. if the text is garbage, do not return anything"
 
 summary_prompt_template = PromptTemplate(
     input_variables=["mydata"], template=summary_template
 )
-summary_llm_chain = LLMChain(
-    llm=ChatOpenAI(model="gpt-3.5-turbo"), prompt=summary_prompt_template
-)
+summary_llm_chain = LLMChain(llm=Ollama(model="phi3"), prompt=summary_prompt_template)
 
-summarize = lambda x: summary_llm_chain.invoke({"mydata": x}).get("text") or ""
+
+def summarize(x: str):
+    if not x:
+        return
+    open(output_filename, "a").write("\n\n" + x + "\n\n")
+    rv = summary_llm_chain.invoke({"mydata": x}).get("text") or ""
+    open(output_filename, "a").write("\n\n" + rv + "\n\n")
+    return rv
 
 
 def count_llm_tokens(text):
@@ -71,35 +76,6 @@ wanted_tags = [
 ]
 
 
-def wikisearch(searchTerm: str) -> list:
-    """
-    searches wikipedia and returns a multiline string containing all the links found for the searchTerm given
-
-    args:
-        searchTerm - type: str, the search string
-    """
-    print(searchTerm)
-    searchTerm = quote_plus(searchTerm)
-
-    target_selector = "li.mw-search-result"
-    session = r.Session()
-    wikilink = f"https://en.wikipedia.org/w/index.php?search={searchTerm}&title=Special:Search&profile=advanced&fulltext=1&ns0=1&searchToken=4tay5n1v9mxnayjznc5d060d6"
-    print(wikilink)
-    resp = session.get(wikilink)
-    rv = []
-    if resp.status_code == 200:
-        html = resp.text
-        page = BeautifulSoup(html, features="html.parser")
-        rset = page.select(selector=target_selector)
-        for i in rset:
-            elem = i.select_one("a")
-            link = elem.get("href")
-            if link:
-                rv.append(f"https://en.wikipedia.org/{link}")  # {"link": f})
-    print(rv)
-    return "\n".join(rv)
-
-
 def direct_scraper(link):
     """
     takes a web link as input and returns a string with its contents after opening the page with the requests module in python
@@ -123,41 +99,28 @@ def direct_scraper(link):
     return result
 
 
-def chrome_link_loader(link: str) -> str:
+def get_google_news_results(searchTerm):
     """
-    takes a web link as input and returns a string with its contents as output after opening the page using headless chromium
-
-    args:
-        link - the link to the wikipedia page wanted
-    """
-    loader = AsyncChromiumLoader([link])
-    html = loader.load()
-    bs_transformer = BeautifulSoupTransformer()
-    docs_transformed = bs_transformer.transform_documents(
-        html,
-        tags_to_extract=wanted_tags,
-    )
-    return docs_transformed[0].page_content[0:1000]
-
-
-def get_google_search_results(searchTerm):
-    """
-    takes a search term string as input and returns the output of the google search result for it
+    takes a search term string as input and returns the output of the google news search result for it
 
     args:
         searchTerm - type: str, the search term string
     """
-    ff.get("https://www.google.com/")
-    textarea = ff.find_element(value="textarea", by=By.CSS_SELECTOR)
-    textarea.send_keys(searchTerm)
-    textarea.send_keys(Keys.ENTER)
+    ff.get(google_news_link(searchTerm=searchTerm))
     sleep(2)
     raw_text = ""
     for ctag in ["span", "a"]:
         elem = ff.find_elements(value=ctag, by=By.TAG_NAME)
         for i in elem:
             if ctag == "a":
+                if not i.text:
+                    continue
                 link = i.get_attribute("href")
+                if link and "./articles" in link and link.index("./articles") == 0:
+                    link = link.replace(
+                        "./articles", "https://news.google.com/articles"
+                    )
+                    visit_web_link(link=link)
                 if link:
                     raw_text += link + "\n"
             raw_text += i.text
@@ -169,12 +132,12 @@ def get_google_search_results(searchTerm):
     if token_count > summary_model_token_limit:
         print("splitting text")
         text_list = split_long_text(raw_text)
-
     print("summarizing...")
     rv2 = ""
     for i in text_list:
         res2 = summarize(i)
         rv2 += res2 + "\n"
+    print(rv2)
     return rv2[0:1000]
 
 
@@ -185,8 +148,8 @@ def visit_web_link(link):
     args:
         link - type: str, the URL for the page to be visited
     """
-    crap_domains = ["educba.com", "investors.com"]
-    if any([crap in link.lower() for crap in crap_domains]):
+    blocked_domains = ["educba.com", "investors.com"]
+    if any([bad_domain in link.lower() for bad_domain in blocked_domains]):
         return "INVALID LINK"
     ff.get(link)
     raw_text = ""
@@ -208,8 +171,20 @@ def visit_web_link(link):
         rv += summarize(i)
         sleep(2)
     rv = summarize(rv)
+    print(rv)
     print("final summary OK")
     return rv
+
+
+def google_news_link(searchTerm) -> str:
+    """
+    takes a search term as input and returns the google news URL for that as output
+
+    args:
+        searchTerm - type: str
+    """
+    searchTerm = quote_plus(searchTerm)
+    return f"https://news.google.com/search?q={searchTerm}&hl=en-IN&gl=IN&ceid=IN%3Aen"
 
 
 def google_search_link_getter(searchTerm) -> str:
@@ -223,18 +198,6 @@ def google_search_link_getter(searchTerm) -> str:
     return f"https://www.google.com/search?q={searchTerm}"
 
 
-def ask_chatgpt(question) -> str:
-    """
-    takes a question for chatgpt and returns the answer as a string. only valid for information before 2022
-
-    args:
-        question : str
-    """
-    l2c = LLMChain(
-        llm=ChatOpenAI(model="gpt-3.5-turbo"), prompt=PromptTemplate(template="{input}", input_variables=["input"])
-    )
-    return l2c.invoke({"input": question}).get("text")
-
 def save_text(text):
     """
     saves text to hard disk
@@ -242,41 +205,21 @@ def save_text(text):
     args:
         text - str, text to be saved
     """
-    open("output.txt","a").write(text)
+    open(output_filename, "a").write(text+"\n\n")
 
-def run_my_agent(my_prompt):
+
+def run_agent(agent_prompt):
     my_tools = [
-        # Tool(
-        #     name="wikisearch",
-        #     func=wikisearch,
-        #     description="searches wikipedia and returns a multiline string containing all the links found for the searchTerm given",
-        # ),
         Tool(
-            name="get_google_search_results",
-            func=get_google_search_results,
-            description="takes a search term string as input and returns the output of the google search result for it",
+            name="get_google_news_results",
+            func=get_google_news_results,
+            description="takes a search term string as input and returns the output of the google news search result for it",
         ),
         Tool(
             name="visit_web_link",
             func=visit_web_link,
             description="open a web URL (link) and get all the text listed on the page. link must be in a valid HTTP URL format",
         ),
-        # Tool(name="save_text", func=save_text, description="saves input text to hard disk")
-        # Tool(
-        #     name="ask_chatgpt",
-        #     func=ask_chatgpt,
-        #     description="ask a question to chatgpt for any information before 2022. takes a question string as input for chatgpt and returns the answer as a string",
-        # ),
-        # Tool(
-        #     name="google_search_link_getter",
-        #     func=google_search_link_getter,
-        #     description="takes a search term as input and returns the google search URL for that as output",
-        # ),
-        # Tool(
-        #     name="chrome_link_loader",
-        #     func=chrome_link_loader,
-        #     description="takes a web link as input and returns a string with its contents as output after opening the page in chrome using playwright",
-        # ),
         # Tool(
         #     name="direct_scraper",
         #     func=direct_scraper,
@@ -286,15 +229,15 @@ def run_my_agent(my_prompt):
     react_prompt = hub.pull("hwchase17/react")
     my_agent = create_react_agent(llm=llm, tools=my_tools, prompt=react_prompt)
     aexec = AgentExecutor(agent=my_agent, tools=my_tools, verbose=True)
-    result = aexec.invoke(input={"input": my_prompt})
+    result = aexec.invoke(input={"input": agent_prompt})
     print(result)
 
 
 if __name__ == "__main__":
     print("testing..")
-    from sys import argv
     try:
-        my_prompt = argv[-1]
-        run_my_agent(my_prompt=my_prompt)
+        ff = webdriver.Firefox(keep_alive=False)
+        ff.install_addon("./ublock.xpi", temporary=False)
+        run_agent(agent_prompt="find as many articles about financial frauds in india as possible")
     finally:
         ff.close()

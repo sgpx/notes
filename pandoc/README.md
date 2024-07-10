@@ -12,3 +12,10 @@ for i in {0..99}; do pandoc --from gfm --to html --standalone --metadata title="
 ```
 pandoc --from gfm --to docx --standalone --metadata title="Report" s1.md -o s.docx
 ```
+
+# install pdflatex
+
+```
+apt install -y texlive
+pandoc --from gfm --to pdf -o out.pdf *.md
+```

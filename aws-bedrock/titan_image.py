@@ -2,7 +2,6 @@ import boto3
 import json
 from base64 import b64decode
 from uuid import uuid4
-from config import *
 
 def create_titan_image_prompt(text):
     pbody = {
@@ -42,4 +41,5 @@ def generate_images(text: str):
     return imagepaths
 
 if __name__ == "__main__":
-    generate_images("surreal dreamscape")
+    import sys
+    generate_images(sys.argv[-1])

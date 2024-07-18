@@ -330,3 +330,21 @@ if foobar_json is {"mydata":1} and type TEXT
 ```
 select foobar_json::json ->> 'mydata' as mydata from my_requests where xid = '123123';
 ```
+
+# create type
+
+```
+create type jstatus as enum('pending','processing','completed','error');
+```
+
+# return values
+
+```
+insert into mytable(x) values(1) returning y;
+```
+
+# handle conflicts
+
+```
+insert into mytable(x) values(1) on conflict(x) do nothing;
+```

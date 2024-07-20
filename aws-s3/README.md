@@ -84,3 +84,17 @@ https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getObject-proper
 https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property
 
 https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#listObjects-property
+
+# read HTML files from a public
+
+files go into download mode in a browser because the Content-Type is not set therefore the server passes binary/octet-stream as the MIME type of the downloaded link
+
+use this to avoid
+
+```
+def copy_to_s3(file_path, s3_object_key):
+    s3_client = boto3.client("s3")
+    res = s3_client.upload_file(file_path, bucket_name, s3_object_key, ExtraArgs={"ContentType":"text/html"})
+```
+
+AWS CLI (probably) does this automatically

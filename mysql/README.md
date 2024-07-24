@@ -1,3 +1,7 @@
+# run container
+
+`sudo docker run --name mysql1 -e MYSQL_ROOT_PASSWORD=okokokokokok -it -d -p 9090:3306 mysql bash`
+
 # dump tables to files for backup
 
 ```
@@ -73,3 +77,4 @@ delete from mytable;
 use mydb;
 drop table mytable;
 ```
+

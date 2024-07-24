@@ -4,10 +4,11 @@ import json
 
 def converse(messages=[]):
     client = boto3.client("bedrock-runtime", region_name="us-east-1")
-    model_id = "anthropic.claude-3-sonnet-20240229-v1:0"
+    #model_id = "anthropic.claude-3-sonnet-20240229-v1:0"
+    model_id="anthropic.claude-3-5-sonnet-20240620-v1:0"
     prompt_body = json.dumps(
         {
-            "system": "You are a Python code generator bot",
+            #  "system": "You are a Python code generator bot",
             "messages": messages,
             "max_tokens": 4096,
             "anthropic_version": "bedrock-2023-05-31",
@@ -29,4 +30,4 @@ while True:
     gms.append({"role":"user","content": x})
     resp = converse(messages=gms)
     print(resp)
-    gms.append({"role":"user","content": resp})
+    gms.append({"role":"assistant","content": resp})

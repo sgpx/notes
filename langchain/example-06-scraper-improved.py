@@ -21,11 +21,11 @@ from time import sleep
 import re
 
 open("output.txt","w").write("output start here\n\n")
-llm = ChatOpenAI(model_name="gpt-4-vision-preview")
+llm = ChatOpenAI(model_name="gpt-4o")
 summary_model_token_limit = 100000
 ff = webdriver.Firefox(keep_alive=False)
 ff.install_addon("./ublock.xpi", temporary=False)
-summary_template = "summarize this text:\n`{mydata}` put all the valid URL links found in the bottom of the text. remove any invalid links or URLs. remove any duplicate URLs or URLs that might be corrupted or contain special characters. if the text is garbage, do not return anything"
+summary_template = "summarize this text:\n`{mydata}` put all the valid URL links found in the bottom of the text. remove any unusable text."
 
 summary_prompt_template = PromptTemplate(
     input_variables=["mydata"], template=summary_template
@@ -287,7 +287,7 @@ def run_my_agent(my_prompt):
     react_prompt = hub.pull("hwchase17/react")
     my_agent = create_react_agent(llm=llm, tools=my_tools, prompt=react_prompt)
     aexec = AgentExecutor(agent=my_agent, tools=my_tools, verbose=True)
-    result = aexec.invoke(input={"input": my_prompt})
+    result = aexec.invoke(input={"input": my_prompt}, handle_parsing_errors=True)
     print(result)
     ff.close()
 

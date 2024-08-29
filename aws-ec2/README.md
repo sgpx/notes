@@ -57,3 +57,13 @@ aws ec2 describe-instances | jq -r '.Reservations[].Instances[] | .InstanceId + 
 ```
 aws ec2 describe-instances --instance-id i-XXXXXX | jq '.Reservations[].Instances[].SecurityGroups'
 ```
+
+# query syntax
+
+```
+aws ec2 describe-instances --query "Reservations[*].Instances[*].{Id: InstanceId, Name: Tags[0].Value, IP: PublicIpAddress}"
+```
+
+# add tags to instance
+
+`aws ec2 create-tags --resources i-0b0123123123123 --tags "Key='Name',Value='slamtest2'"`

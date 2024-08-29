@@ -22,3 +22,14 @@ https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters.html#model
 # boto3 invoke model docs
 
 https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-runtime/client/invoke_model.html
+
+# mistral large
+
+mistral is a text completion model, not a chat model
+
+as such it will still need formatting in a manual Q-A format
+
+```
+Question:
+Answer:
+```

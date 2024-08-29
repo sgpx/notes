@@ -8,8 +8,7 @@ vpc_id=$(bash instance-get-vpc.sh "$instance_id")
 echo enter port number
 read port_number
 
-ts=$(date +%s)
-group_name="testgrp_$ts_$port_number"
+group_name="testgrp_$(date +%s)_${port_number}"
 group_desc="$group_name_port_$port_number"
 
 echo making group $group_name

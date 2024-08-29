@@ -1,5 +1,13 @@
 # docker
 
+# prune
+
+`docker system prune -a`
+
+# increase size of virtual disk (macOS)
+
+settings > resources
+
 # build from dockerfile
 
 ```

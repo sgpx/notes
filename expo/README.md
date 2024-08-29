@@ -8,6 +8,11 @@ npx create-expo-app new-sdk-47-app --template expo-template-blank@sdk-47
 
 ## eject for specific platform
 
+`npx expo prebuild --platform android`
+
+
+old : 
+
 `expo eject --platform android`
 
 `expo eject --platform ios`

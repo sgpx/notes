@@ -348,3 +348,18 @@ insert into mytable(x) values(1) returning y;
 ```
 insert into mytable(x) values(1) on conflict(x) do nothing;
 ```
+
+# get connections by database
+
+```
+SELECT datname, COUNT(*) AS total_connections
+FROM pg_stat_activity
+GROUP BY datname
+```
+
+# set max_connections
+
+```
+alter system set max_connections = 1000 ;
+show max_connections ;
+```

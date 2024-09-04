@@ -363,3 +363,8 @@ GROUP BY datname
 alter system set max_connections = 1000 ;
 show max_connections ;
 ```
+
+# revoke privileges
+
+ REVOKE ALL PRIVILEGES ON DATABASE foo_db FROM foo_user;
+

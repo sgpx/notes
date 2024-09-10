@@ -39,3 +39,13 @@ su -c 'cd /home/apacheuser && APACHE_RUN_DIR="$PWD/apache-run-dir/" APACHE_RUN_U
 sudo echo "LimitRequestBody 99999999" >> /etc/apache2/apache2.conf
 sudo systemctl restart apache2
 ```
+
+# enable site
+
+```
+cp foo.conf /etc/apache2/sites-available/foo.conf
+sudo a2ensite foo.conf
+sudo a2dissite 000-default
+sudo apachectl configtest
+sudo systemctl restart apache2
+```

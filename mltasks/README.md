@@ -1,0 +1,2 @@
+- r2 score is not applicable for binary classification tasks
+- simple imputer should be applied before standard scaler

@@ -19,3 +19,9 @@
 # list servers
 
 `tigervncserver -list`
+
+# generate passwd file
+
+`vncpasswd -f <<< "lol" > a.txt`
+
+`echo 123 | vncpasswd -f > a.txt`

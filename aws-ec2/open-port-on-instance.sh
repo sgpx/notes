@@ -4,7 +4,8 @@ bash get-instance-vpcs.sh
 
 echo "enter instance id"
 read instance_id
-vpc_id=$(bash instance-get-vpc.sh "$instance_id")
+vpc_id=$(bash instance-get-vpc.sh "$instance_id" | sed -r "s/^.+#(.+)$/\1/")
+echo $vpc_id
 echo enter port number
 read port_number
 

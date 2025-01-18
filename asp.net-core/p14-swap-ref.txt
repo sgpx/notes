@@ -1,0 +1,27 @@
+﻿using System;
+
+namespace lel
+{
+
+
+    public class Foo
+    {
+        public static void Swap<T>(ref T a, ref T b)
+        {
+            T temp = a;
+            a = b;
+            b = temp;
+        }
+        public static void Main(string[] args)
+        {
+            int a = 1;
+            int b = 2;
+
+            Console.WriteLine($"{a} - {b}");
+
+            Swap(ref a, ref b);
+            Console.WriteLine($"{a} - {b}");
+
+        }
+    }
+}

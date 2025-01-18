@@ -1,0 +1,15 @@
+﻿class Foo
+{
+    public static void Main(String[] args)
+    {
+        try
+        {
+            string s = Console.ReadLine() ?? "";
+            int a = int.Parse(s);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Found Error:\n" + e.ToString());
+        }
+    }
+}

@@ -1,0 +1,14 @@
+﻿class Foo
+{
+    public static async Task<string> something()
+    {
+        await Task.Delay(1000);
+        return "foo";
+    }
+    public static async Task Main(String[] args)
+    {
+        string foo = await something();
+        Console.WriteLine(foo);
+    }
+    
+}

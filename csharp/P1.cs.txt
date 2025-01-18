@@ -1,0 +1,9 @@
+﻿using System;
+
+namespace HelloApp {
+    class HelloApp {
+        static void Main(string[] args) {
+            Console.WriteLine("ok123");
+        }
+    }
+}

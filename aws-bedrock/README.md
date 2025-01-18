@@ -33,3 +33,17 @@ as such it will still need formatting in a manual Q-A format
 Question:
 Answer:
 ```
+
+# view inference profiles
+
+https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html
+
+```
+aws bedrock list-inference-profiles
+```
+
+substitute the `inferenceProfileId` in the `modelId` for bedrock scripts
+
+```
+"inferenceProfileArn": "arn:aws:bedrock:ap-south-1:${ACCOUNT_ID}:inference-profile/apac.anthropic.claude-3-5-sonnet-20240620-v1:0",
+```

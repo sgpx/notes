@@ -1,0 +1,25 @@
+﻿using System;
+
+namespace Hello
+{
+    public class Car {
+        public string make;
+        public int year;
+
+        public Car(string make, int year) {
+            this.make = make;
+            this.year = year;
+        }
+    }
+    
+    class HelloApp
+    {
+
+        static void Main(string[] args)
+        {
+            Car c1 = new Car("foo", 1);
+            Console.WriteLine(c1.make);
+            Console.WriteLine(c1.year.ToString());
+        }
+    }
+}

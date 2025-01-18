@@ -1,0 +1,13 @@
+@page
+@model GreetingModel
+@{
+    ViewData["Title"] = "Greeting Page";
+    ViewData["Price"] = 1;
+    ViewData["XName"] = "zz";
+    ViewData["Id"] = 2;
+}
+
+<h1>@ViewData["Title"]</h1>
+<h1>@ViewData["Id"]</h1>
+<h1>@ViewData["XName"]</h1>
+<p>Hello, welcome to the ASP.NET Core application!</p>

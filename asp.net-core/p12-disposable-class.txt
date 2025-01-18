@@ -1,0 +1,20 @@
+﻿using System;
+
+namespace lel
+{
+    public class Xyz : IDisposable
+    {
+        public void Dispose() { }
+
+    }
+
+    public class Foo
+    {
+
+        public static void Main(string[] args)
+        {
+            Xyz xyz = new Xyz();
+            xyz.Dispose();
+        }
+    }
+}

@@ -1,0 +1,16 @@
+﻿using System;
+
+namespace Hello
+{
+    class HelloApp
+    {
+        static void Main(string[] args)
+        {
+            int i = 2;
+            while(i < 22) {
+                Console.WriteLine(i.ToString());
+                i += 2;
+            }
+        }
+    }
+}

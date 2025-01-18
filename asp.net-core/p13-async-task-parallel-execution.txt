@@ -1,0 +1,28 @@
+﻿using System;
+
+namespace lel
+{
+
+
+    public class Foo
+    {
+        static async Task<String> Method1() {
+            Console.WriteLine("M1 Start");
+            await Task.Delay(100);
+            return "M1 Complete";
+        }
+
+        static async Task<String> Method2() {
+            Console.WriteLine("M2 Start");
+            await Task.Delay(100);
+            return "M2 Complete";
+        }
+        public static async Task Main(string[] args)
+        {
+            Task t1 = Method1();
+            Task t2 = Method2();
+
+            await Task.WhenAll(t1, t2);
+        }
+    }
+}

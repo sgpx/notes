@@ -1,0 +1,8 @@
+{
+  "name": "GreetingTest",
+  "desc": "ASP.NET core app",
+  "apikey": "/Users/sp/oaikey.txt",
+  "ext": "cs,cshtml",
+  "folder": "Pages",
+  "additional": []
+}

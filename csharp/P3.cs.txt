@@ -1,0 +1,16 @@
+﻿using System;
+
+namespace Hello
+{
+    class HelloApp
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("enter your name");
+            string name = Console.ReadLine();
+            Console.WriteLine("enter your age");
+            int x = int.Parse(Console.ReadLine());
+            Console.WriteLine(name + " " + x.ToString());
+        }
+    }
+}

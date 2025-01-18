@@ -2,7 +2,7 @@ from openai import OpenAI
 from os import getenv
 
 
-def get_model_response(prompt, answer_only=True, model="gpt-3.5-turbo"):
+def invoke(prompt, model="gpt-4o", temperature=0):
     if not getenv("OPENAI_API_KEY"):
         raise Exception("openai api key not found")
     client = OpenAI()
@@ -14,8 +14,17 @@ def get_model_response(prompt, answer_only=True, model="gpt-3.5-turbo"):
                 "content": prompt,
             },
         ],
-        temperature=0,
+        temperature=temperature,
     )
-    if answer_only:
-        return completion.choices[0].message.content
-    return {"prompt": prompt, "answer": completion.choices[0].message.content}
+    return completion.choices[0].message.content
+
+def converse(messages=[], model="gpt-4o", temperature=0):
+    if not getenv("OPENAI_API_KEY"):
+        raise Exception("openai api key not found")
+    client = OpenAI()
+    completion = client.chat.completions.create(
+        model=model,
+        messages=messages,
+        temperature=temperature,
+    )
+    return completion.choices[0].message.content

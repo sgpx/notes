@@ -26,4 +26,4 @@ cleanup swp
 cleanup vscode
 cleanup pdf
 cleanup epub
-
+cleanup .env

@@ -1,3 +1,7 @@
+# bsd find -iregex use
+
+find -E . -type d -maxdepth 1 -iregex "\.\/.{32}" -exec rm -rfv "{}" \;
+
 # print ISO 8601 dates with `date`
 
 ```

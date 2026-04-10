@@ -1,0 +1,79 @@
+Sure! Here's a simple and visual explanation:
+
+---
+
+### What is `tensor.requires_grad_()`?
+
+- It **makes** a tensor "track" its data **for gradients** (used in training neural networks).
+- When **requires_grad** is **True**, PyTorch remembers all operations on that tensor.
+- Useful for **automatic differentiation** (computing gradients).
+
+---
+
+### `requires_grad_()` is a **method**:
+- It **changes** the tensor in-place.
+- Instead of creating a new tensor, it updates the existing one.
+
+---
+
+### Quick Examples:
+
+```python
+import torch
+
+# Example 1: Create tensor without gradient tracking
+x = torch.tensor([1.0, 2.0, 3.0])
+print(x.requires_grad)  # False
+
+# Enable gradient tracking
+x.requires_grad_()
+print(x.requires_grad)  # True
+
+# Now, gradients can be computed
+y = x * 2
+print(y.requires_grad)  # True
+```
+
+---
+
+### More Examples:
+
+```python
+import torch
+
+# Start with tensor without gradient
+a = torch.tensor([4.0, 5.0])
+print(a.requires_grad)  # False
+
+# Turn on gradient tracking in-place
+a.requires_grad_()
+print(a.requires_grad)  # True
+
+# Do some operation
+b = a + 10
+b.requires_grad_()
+print(b.requires_grad)  # True
+```
+
+---
+
+### Why use `requires_grad_()`?
+
+- To **add** gradient tracking **after** creating the tensor.
+- Example: If you forgot to set `requires_grad=True` at first.
+
+---
+
+### Quick tip:
+- **In-place**: It **changes** the tensor directly.
+- Use with care when you don’t want to lose data.
+
+---
+
+### Summary:
+- `tensor.requires_grad_()` --> turns on **gradient tracking** in-place.
+- Use it when you need gradients **after creation**.
+
+---
+
+Hope this helps! 😊

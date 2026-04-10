@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OpenAI Realtime API (Vanilla JS) v3</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        background-color: skyblue;
+      }
+      #controls button {
+        padding: 10px 15px;
+        margin: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        border: none;
+        color: white;
+      }
+      #startButton {
+        background-color: #28a745;
+      }
+      #stopButton {
+        background-color: #dc3545;
+      }
+      #controls button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
+      #status {
+        margin-top: 15px;
+        font-size: 1.1em;
+        font-weight: bold;
+        min-height: 1.5em; /* Prevent layout shifts */
+      }
+      #botText {
+        margin-top: 15px;
+        padding: 15px;
+        border: 1px solid #cccccc;
+        background-color: #ffffff;
+        min-height: 100px;
+        width: 80%;
+        max-width: 600px;
+        border-radius: 5px;
+        white-space: pre-wrap; /* Preserve line breaks */
+      }
+      .error {
+        color: #dc3545;
+      }
+      .connecting {
+        color: #ffc107;
+      }
+      .connected {
+        color: #28a745;
+      }
+      .closed {
+        color: #6c757d;
+      }
+      body {
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>OpenAI Realtime API Demo v3</h1>
+
+    <div id="controls">
+      <button id="startButton">Start Interview</button>
+      <button id="stopButton" disabled>End Interview</button>
+    </div>
+
+    <div id="status">Idle</div>
+    <div id="botText">AI response will appear here...</div>
+
+    <audio id="aiAudio" playsinline style="display: none"></audio>
+
+    <script>
+      // --- Configuration ---
+      // IMPORTANT: Replace with the ACTUAL URL of YOUR backend endpoint that provides the ephemeral token
+      const TOKEN_ENDPOINT_URL = "http://localhost:3001/rtapi/session";
+      // You can change the model if needed and if you have access
+      const OPENAI_REALTIME_MODEL = "gpt-4o-realtime-preview-2024-12-17";
+      const OPENAI_REALTIME_URL = `https://api.openai.com/v1/realtime?model=${OPENAI_REALTIME_MODEL}`;
+
+      // --- DOM Elements ---
+      const startButton = document.getElementById("startButton");
+      const stopButton = document.getElementById("stopButton");
+      const statusElement = document.getElementById("status");
+      const botTextElement = document.getElementById("botText");
+      const aiAudioElement = document.getElementById("aiAudio");
+
+      // --- State Variables ---
+      let peerConnection = null; // RTCPeerConnection instance
+      let dataChannel = null; // RTCDataChannel instance
+      let localStream = null; // User's microphone audio stream
+
+      // --- UI Update Functions ---
+      function setStatus(text, type = "") {
+        statusElement.textContent = text;
+        statusElement.className = type; // Sets class like 'error', 'connected' etc.
+        console.log("Status:", text);
+      }
+
+      function setBotText(text) {
+        botTextElement.textContent = text;
+        console.log("Bot Text:", text);
+      }
+
+      function updateButtonStates(isConnectingOrConnected) {
+        startButton.disabled = isConnectingOrConnected;
+        stopButton.disabled = !isConnectingOrConnected;
+      }
+
+      // --- Core Logic ---
+
+      // 1. Fetch Ephemeral Token from YOUR backend
+      async function fetchEphemeralToken() {
+        setStatus("Fetching authorization token...", "connecting");
+        try {
+          // IMPORTANT: This fetch call assumes your backend endpoint uses GET
+          // and might require an Authorization header with your app's login token.
+          // Adjust method and headers as needed for YOUR backend.
+          const response = await fetch(TOKEN_ENDPOINT_URL, {
+            method: "GET", // Or "POST", etc.
+            headers: {
+              // Example: Include your app's auth token if your backend requires it
+              // 'Authorization': `Bearer ${localStorage.getItem('your_app_token')}`
+            },
+          });
+
+          if (!response.ok) {
+            let errorMsg = `Token fetch failed: ${response.status}`;
+            try {
+              const errorData = await response.json();
+              errorMsg += ` - ${JSON.stringify(errorData)}`;
+            } catch (e) {
+              /* Ignore if response is not JSON */
+            }
+            throw new Error(errorMsg);
+          }
+
+          const data = await response.json();
+          if (!data.client_secret?.value) {
+            throw new Error(
+              "Ephemeral token (client_secret.value) not found in backend response."
+            );
+          }
+          console.log("Ephemeral token received successfully.");
+          setStatus("Authorization successful.", "connecting");
+          return data.client_secret.value;
+        } catch (error) {
+          console.error("Error fetching ephemeral token:", error);
+          setStatus(`Error fetching token: ${error.message}`, "error");
+          throw error; // Re-throw to stop the connection process
+        }
+      }
+
+      // 2. Get Microphone Permissions and Stream
+      async function getMediaPermissions() {
+        setStatus("Requesting microphone permission...", "connecting");
+        try {
+          // Request audio only for simplicity
+          localStream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+            video: false,
+          });
+          console.log("Microphone permission granted.");
+          setStatus("Microphone access granted.", "connecting");
+        } catch (error) {
+          console.error("Error getting media permissions:", error);
+          setStatus(`Microphone access denied: ${error.message}`, "error");
+          throw error; // Stop the process
+        }
+      }
+
+      // 3. Start the WebRTC Connection
+      async function startConnection() {
+        if (peerConnection) {
+          console.warn("Connection already exists.");
+          return;
+        }
+
+        updateButtonStates(true); // Disable start, enable stop
+        setStatus("Starting connection...", "connecting");
+        setBotText("Connecting to AI..."); // Clear previous bot text
+
+        try {
+          // Get permissions first
+          await getMediaPermissions();
+
+          // Then get the token
+          const ephemeralKey = await fetchEphemeralToken();
+
+          // --- Create Peer Connection ---
+          peerConnection = new RTCPeerConnection();
+          console.log("RTCPeerConnection created.");
+
+          // --- Handle Connection State Changes ---
+          peerConnection.onconnectionstatechange = () => {
+            const state = peerConnection.connectionState;
+            console.log("Connection State Changed:", state);
+            switch (state) {
+              case "connected":
+                setStatus("Connected", "connected");
+                setBotText("Connection successful. You can start speaking.");
+                break;
+              case "failed":
+                setStatus("Connection failed", "error");
+                closeConnection(); // Clean up on failure
+                break;
+              case "disconnected":
+                setStatus("Disconnected", "closed");
+                // Don't close immediately, might reconnect
+                break;
+              case "closed":
+                setStatus("Connection closed", "closed");
+                // Ensure cleanup is called if not already
+                if (peerConnection) closeConnection();
+                break;
+              default:
+                setStatus(`Connecting... (${state})`, "connecting");
+                break;
+            }
+          };
+
+          // --- Handle Incoming AI Audio Track ---
+          peerConnection.ontrack = (event) => {
+            console.log("Track received:", event.track.kind);
+            if (event.track.kind === "audio" && aiAudioElement) {
+              aiAudioElement.srcObject = event.streams[0];
+              aiAudioElement.play().catch((err) => {
+                console.warn("AI audio autoplay failed:", err);
+                // Might need user interaction to start if autoplay is blocked
+                setStatus(
+                  "Connected (Click page to enable audio if needed)",
+                  "connected"
+                );
+              });
+            }
+          };
+
+          // --- Add Local Microphone Track ---
+          if (localStream) {
+            localStream.getTracks().forEach((track) => {
+              console.log("Adding local audio track.");
+              peerConnection.addTrack(track, localStream);
+            });
+          } else {
+            throw new Error("Local media stream not available to add track.");
+          }
+
+          // --- Setup Data Channel ---
+          dataChannel = peerConnection.createDataChannel("oai-events", {
+            ordered: true,
+          });
+          console.log("Data channel created: oai-events");
+
+          dataChannel.onopen = () => console.log("Data channel opened.");
+          dataChannel.onclose = () => console.log("Data channel closed.");
+          dataChannel.onerror = (err) =>
+            console.error("Data channel error:", err);
+
+          // --- Handle Incoming Data Channel Messages (AI Text) ---
+          let accumulatedText = "";
+
+          // Optionally track current output item and content index if you want to support multiple items
+          let currentItemId = null;
+          let currentOutputIndex = null;
+          let currentContentIndex = null;
+
+          dataChannel.onmessage = (event) => {
+            try {
+              const data = JSON.parse(event.data);
+              console.log("Data Channel Message Received:", data);
+
+              switch (data.type) {
+                case "response.output_text.delta":
+                  // Append incremental text delta
+                  accumulatedText += data.delta;
+                  setBotText(accumulatedText);
+                  break;
+
+                case "response.output_text.done":
+                  // Finalize the text content for this content part
+                  // You can optionally replace accumulatedText with data.text if you want
+                  // but usually accumulatedText should already have the full text
+                  setBotText(accumulatedText);
+                  break;
+
+                case "response.output_item.added":
+                  // New output item started, reset accumulated text if you want
+                  accumulatedText = "";
+                  setBotText(accumulatedText);
+                  break;
+
+                case "response.output_item.done":
+                  // Output item completed, you could finalize or do something here
+                  // For now, just log it
+                  console.log(
+                    "Output item done:",
+                    data.output_index,
+                    data.item
+                  );
+                  break;
+
+                case "response.incomplete":
+                  // Handle incomplete response if needed
+                  console.warn(
+                    "Response incomplete:",
+                    data.response.incomplete_details
+                  );
+                  break;
+
+                case "response.refusal.delta":
+                  // Partial refusal text, append or show as needed
+                  accumulatedText += data.delta;
+                  setBotText(accumulatedText);
+                  break;
+
+                case "response.refusal.done":
+                  // Refusal text finalized
+                  setBotText(accumulatedText);
+                  break;
+
+                case "response.audio_transcript.delta":
+                  // If you want to show audio transcript text, handle here
+                  // For now, just log
+                  console.log("Audio transcript delta:", data.delta);
+                  break;
+
+                case "response.audio_transcript.done":
+                  // Audio transcript finalized
+                  console.log("Audio transcript done:", data.transcript);
+                  break;
+
+                default:
+                  // Unknown or unhandled event type
+                  console.log("Unhandled event type:", data.type);
+                  break;
+              }
+            } catch (e) {
+              console.error(
+                "Failed to parse data channel message:",
+                event.data,
+                e
+              );
+            }
+          };
+          // --- SDP Offer/Answer Exchange ---
+          console.log("Creating SDP offer...");
+          const offer = await peerConnection.createOffer();
+          await peerConnection.setLocalDescription(offer);
+          console.log("Local description (offer) set.");
+
+          console.log("Sending SDP offer to OpenAI...");
+          const sdpResponse = await fetch(OPENAI_REALTIME_URL, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${ephemeralKey}`,
+              "Content-Type": "application/sdp",
+            },
+            body: offer.sdp,
+          });
+
+          if (!sdpResponse.ok) {
+            const errorText = await sdpResponse.text();
+            console.error("SDP Response Error Text:", errorText);
+            throw new Error(
+              `SDP exchange failed: ${sdpResponse.status} ${sdpResponse.statusText} - ${errorText}`
+            );
+          }
+
+          const answerSdp = await sdpResponse.text();
+          console.log("Received SDP answer.");
+          const answer = { type: "answer", sdp: answerSdp };
+          await peerConnection.setRemoteDescription(answer); // No type assertion needed usually
+          console.log("Remote description (answer) set.");
+          // Connection should now proceed, monitored by onconnectionstatechange
+        } catch (error) {
+          console.error("Connection Error:", error);
+          setStatus(`Connection failed: ${error.message}`, "error");
+          closeConnection(); // Clean up any partial connection
+        }
+      }
+
+      // 4. Close the WebRTC Connection and Clean Up
+      function closeConnection() {
+        console.log("Closing connection...");
+        if (dataChannel) {
+          dataChannel.close();
+          dataChannel = null;
+        }
+        if (peerConnection) {
+          peerConnection.close();
+          peerConnection = null;
+        }
+        if (localStream) {
+          localStream.getTracks().forEach((track) => track.stop());
+          localStream = null;
+        }
+        if (aiAudioElement) {
+          aiAudioElement.srcObject = null; // Clear audio source
+        }
+        // Only update status if it's not already showing a final error
+        if (!statusElement.classList.contains("error")) {
+          setStatus("Disconnected", "closed");
+        }
+        updateButtonStates(false); // Enable start, disable stop
+        console.log("Connection closed and resources released.");
+      }
+
+      // --- Event Listeners ---
+      startButton.addEventListener("click", startConnection);
+      stopButton.addEventListener("click", closeConnection);
+
+      // Initial state
+      updateButtonStates(false);
+    </script>
+  </body>
+</html>

@@ -37,3 +37,12 @@ isopath=/home/myuser/edrive/tmp/ubuntu-22.04.4-desktop-amd64.iso
 #sudo qemu-system-x86_64 -cdrom $isopath -accel kvm -vga std -drive file=$imgpath,format=qcow2,if=virtio -vga std -boot d -m 9G -smp cpus=2
 sudo qemu-system-x86_64 -accel kvm -vga std -drive file=$imgpath,format=qcow2,if=virtio -vga std -boot d -m 9G -smp cpus=2 -smbios type=1,serial=ds='nocloud;s=http://10.0.2.2:8000/'
 ```
+
+# grub setup
+
+```
+pacman -S grub
+grub-mkconfig -o /boot/grub/grub.cfg
+grub-install /dev/sda # i386 pc by default
+```
+

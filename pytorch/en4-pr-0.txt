@@ -1,0 +1,82 @@
+Certainly! Here’s a simple **learning problem** that can be solved with `torch.tensor()`, specifically focused on basic **linear regression** using PyTorch tensors.
+
+---
+
+### Problem Statement
+
+**Predict the height of a person based on their age (in years) using a simple linear model.**
+
+Suppose you have the following data:
+
+| Age (years) | Height (cm) |
+|-------------|-------------|
+| 5           | 105         |
+| 6           | 115         |
+| 7           | 120         |
+| 8           | 130         |
+
+You want to train a linear regression model:  
+**height = weight * age + bias**
+
+---
+
+### Tasks
+
+1. **Represent your data as PyTorch tensors**.
+2. **Initialize `weight` and `bias` as torch tensors with `requires_grad=True`.**
+3. **Use the mean squared error loss.**
+4. **Update the parameters using gradient descent.**
+5. **After training, predict the height of a 9-year-old.**
+
+---
+
+### Solution Skeleton
+
+Here’s a code outline using `torch.tensor()`:
+
+```python
+import torch
+
+# Step 1: Create data tensors
+ages = torch.tensor([5, 6, 7, 8], dtype=torch.float32)    # Features
+heights = torch.tensor([105, 115, 120, 130], dtype=torch.float32)  # Labels
+
+# Step 2: Initialize parameters
+weight = torch.tensor(0.0, requires_grad=True)
+bias = torch.tensor(0.0, requires_grad=True)
+
+# Step 3: Training loop
+learning_rate = 0.01
+for epoch in range(1000):
+    # Predict
+    preds = weight * ages + bias
+    
+    # Loss
+    loss = torch.mean((preds - heights) ** 2)
+    
+    # Backpropagation
+    loss.backward()
+    
+    # Update parameters (gradient descent)
+    with torch.no_grad():
+        weight -= learning_rate * weight.grad
+        bias -= learning_rate * bias.grad
+        weight.grad.zero_()
+        bias.grad.zero_()
+    
+    # (optional) print(f'Epoch {epoch}: loss = {loss.item()}')
+
+# Step 4: Predict for a new age
+age9 = torch.tensor([9.0])
+predicted_height = weight * age9 + bias
+print(f"Predicted height for a 9-year-old: {predicted_height.item():.2f} cm")
+```
+
+### Key Concept
+
+All data, parameters, and computations are built using `torch.tensor()`.  
+This problem shows how to apply tensor operations to a basic supervised learning task in PyTorch.
+
+---
+
+Let me know if you'd like an explanation or a more complex problem!

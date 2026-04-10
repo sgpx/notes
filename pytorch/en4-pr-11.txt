@@ -1,0 +1,31 @@
+Sure! Here's a simple learning problem that involves moving a tensor to a different device (CPU or GPU) using `tensor.to()` in PyTorch.
+
+### Problem:
+Create a tensor of random numbers, move it to the GPU (if available), and then print the tensor's device to confirm the operation.
+
+### Solution:
+
+```python
+import torch
+
+# Create a tensor of size 3x3 with random values
+tensor = torch.randn(3, 3)
+
+# Check if GPU is available
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+# Move the tensor to the device
+tensor_on_device = tensor.to(device)
+
+# Print the tensor and its device
+print(tensor_on_device)
+print("Tensor is on device:", tensor_on_device.device)
+```
+
+### Explanation:
+- We generate a random tensor.
+- We determine whether a GPU is available.
+- We use `tensor.to(device)` to move the tensor to the GPU if available, otherwise it stays on CPU.
+- We print the tensor and confirm its device.
+
+This simple exercise helps you understand how to transfer tensors between devices using `tensor.to()`.

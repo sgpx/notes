@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Batch Master: Scale & Code</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .progress-fill { transition: width 0.4s ease-out, background-color 0.3s; }
+        .glitch { animation: glitch 0.2s infinite; color: #ff0000; }
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 p-4 md:p-10 font-sans antialiased">
+
+<div class="max-w-6xl mx-auto">
+    <header class="mb-12 text-center">
+        <h1 class="text-6xl font-black tracking-tighter uppercase italic bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+            Scale vs. Memory
+        </h1>
+        <p class="text-slate-400 mt-2 font-mono text-sm tracking-widest">Why simple loops die where DataLoaders thrive</p>
+    </header>
+
+    <section class="bg-slate-900 border border-slate-800 p-8 rounded-3xl shadow-2xl mb-12">
+        <div class="mb-10 text-center">
+            <label class="font-bold uppercase text-xs tracking-widest text-slate-500 block mb-4">Slide to Increase Dataset Size</label>
+            <div id="dataDisplay" class="text-5xl font-black text-white italic mb-4">8</div>
+            <input type="range" id="dataSlider" min="1" max="7" step="1" value="1" 
+                   class="w-full h-4 bg-slate-800 rounded-lg appearance-none accent-cyan-500 cursor-pointer"
+                   oninput="updateScale()">
+            <div class="flex justify-between text-[10px] font-black text-slate-600 mt-2 uppercase tracking-tighter">
+                <span>8 (Problem 5)</span>
+                <span>1,000</span>
+                <span>50,000</span>
+                <span>250,000</span>
+                <span>1,000,000</span>
+                <span>10,000,000</span>
+                <span>EXTREME</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-4 p-6 rounded-2xl bg-black/40 border border-slate-800 relative">
+                <div class="absolute top-0 right-0 p-2 bg-red-600 text-[10px] font-black uppercase">Manual Load</div>
+                <p class="text-[10px] text-slate-500 uppercase font-bold">VRAM Pressure</p>
+                <div class="h-4 bg-slate-800 rounded-full overflow-hidden">
+                    <div id="manMemBar" class="progress-fill h-full bg-red-600" style="width: 5%"></div>
+                </div>
+                <div id="manStatus" class="p-3 rounded-lg bg-emerald-900/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold text-center italic">SYSTEM STABLE</div>
+            </div>
+
+            <div class="space-y-4 p-6 rounded-2xl bg-cyan-950/10 border border-cyan-900/30 relative">
+                <div class="absolute top-0 right-0 p-2 bg-cyan-600 text-[10px] font-black uppercase">DataLoader</div>
+                <p class="text-[10px] text-slate-500 uppercase font-bold">VRAM Pressure</p>
+                <div class="h-4 bg-slate-800 rounded-full overflow-hidden">
+                    <div id="dlMemBar" class="progress-fill h-full bg-cyan-500" style="width: 2%"></div>
+                </div>
+                <div class="p-3 rounded-lg bg-cyan-900/20 border border-cyan-500/30 text-cyan-400 text-xs font-bold text-center italic">CONSTANT STABILITY</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="flex flex-col">
+            <div class="bg-red-950/20 border-t-4 border-red-600 p-4 rounded-t-xl">
+                <h2 class="text-red-500 font-black uppercase tracking-widest text-sm">❌ The Manual Method</h2>
+            </div>
+            <div class="bg-slate-900 p-6 rounded-b-xl border border-slate-800 font-mono text-xs sm:text-sm overflow-x-auto">
+<pre class="text-slate-300">
+<span class="text-slate-500"># Load everything at once</span>
+X, y = get_huge_data() 
+
+for epoch in range(3):
+    <span class="text-red-400 font-bold"># Error here if data is too big</span>
+    pred = model(X) 
+    loss = criterion(pred, y)
+    loss.backward()
+    
+    <span class="text-white"># Only 1 update per epoch</span>
+    optimizer.step()
+    optimizer.zero_grad()
+</pre>
+            </div>
+        </div>
+
+        <div class="flex flex-col">
+            <div class="bg-cyan-950/20 border-t-4 border-cyan-500 p-4 rounded-t-xl">
+                <h2 class="text-cyan-400 font-black uppercase tracking-widest text-sm">✅ The DataLoader Method</h2>
+            </div>
+            <div class="bg-slate-900 p-6 rounded-b-xl border border-slate-800 font-mono text-xs sm:text-sm overflow-x-auto">
+<pre class="text-slate-300">
+<span class="text-slate-500"># Stream data in batches</span>
+loader = DataLoader(dataset, batch_size=2)
+
+for epoch in range(3):
+    <span class="text-cyan-400 font-bold">for batch_X, batch_y in loader:</span>
+        <span class="text-slate-500"># Only 2 rows in RAM!</span>
+        pred = model(batch_X)
+        loss = criterion(pred, batch_y)
+        loss.backward()
+        
+        <span class="text-emerald-400 font-bold"># Updates weights EVERY batch</span>
+        optimizer.step()
+        optimizer.zero_grad()
+</pre>
+            </div>
+        </div>
+    </section>
+
+    <footer class="mt-12 p-8 bg-slate-900 rounded-3xl border border-slate-800 text-center">
+        <h3 class="text-2xl font-bold text-white mb-4">Total Weight Updates per Epoch</h3>
+        <div class="flex justify-around items-center max-w-2xl mx-auto">
+            <div>
+                <p class="text-slate-500 text-xs uppercase font-bold tracking-widest mb-1">Manual</p>
+                <p class="text-4xl font-black text-red-500">1</p>
+            </div>
+            <div class="text-slate-700 text-4xl">vs</div>
+            <div>
+                <p class="text-slate-500 text-xs uppercase font-bold tracking-widest mb-1">DataLoader</p>
+                <p id="updateCount" class="text-4xl font-black text-emerald-400">4</p>
+            </div>
+        </div>
+    </footer>
+</div>
+<section class="mt-12 p-8 bg-slate-900/50 border border-slate-800 rounded-3xl">
+    <h3 class="text-3xl font-black text-white mb-6 uppercase tracking-tighter italic">
+        Why not just <span class="text-orange-500">Slice</span> it myself?
+    </h3>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="space-y-4">
+            <h4 class="text-orange-400 font-bold uppercase text-xs tracking-widest">Manual DIY Batching</h4>
+            <div class="bg-black p-4 rounded-xl font-mono text-xs text-slate-400 border border-slate-800">
+                <p># You have to write all this logic:</p>
+                <p>for i in range(0, len(X), 32):</p>
+                <p class="pl-4">batch_X = X[i : i+32]</p>
+                <p class="pl-4"># What if it's not divisible by 32?</p>
+                <p class="pl-4"># How do I shuffle every epoch?</p>
+                <p class="pl-4 text-red-500"># CPU waits for disk... STALL</p>
+            </div>
+            <ul class="text-xs text-slate-500 space-y-2">
+                <li>❌ <strong>Synchronous:</strong> Your GPU sits idle while the CPU fetches data.</li>
+                <li>❌ <strong>Rigid:</strong> Hard to shuffle data perfectly every time.</li>
+                <li>❌ <strong>Messy:</strong> You write 20 lines of "boilerplate" code for every project.</li>
+            </ul>
+        </div>
+
+        <div class="space-y-4">
+            <h4 class="text-cyan-400 font-bold uppercase text-xs tracking-widest">The DataLoader Advantage</h4>
+            <div class="bg-cyan-950/20 p-4 rounded-xl font-mono text-xs text-cyan-100 border border-cyan-800/50">
+                <p># One line handles everything:</p>
+                <p>DataLoader(ds, batch_size=32, <span class="text-white font-bold">num_workers=4</span>, <span class="text-white font-bold">pin_memory=True</span>)</p>
+                <p class="mt-2 text-emerald-400"># Multi-processing Power!</p>
+            </div>
+            <ul class="text-xs text-slate-400 space-y-2">
+                <li>✅ <strong>Pre-fetching:</strong> While the GPU trains on Batch 1, the DataLoader is already preparing Batch 2 in the background.</li>
+                <li>✅ <strong>Memory Pinning:</strong> Faster data transfer from your RAM to your Graphics Card (GPU).</li>
+                <li>✅ <strong>Automatic Shuffling:</strong> Keeps the model from "memorizing" the order of your Excel sheet.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<script>
+    const scales = [8, 1000, 10000, 50000, 250000, 1000000, 10000000];
+    function updateScale() {
+        const idx = document.getElementById('dataSlider').value - 1;
+        const size = scales[idx];
+        document.getElementById('dataDisplay').innerText = size.toLocaleString();
+
+        let manUsage = (size / 1000000) * 15;
+        if (size >= 1000000) manUsage = 75;
+        if (size >= 10000000) manUsage = 100;
+
+        const manBar = document.getElementById('manMemBar');
+        const manStatus = document.getElementById('manStatus');
+        manBar.style.width = manUsage + "%";
+        
+        if (manUsage >= 100) {
+            manStatus.innerText = "❌ OUT OF MEMORY (CRASH)";
+            manStatus.className = "p-3 rounded-lg bg-red-900/40 border border-red-500 text-red-500 text-xs font-black glitch text-center";
+        } else if (manUsage > 50) {
+            manStatus.innerText = "⚠️ EXTREME SLOWDOWN";
+            manStatus.className = "p-3 rounded-lg bg-orange-900/20 border border-orange-500/30 text-orange-400 text-xs font-bold text-center";
+        } else {
+            manStatus.innerText = "SYSTEM STABLE";
+            manStatus.className = "p-3 rounded-lg bg-emerald-900/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold text-center italic";
+        }
+        
+        document.getElementById('updateCount').innerText = (size / 2).toLocaleString();
+    }
+    updateScale();
+</script>
+</body>
+</html>

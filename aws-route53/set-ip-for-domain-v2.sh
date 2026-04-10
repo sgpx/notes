@@ -4,6 +4,8 @@ clear
 if [ "$1" = "" ]; then
 	echo enter domain
 	read domain
+        root=$(sed -r "s/^(.+\.)*(.+)\.(.+)$/\2\.\3/" <<< "$domain")
+	echo $root
 else
 	domain="$1"
         root=$(sed -r "s/^(.+\.)*(.+)\.(.+)$/\2\.\3/" <<< "$1")

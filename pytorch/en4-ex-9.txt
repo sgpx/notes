@@ -1,0 +1,71 @@
+Sure! 🎉
+
+**tensor.dtype** tells you the *type* of data stored in a tensor.
+
+---
+
+### Think of dtype like a box label:
+
+- Is it a box of **integers**? (numbers like 1, 2, 3)
+- Or thought of as **floats**? (numbers with decimals like 3.14)
+- Or **Booleans**? (True/False)
+
+---
+
+### Quick examples:
+
+```python
+import torch
+
+# Integer tensor
+a = torch.tensor([1, 2, 3])
+print(a.dtype)  # torch.int64
+
+# Float tensor
+b = torch.tensor([1.0, 2.0, 3.0])
+print(b.dtype)  # torch.float32
+
+# Boolean tensor
+c = torch.tensor([True, False, True])
+print(c.dtype)  # torch.bool
+
+# Double precision float
+d = torch.tensor([1.0, 2.0], dtype=torch.float64)
+print(d.dtype)  # torch.float64
+```
+
+---
+
+### Why it matters:
+
+- It helps you know what kind of data you're working with.
+- Important for memory and speed!
+- You can change dtype if needed.
+
+---
+
+### Changing dtype:
+
+```python
+x = torch.tensor([1.2, 3.4])
+print(x.dtype)  # torch.float32 (default)
+
+# Convert to int
+x_int = x.to(torch.int32)
+print(x_int.dtype)  # torch.int32
+```
+
+---
+
+### Summary:
+
+| tensor.dtype | What it is                | Example values                   |
+|--------------|---------------------------|----------------------------------|
+| `torch.int32` | 32-bit integer            | 1, 2, 3                        |
+| `torch.float32` | 32-bit float            | 1.0, 2.5, 3.14                |
+| `torch.bool`   | True / False            | True, False                     |
+| `torch.float64`| 64-bit float            | 1.0, 2.0                     |
+
+---
+
+**That’s tensor.dtype!** Easy to check, simple to change. 😊

@@ -47,3 +47,7 @@ substitute the `inferenceProfileId` in the `modelId` for bedrock scripts
 ```
 "inferenceProfileArn": "arn:aws:bedrock:ap-south-1:${ACCOUNT_ID}:inference-profile/apac.anthropic.claude-3-5-sonnet-20240620-v1:0",
 ```
+
+# bedrock invoke
+
+ws bedrock-runtime invoke-model --region eu-west-2 --model-id global.anthropic.claude-haiku-4-5-20251001-v1:0 --body '{"anthropic_version": "bedrock-2023-05-31", "max_tokens": 200, "messages": [{"role": "user", "content": "Confirm you are Claude."}]}' a.json

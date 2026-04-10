@@ -1,0 +1,81 @@
+Sure! Here's a simple, easy-to-understand explanation of `tensor.squeeze()` with lots of quick examples:
+
+---
+
+### What is `tensor.squeeze()`?
+- It **removes** all the **dimensions of size 1** from a tensor.
+- It makes your tensor **smaller** in shape.
+
+---
+
+### Example 1
+**Tensor shape:** `(1, 3, 1, 4)`
+
+```python
+import torch
+
+t = torch.randn(1, 3, 1, 4)
+print(t.shape)  # (1, 3, 1, 4)
+
+squeezed_t = t.squeeze()
+print(squeezed_t.shape)  # (3, 4)
+```
+*Removed dimensions with size 1 (first and third).*
+
+---
+
+### Example 2
+**Tensor shape:** `(1, 5, 1, 1)`
+
+```python
+t = torch.randn(1, 5, 1, 1)
+print(t.shape)  # (1, 5, 1, 1)
+
+squeezed_t = t.squeeze()
+print(squeezed_t.shape)  # (5,)
+```
+*All size 1 dims gone!*
+
+---
+
+### Example 3
+**Use `dim` to remove only certain dimensions:**
+
+```python
+t = torch.randn(2, 1, 3, 1)
+print(t.shape)  # (2, 1, 3, 1)
+
+# Remove only dimension 1
+squeezed_dim1 = t.squeeze(dim=1)
+print(squeezed_dim1.shape)  # (2, 3, 1)
+
+# Remove only dimension 3
+squeezed_dim3 = t.squeeze(dim=3)
+print(squeezed_dim3.shape)  # (2, 1, 3)
+```
+
+*Only the specified dimension gets removed if it's size 1.*
+
+---
+
+### When does `squeeze()` do nothing?
+If your tensor has **no dimensions of size 1**, `squeeze()` just returns it as-is!
+
+```python
+t = torch.randn(2, 3, 4)
+print(t.shape)  # (2, 3, 4)
+
+squeezed_t = t.squeeze()
+print(squeezed_t.shape)  # (2, 3, 4) # unchanged
+```
+
+---
+
+### Summary:
+- `squeeze()` **removes** all dimensions of size 1.
+- You can choose a specific dimension with `dim=...`
+- It helps “flatten” tensors by removing unnecessary size 1 dims.
+
+---
+
+Hope that makes it clear! Would you like more examples?

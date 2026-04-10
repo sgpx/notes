@@ -13,9 +13,13 @@ fi
 
 while [ $c -lt $b ]; do
 	tgt=$(echo ${a[$c]}/)
-	if [[ -d $tgt && $(grep $tgt .gitignore) = "" ]]; then
-		echo $tgt >> .gitignore
-		echo adding $tgt to .gitignore...
+	if [[ -d $target && $(grep $target .gitignore) = "" ]]; then
+		echo $target >> .gitignore
+		echo adding $target to .gitignore...
 	fi
 	c=$(expr $c "+" 1);
 done
+
+if [[ -r .env && ! $(grep -q .env .gitignore) ]] ; then
+    echo .env >> .gitignore
+fi

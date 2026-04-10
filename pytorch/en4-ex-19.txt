@@ -1,0 +1,105 @@
+Sure! 🎉 Let's make `torch.cat()` easy and fun!
+
+---
+
+### What does `torch.cat()` do?  
+It **joins tensors** (think of them like boxes or blocks) **along a specific dimension**.
+
+---
+
+### Think of it like stacking LEGO blocks:
+
+- **Horizontal stacking** (side by side) — same rows, different columns
+- **Vertical stacking** (on top of each other) — same columns, different rows
+
+---
+
+### Example 1: Basic Concatenate Along Rows (dim=0)
+
+```python
+import torch
+
+a = torch.tensor([1, 2])
+b = torch.tensor([3, 4])
+
+result = torch.cat((a, b), dim=0)
+print(result)
+# Output: tensor([1, 2, 3, 4])
+```
+
+- Joins **end to end** because `dim=0` (rows).
+
+---
+
+### Example 2: Concatenate 2D tensors vertically (dim=0)
+
+```python
+a = torch.tensor([[1, 2],
+                  [3, 4]])
+
+b = torch.tensor([[5, 6],
+                  [7, 8]])
+
+result = torch.cat((a, b), dim=0)
+print(result)
+# Output:
+# tensor([[1, 2],
+#         [3, 4],
+#         [5, 6],
+#         [7, 8]])
+```
+
+---
+
+### Example 3: Concatenate 2D tensors horizontally (dim=1)
+
+```python
+a = torch.tensor([[1, 2],
+                  [3, 4]])
+
+b = torch.tensor([[5, 6],
+                  [7, 8]])
+
+result = torch.cat((a, b), dim=1)
+print(result)
+# Output:
+# tensor([[1, 2, 5, 6],
+#         [3, 4, 7, 8]])
+```
+
+- Joins **side by side** because `dim=1` (columns).
+
+---
+
+### Example 4: Concatenate tensors of different shapes (if possible)
+
+```python
+a = torch.tensor([[1, 2]])
+
+b = torch.tensor([[3, 4]])
+
+result = torch.cat((a, b), dim=0)
+print(result)
+# Output: tensor([[1, 2],
+#                 [3, 4]])
+```
+
+- Same number of columns, stacked vertically.
+
+---
+
+### Summary:
+
+| `dim` | How tensors are joined                     |
+|--------|----------------------------------------------|
+| 0      | Stack **on top of each other** (rows)     |
+| 1      | Join **side by side** (columns)           |
+
+---
+
+### Quick tip:
+Always make sure the tensors match **shape** along the **other dimensions** when concatenating!
+
+---
+
+Ready to practice? Try stacking tensors in different ways! 🚀

@@ -1,0 +1,54 @@
+Sure! Here's a simple learning problem related to understanding and using `torch.Tensor.dtype`.
+
+---
+
+### Learning Problem: Check and Convert Tensor Data Types
+
+**Objective:** Given a tensor, determine its data type and convert it to a different data type.
+
+**Problem Statement:**
+
+You are given a tensor:
+
+```python
+import torch
+
+tensor = torch.tensor([1.0, 2.0, 3.0])
+```
+
+Your task is to:
+
+1. Print the current data type of `tensor`.
+2. Convert `tensor` to an integer data type (`torch.int64`) and assign it to `tensor_int`.
+3. Print the data type of the new tensor `tensor_int`.
+
+---
+
+### Solution:
+
+```python
+import torch
+
+# Original tensor
+tensor = torch.tensor([1.0, 2.0, 3.0])
+
+# 1. Print the current data type
+print("Original tensor data type:", tensor.dtype)
+
+# 2. Convert to integer data type
+tensor_int = tensor.to(torch.int64)
+
+# 3. Print the new data type
+print("Converted tensor data type:", tensor_int.dtype)
+```
+
+**Expected Output:**
+
+```
+Original tensor data type: torch.float32
+Converted tensor data type: torch.int64
+```
+
+---
+
+This simple problem helps you understand how to check a tensor's data type with `.dtype` and how to change it using `.to()`.

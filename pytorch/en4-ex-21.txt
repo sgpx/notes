@@ -1,0 +1,72 @@
+Sure! Here's a simple and quick explanation of `torch.mm()` with easy examples:
+
+---
+
+### What is `torch.mm()`?  
+- **Function:** Multiplies two 2D matrices (like grids of numbers).  
+- **Shape requirements:**  
+  - First matrix: shape `(m, n)`  
+  - Second matrix: shape `(n, p)`  
+  - Result: shape `(m, p)`
+
+---
+
+### Basic Example 1: Simple 2x2 matrices
+
+```python
+import torch
+
+A = torch.tensor([[1, 2], [3, 4]])
+B = torch.tensor([[5, 6], [7, 8]])
+
+result = torch.mm(A, B)
+print(result)
+```
+
+**Output:**
+```
+tensor([[19, 22],
+        [43, 50]])
+```
+
+*(Why?)*  
+- First row of result: `(1*5 + 2*7, 1*6 + 2*8) = (19, 22)`  
+- Second row: `(3*5 + 4*7, 3*6 + 4*8) = (43, 50)`
+
+---
+
+### Example 2: Multiply a 2x3 and a 3x2 matrix
+
+```python
+A = torch.tensor([[1, 2, 3],
+                  [4, 5, 6]])
+
+B = torch.tensor([[7, 8],
+                  [9, 10],
+                  [11, 12]])
+
+result = torch.mm(A, B)
+print(result)
+```
+
+**Output:**
+```
+tensor([[ 58,  64],
+        [139, 154]])
+```
+
+*(Check one entry)*  
+First row, first column: `(1*7 + 2*9 + 3*11) = 7+18+33=58`
+
+---
+
+### Quick tips:
+- Make sure matrices match in inner dimension!
+- Use `torch.mm()` for **matrix multiplication**.
+
+---
+
+### Need more?
+- Think of `torch.mm()` as doing matrix "dot product" between rows and columns!
+
+Hope this helps! 😊

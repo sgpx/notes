@@ -1,5 +1,6 @@
 #!/bin/bash
 cd ~/prog/notes/aws-ec2
+show-running-instances.sh
 bash get-instance-vpcs.sh
 
 echo "enter instance id"

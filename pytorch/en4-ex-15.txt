@@ -1,0 +1,77 @@
+Sure! Here's a simple way to understand `tensor.reshape()` with quick examples:
+
+---
+
+### What is `reshape()`?
+- It flips the shape of the tensor.
+- Keeps all data same, just changes how it's organized.
+
+---
+
+### Basic idea:
+```python
+tensor.reshape(new_shape)
+```
+- `new_shape` is a tuple with new dimensions.
+- Total elements stay the same!
+
+---
+
+### Example 1: 1D to 2D
+```python
+import torch
+
+x = torch.tensor([1, 2, 3, 4, 5, 6])
+print(x.shape)  # (6,)
+
+x2 = x.reshape(2, 3)
+print(x2)
+# [[1, 2, 3],
+#  [4, 5, 6]]
+```
+
+---
+
+### Example 2: 2D to 1D
+```python
+x = torch.tensor([[1, 2], [3, 4], [5, 6]])
+print(x.shape)  # (3, 2)
+
+x1 = x.reshape(6)
+print(x1)  # [1, 2, 3, 4, 5, 6]
+```
+
+---
+
+### Example 3: Using -1 (auto!) 
+- You don’t have to specify all dims!
+- Just put `-1`, and PyTorch guesses.
+
+```python
+x = torch.tensor([[1, 2], [3, 4]])
+x2 = x.reshape(-1)
+print(x2)  # [1, 2, 3, 4]
+```
+
+--- 
+
+### More: 3D reshape
+```python
+x = torch.ones(2, 3, 4)  # shape (2, 3, 4)
+print(x.shape)
+
+# Reshape to 6x4
+x2 = x.reshape(6, 4)
+print(x2.shape)
+```
+
+---
+
+### Quick tips:
+- Use `reshape()` to change shape without copying data.
+- Total number of elements must match!
+- Use `-1` to auto-calculate one dimension.
+
+---
+
+Hope that helps!

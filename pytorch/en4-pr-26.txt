@@ -1,0 +1,78 @@
+Sure! Here's a simple learning problem suitable for beginners that can be solved using `torch.nn.Module`.
+
+**Problem:**  
+Learn to predict the square of a number. Given an input number \(x\), the model should output \(x^2\).
+
+**Why it's easy:**  
+- The relationship is simple and deterministic.  
+- It's a basic regression problem.  
+- You can generate small datasets easily.
+
+---
+
+### Step-by-step Example:
+
+```python
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+# Generate some data
+# Inputs are numbers from -10 to 10
+x_train = torch.unsqueeze(torch.linspace(-10, 10, 100), dim=1)  # shape: (100, 1)
+# Targets are their squares
+y_train = x_train ** 2
+
+# Define the neural network as a subclass of nn.Module
+class SquareModel(nn.Module):
+    def __init__(self):
+        super(SquareModel, self).__init__()
+        # A simple feedforward network with one hidden layer
+        self.hidden = nn.Linear(1, 10)
+        self.relu = nn.ReLU()
+        self.output = nn.Linear(10, 1)
+        
+    def forward(self, x):
+        x = self.hidden(x)
+        x = self.relu(x)
+        x = self.output(x)
+        return x
+
+# Instantiate the model
+model = SquareModel()
+
+# Define a loss function and an optimizer
+criterion = nn.MSELoss()
+optimizer = optim.SGD(model.parameters(), lr=0.01)
+
+# Training loop
+for epoch in range(1000):
+    # Zero gradients
+    optimizer.zero_grad()
+    # Forward pass
+    outputs = model(x_train)
+    loss = criterion(outputs, y_train)
+    # Backward pass and optimization
+    loss.backward()
+    optimizer.step()
+    
+    if (epoch+1) % 200 == 0:
+        print(f"Epoch [{epoch+1}/1000], Loss: {loss.item():.4f}")
+
+# Test the model
+test_input = torch.tensor([[4.0]])
+predicted_output = model(test_input).item()
+print(f"Input: {test_input.item()}, Predicted square: {predicted_output:.2f}")
+print(f"Expected square: {4**2}")
+```
+
+---
+
+### Summary:
+- We created a simple dataset of numbers and their squares.
+- Defined a subclass of `torch.nn.Module` called `SquareModel`.
+- The model consists of a hidden layer with ReLU activation and an output layer.
+- Trained the model with mean squared error loss.
+- Used the trained model to predict the square of a new value.
+
+This problem is great for practicing how to define models with `torch.nn.Module` and understand the training process!

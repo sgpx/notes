@@ -1,0 +1,61 @@
+Sure! Here's a quick, simple explanation of `tensor.device` with easy examples:
+
+---
+
+### What is `tensor.device`?
+
+- **`tensor.device`** tells you **where** a tensor lives: on your CPU or on your GPU.
+
+---
+
+### Example 1: CPU tensor
+
+```python
+import torch
+
+# Create a tensor
+a = torch.tensor([1, 2, 3])
+
+# Check where it's stored
+print(a.device)
+# Output: cpu
+```
+
+---
+
+### Example 2: GPU tensor (if you have a GPU)
+
+```python
+# Create tensor directly on GPU
+b = torch.tensor([4, 5, 6], device='cuda')
+
+# Check device
+print(b.device)
+# Output: cuda:0 (meaning GPU 0)
+```
+
+---
+
+### Example 3: Moving a tensor from CPU to GPU
+
+```python
+# Start on CPU
+c = torch.tensor([7, 8, 9])
+print(c.device)  # cpu
+
+# Move to GPU
+if torch.cuda.is_available():
+    c_gpu = c.to('cuda')
+    print(c_gpu.device)  # cuda:0
+```
+
+---
+
+### Summary:
+- Use `.device` to see **where** your tensor is.
+- Tensors can be on **CPU** (`cpu`) or **GPU** (`cuda:0`, `cuda:1`, etc.).
+- You can **move** tensors between CPU and GPU with `.to()`.
+
+---
+
+Let me know if you'd like more quick examples!

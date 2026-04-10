@@ -1,0 +1,30 @@
+Sure! Here's a simple learning problem that demonstrates how to convert a PyTorch tensor to a NumPy array using `tensor.numpy()`.
+
+**Problem:**  
+Create a PyTorch tensor containing the numbers from 1 to 5. Convert this tensor to a NumPy array and then compute the sum of its elements.
+
+**Solution:**
+
+```python
+import torch
+
+# Step 1: Create a PyTorch tensor with numbers 1 to 5
+tensor = torch.tensor([1, 2, 3, 4, 5])
+
+# Step 2: Convert the tensor to a NumPy array
+np_array = tensor.numpy()
+
+# Step 3: Compute the sum of the NumPy array
+sum_value = np_array.sum()
+
+print("Tensor:", tensor)
+print("NumPy array:", np_array)
+print("Sum of array elements:", sum_value)
+```
+
+**Explanation:**  
+- We start by creating a PyTorch tensor.  
+- We use `.numpy()` to convert it into a NumPy array.  
+- Then, we perform a simple operation (sum) on the NumPy array.  
+
+This exercise helps you understand how to switch between PyTorch tensors and NumPy arrays, which is useful for leveraging NumPy's functionalities.

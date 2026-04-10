@@ -1,3 +1,12 @@
+# envvars not updating in flask/gunicorn
+
+force override
+
+```
+from dotenv import load_dotenv
+load_dotenv(override=True)
+```
+
 # nginx cannot find files 404
 
 ```

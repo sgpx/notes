@@ -1,0 +1,75 @@
+Sure! Let’s keep it simple and fun.
+
+---
+
+### What is `tensor.cuda()`?
+
+It's a way to move a tensor (a multi-dimensional array) **to the GPU**, so calculations are faster.
+
+---
+
+### Basic idea:
+
+- Your tensor starts in **CPU memory** (like your computer's main memory).
+- `tensor.cuda()` moves it **to the GPU** (graphics card) for quick math.
+
+---
+
+### Example 1: Basic use
+
+```python
+import torch
+
+# Create a CPU tensor
+a = torch.tensor([1, 2, 3])
+print("On CPU:", a)
+
+# Move tensor to GPU
+a_gpu = a.cuda()
+print("On GPU:", a_gpu)
+```
+
+---
+
+### Example 2: Operations on GPU
+
+```python
+b = torch.tensor([4, 5, 6]).cuda()
+
+# Add two tensors on GPU
+c = a_gpu + b
+print("Result on GPU:", c)
+```
+
+---
+
+### Example 3: Check where tensor is
+
+```python
+print("Is tensor on GPU?", a.is_cuda)
+print("Is tensor on GPU?", a_gpu.is_cuda)
+```
+
+---
+
+### Important:
+
+- Use `.cuda()` **only if a GPU is available**.
+- Check GPU availability with:
+
+```python
+torch.cuda.is_available()
+```
+
+- If no GPU, just stay on CPU.
+
+---
+
+### Summary:
+- `tensor.cuda()` moves tensor to GPU.
+- Do calculations on GPU for speed.
+- Make sure your system has a GPU!
+
+---
+
+Let me know if you want more quick tips!

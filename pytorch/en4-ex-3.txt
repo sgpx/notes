@@ -1,0 +1,113 @@
+Sure! Let’s keep it simple and fun. 🚀
+
+---
+
+# What is `torch.zeros()`?
+
+**`torch.zeros()`** creates a tensor filled with **all zeros**.
+
+---
+
+## Syntax:
+
+```python
+torch.zeros(size)
+```
+
+- `size` = shape of the tensor (tuple)
+
+---
+
+## Examples 🚨
+
+**1D tensor of zeros:**
+
+```python
+import torch
+
+a = torch.zeros(5)
+print(a)
+```
+
+Output:
+
+```
+tensor([0., 0., 0., 0., 0.])
+```
+
+---
+
+**2D tensor (3 rows, 4 columns):**
+
+```python
+b = torch.zeros(3, 4)
+print(b)
+```
+
+Output:
+
+```
+tensor([[0., 0., 0., 0.],
+        [0., 0., 0., 0.],
+        [0., 0., 0., 0.]])
+```
+
+---
+
+**3D tensor (2 x 2 x 3):**
+
+```python
+c = torch.zeros(2, 2, 3)
+print(c)
+```
+
+Output:
+
+```
+tensor([[[0., 0., 0.],
+         [0., 0., 0.]],
+
+        [[0., 0., 0.],
+         [0., 0., 0.]]])
+```
+
+---
+
+## More tips ⚡
+
+- You can specify the **dtype** (data type):
+
+```python
+d = torch.zeros(4, dtype=torch.int32)
+print(d)
+```
+
+Output:
+
+```
+tensor([0, 0, 0, 0], dtype=torch.int32)
+```
+
+- You can create zeros on **GPU** if available:
+
+```python
+if torch.cuda.is_available():
+    e = torch.zeros(3, device='cuda')
+    print(e)
+```
+
+---
+
+## Summary 🔑
+
+| What you want           | Code                      | Output shape             |
+|------------------------|---------------------------|--------------------------|
+| 5 zeros (vector)       | `torch.zeros(5)`          | (5,)                     |
+| 3x4 zeros (matrix)     | `torch.zeros(3,4)`        | (3, 4)                   |
+| 2x2x3 zeros (tensor)   | `torch.zeros(2,2,3)`      | (2, 2, 3)                |
+| zeros as integers      | `torch.zeros(4, dtype=torch.int32)` | (4,)            |
+| zeros on GPU           | `torch.zeros(3, device='cuda')` | (3,)                   |
+
+---
+
+Easy, right? 😄 Try it yourself!

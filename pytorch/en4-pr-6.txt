@@ -1,0 +1,82 @@
+Sure! Here's an easy learning problem that can be solved using `torch.randn()` in PyTorch:
+
+---
+
+### Problem: Simple Linear Regression with Random Data
+
+**Goal:** Use PyTorch to create a simple linear regression model that learns the relationship between input `x` and output `y`, where `y = 3x + noise`. We will generate the data with `torch.randn()`.
+
+---
+
+### Step-by-step:
+
+1. **Generate random data:**  
+   Use `torch.randn()` to create input data `x`.
+
+2. **Create target data:**  
+   Use a linear relation `y = 3x + noise`, where noise is some small random noise to simulate real-world data.
+
+3. **Build a simple model:**  
+   A single linear layer (`nn.Linear`) to learn the weights.
+
+4. **Train the model:**  
+   Use Mean Squared Error loss and an optimizer like SGD.
+
+5. **Evaluate:**  
+   Check if the model learns to approximate `y = 3x`.
+
+---
+
+### Example code
+
+```python
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+# Step 1: Generate random input data (100 samples, 1 feature)
+x = torch.randn(100, 1)
+
+# Step 2: Create target data y = 3x + noise
+noise = 0.1 * torch.randn(100, 1)  # small noise
+y = 3 * x + noise
+
+# Step 3: Define a simple linear regression model
+model = nn.Linear(1, 1)
+
+# Step 4: Define loss function and optimizer
+criterion = nn.MSELoss()
+optimizer = optim.SGD(model.parameters(), lr=0.1)
+
+# Step 5: Train the model
+num_epochs = 100
+for epoch in range(num_epochs):
+    model.train()
+    
+    optimizer.zero_grad()
+    outputs = model(x)
+    
+    loss = criterion(outputs, y)
+    loss.backward()
+    optimizer.step()
+    
+    if (epoch+1) % 20 == 0:
+        print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}')
+
+# After training, print learned parameters
+[w, b] = model.parameters()
+print(f'Learned weight: {w.item():.4f}, bias: {b.item():.4f}')
+```
+
+---
+
+**Explanation:**
+
+- `torch.randn(100, 1)` generates random input values from a normal distribution.
+- `y = 3*x + noise` is the target output with some random noise.
+- The model learns to approximate the function `f(x) = 3x`.
+- After training, the learned weight should be close to 3 and bias close to 0.
+
+---
+
+Let me know if you'd like me to explain or expand!

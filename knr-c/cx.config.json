@@ -1,0 +1,10 @@
+{
+    "name": "c-repo",
+    "desc": "c-practice-repo",
+    "apikey": "/Users/sp/oaikey.txt",
+    "ext": "c",
+    "llm": "gpt-4.1-nano",
+    "folder": ".",
+    "additional": [],
+    "exclude": []
+}

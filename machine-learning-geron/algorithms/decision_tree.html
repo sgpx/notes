@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Tree Visualization & Data</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1,
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .target-col {
+            font-weight: bold;
+        }
+
+        .yes {
+            color: #27ae60;
+        }
+
+        .no {
+            color: #c0392b;
+        }
+
+        /* Chart Styles */
+        #chart_div {
+            width: 100%;
+            overflow-x: auto;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            min-height: 300px;
+        }
+
+        .explanation {
+            background: #e8f4f8;
+            border-left: 5px solid #3498db;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+
+        /* Custom Google Chart Styles */
+        .google-visualization-orgchart-node {
+            background-color: #ecf0f1 !important;
+            border: 2px solid #bdc3c7 !important;
+            border-radius: 8px !important;
+            padding: 10px !important;
+            font-size: 14px !important;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .leaf-yes {
+            background-color: #d5f5e3 !important;
+            border-color: #2ecc71 !important;
+        }
+
+        .leaf-no {
+            background-color: #fadbd8 !important;
+            border-color: #e74c3c !important;
+        }
+    </style>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+
+    <h1>How a Decision Tree Thinks</h1>
+
+    <div class="container">
+        <h2>1. The Raw Dataset</h2>
+        <p>This is the historical data the algorithm uses to learn. Notice how whenever the Outlook is "Overcast", the
+            Play Tennis result is always "Yes". The algorithm will spot this pattern!</p>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Outlook</th>
+                        <th>Temperature</th>
+                        <th>Humidity</th>
+                        <th>Wind</th>
+                        <th class="target-col">Play Tennis (Target)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>D1</td>
+                        <td>Sunny</td>
+                        <td>Hot</td>
+                        <td>High</td>
+                        <td>Weak</td>
+                        <td class="target-col no">No</td>
+                    </tr>
+                    <tr>
+                        <td>D2</td>
+                        <td>Sunny</td>
+                        <td>Hot</td>
+                        <td>High</td>
+                        <td>Strong</td>
+                        <td class="target-col no">No</td>
+                    </tr>
+                    <tr>
+                        <td>D3</td>
+                        <td>Overcast</td>
+                        <td>Hot</td>
+                        <td>High</td>
+                        <td>Weak</td>
+                        <td class="target-col yes">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>D4</td>
+                        <td>Rain</td>
+                        <td>Mild</td>
+                        <td>High</td>
+                        <td>Weak</td>
+                        <td class="target-col yes">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>D5</td>
+                        <td>Rain</td>
+                        <td>Cool</td>
+                        <td>Normal</td>
+                        <td>Weak</td>
+                        <td class="target-col yes">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>D6</td>
+                        <td>Rain</td>
+                        <td>Cool</td>
+                        <td>Normal</td>
+                        <td>Strong</td>
+                        <td class="target-col no">No</td>
+                    </tr>
+                    <tr>
+                        <td>D7</td>
+                        <td>Overcast</td>
+                        <td>Cool</td>
+                        <td>Normal</td>
+                        <td>Strong</td>
+                        <td class="target-col yes">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>D8</td>
+                        <td>Sunny</td>
+                        <td>Mild</td>
+                        <td>High</td>
+                        <td>Weak</td>
+                        <td class="target-col no">No</td>
+                    </tr>
+                    <tr>
+                        <td>D9</td>
+                        <td>Sunny</td>
+                        <td>Cool</td>
+                        <td>Normal</td>
+                        <td>Weak</td>
+                        <td class="target-col yes">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>D10</td>
+                        <td>Rain</td>
+                        <td>Mild</td>
+                        <td>Normal</td>
+                        <td>Weak</td>
+                        <td class="target-col yes">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>D11</td>
+                        <td>Sunny</td>
+                        <td>Mild</td>
+                        <td>Normal</td>
+                        <td>Strong</td>
+                        <td class="target-col yes">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>D12</td>
+                        <td>Overcast</td>
+                        <td>Mild</td>
+                        <td>High</td>
+                        <td>Strong</td>
+                        <td class="target-col yes">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>D13</td>
+                        <td>Overcast</td>
+                        <td>Hot</td>
+                        <td>Normal</td>
+                        <td>Weak</td>
+                        <td class="target-col yes">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>D14</td>
+                        <td>Rain</td>
+                        <td>Mild</td>
+                        <td>High</td>
+                        <td>Strong</td>
+                        <td class="target-col no">No</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>2. The Decision Tree Model</h2>
+        <p>Based on the table above, the algorithm builds this tree to make future predictions.</p>
+
+        <div id="chart_div"></div>
+
+        <div class="explanation">
+            <h3>A. Why Each Split Happens (Inference During Training)</h3>
+            <ul>
+                <li><strong>Root split (Outlook):</strong> The algorithm checks candidate features and picks the one
+                    that makes the child groups most pure. Outlook wins because the Overcast branch becomes 100% "Yes".
+                </li>
+                <li><strong>Sunny branch split (Humidity):</strong> For Sunny days, Humidity perfectly separates
+                    outcomes: High → No, Normal → Yes.</li>
+                <li><strong>Rain branch split (Wind):</strong> For Rain days, Wind perfectly separates outcomes: Strong
+                    → No, Weak → Yes.</li>
+            </ul>
+            <p><strong>Why there is no Overcast sub-branch:</strong> All Overcast rows are already “Yes,” so the node is
+                perfectly pure. The tree stops there and makes a leaf instead of splitting further.</p>
+            <p><strong>Why Temperature isn’t used:</strong> When the algorithm tested Temperature at each node, it
+                didn’t improve purity as much as Outlook, Humidity, or Wind. Since other features produced cleaner
+                splits, Temperature was never selected for a split.</p>
+            <p><strong>Root split math (Gini for all features):</strong></p>
+            <ul>
+                <li><strong>Parent:</strong> Yes = 9, No = 5 → Gini = 1 − (9/14)<sup>2</sup> − (5/14)<sup>2</sup> =
+                    0.459</li>
+                <li><strong>Outlook:</strong>
+                    Sunny (2Y,3N) Gini = 0.48; Overcast (4Y,0N) Gini = 0; Rain (3Y,2N) Gini = 0.48 →
+                    Weighted = (5/14)·0.48 + (4/14)·0 + (5/14)·0.48 = 0.343</li>
+                <li><strong>Temperature:</strong>
+                    Hot (2Y,2N) Gini = 0.50; Mild (4Y,2N) Gini = 0.444; Cool (3Y,1N) Gini = 0.375 →
+                    Weighted = (4/14)·0.50 + (6/14)·0.444 + (4/14)·0.375 = 0.441</li>
+                <li><strong>Humidity:</strong>
+                    High (3Y,4N) Gini = 0.490; Normal (6Y,1N) Gini = 0.245 →
+                    Weighted = (7/14)·0.490 + (7/14)·0.245 = 0.367</li>
+                <li><strong>Wind:</strong>
+                    Weak (6Y,2N) Gini = 0.375; Strong (3Y,3N) Gini = 0.50 →
+                    Weighted = (8/14)·0.375 + (6/14)·0.50 = 0.429</li>
+            </ul>
+            <p><strong>Conclusion:</strong> Outlook has the lowest weighted Gini (0.343), so it is selected at the root.
+                Temperature is higher (0.441), so it is not chosen.</p>
+        </div>
+
+        <div class="explanation">
+            <h3>B. Inference at Prediction Time (How a New Row Is Classified)</h3>
+            <p>At prediction time, the model does not recompute splits. It simply follows the finished tree from root to
+                leaf using the new row’s feature values.</p>
+            <ul>
+                <li><strong>Step 1:</strong> Start at the root (Outlook).</li>
+                <li><strong>Step 2:</strong> Follow the branch that matches the row’s value.</li>
+                <li><strong>Step 3:</strong> Repeat until a leaf node is reached.</li>
+                <li><strong>Step 4:</strong> The leaf’s class (and optional probability) is the prediction.</li>
+            </ul>
+        </div>
+
+        <div class="explanation">
+            <h3>C. Final Tree as Rules (Readable Inference)</h3>
+            <ul>
+                <li><strong>Rule 1:</strong> IF Outlook = Overcast → Play Tennis = Yes.</li>
+                <li><strong>Rule 2:</strong> IF Outlook = Sunny AND Humidity = High → Play Tennis = No.</li>
+                <li><strong>Rule 3:</strong> IF Outlook = Sunny AND Humidity = Normal → Play Tennis = Yes.</li>
+                <li><strong>Rule 4:</strong> IF Outlook = Rain AND Wind = Strong → Play Tennis = No.</li>
+                <li><strong>Rule 5:</strong> IF Outlook = Rain AND Wind = Weak → Play Tennis = Yes.</li>
+            </ul>
+        </div>
+
+        <div class="explanation">
+            <h3>D. Worked Example (Inference on a New Day)</h3>
+            <p><strong>Scenario:</strong> A new day arrives and we want to predict whether people will play tennis.</p>
+            <p><strong>New row (unseen):</strong> Outlook = Sunny, Temperature = Mild, Humidity = High, Wind = Weak</p>
+            <ul>
+                <li><strong>Step 1 (Root):</strong> Outlook = Sunny → follow the Sunny branch to the Humidity node.</li>
+                <li><strong>Step 2:</strong> Humidity = High → follow the High branch to the leaf.</li>
+                <li><strong>Leaf output:</strong> Play Tennis = No.</li>
+                <li><strong>Final prediction:</strong> No.</li>
+            </ul>
+        </div>
+
+        <div class="explanation">
+            <h3>E. Training Notes (Gini + Pruning + Interpretation)</h3>
+            <ul>
+                <li><strong>Gini impurity:</strong> Gini = 1 − Σ(p<sub>k</sub><sup>2</sup>). The chosen split minimizes
+                    the weighted child Gini.</li>
+                <li><strong>Information gain (optional):</strong> Gain = H(parent) − weighted child entropy.</li>
+                <li><strong>Pre-pruning:</strong> Stop early using `max_depth`, `min_samples_split`, `min_samples_leaf`,
+                    or `min_impurity_decrease`.</li>
+                <li><strong>Post-pruning:</strong> Remove weak branches using validation data or cost-complexity
+                    pruning.</li>
+                <li><strong>Interpretation:</strong> Each root-to-leaf path is a human-readable rule.</li>
+            </ul>
+        </div>
+
+        <div class="explanation">
+            <h3>F. For Dummies: Full Step-by-Step (Handholding) - Tennis Example</h3>
+            <p><strong>Goal:</strong> We want our decision tree to predict if people will Play Tennis (Yes/No) based on
+                the weather (Outlook, Temperature, Humidity, Wind).</p>
+            <p><strong>Imagine you are the algorithm:</strong> You have to pick <em>one</em> weather column to ask about
+                first. You want to pick the question that separates the "Yes" days from the "No" days the most clearly.
+            </p>
+
+            <p><strong>Step 1: Start with all 14 days.</strong></p>
+            <p>Right now, we have 9 "Yes" days and 5 "No" days. It's a messy, mixed-up group. The algorithm calculates a
+                "messiness score" (called Gini Impurity). Let's see how that's calculated:</p>
+
+            <div
+                style="background: #fdfefe; padding: 15px; border-left: 5px solid #2ecc71; margin: 15px 0; border-radius: 4px; box-shadow: inset 0 0 5px rgba(0,0,0,0.05);">
+                <h4>The Math Behind the "Messiness": Gini Impurity</h4>
+                <p>The formula for finding the Gini Impurity of a single group is:</p>
+                <p style="text-align: center; font-size: 1.2em; margin: 10px 0;">
+                    $$ \text{Gini} = 1 - \sum (p_i)^2 $$
+                </p>
+                <p>Where \( p_i \) is the probability of class \( i \). For Tennis, types are \( \text{"Yes"} \) and \(
+                    \text{"No"} \).</p>
+
+                <p style="margin-top: 15px;"><strong>1. Starting "Messiness" (Parent Node):</strong></p>
+                <p>Starting with \( 9 \) Yes and \( 5 \) No (Total \( 14 \)):</p>
+                <p style="text-align: center;">
+                    $$ \text{Parent Gini} = 1 - \left(\frac{9}{14}\right)^2 - \left(\frac{5}{14}\right)^2 \approx
+                    \mathbf{0.459} $$
+                </p>
+
+                <p style="margin-top: 15px;"><strong>2. Evaluating "Outlook" Split:</strong></p>
+                <ul>
+                    <li><strong>Sunny:</strong> \( 2 \)Y, \( 3 \)N \(\rightarrow \text{Gini} = 1 - (\frac{2}{5})^2 -
+                        (\frac{3}{5})^2 = 0.48 \)</li>
+                    <li><strong>Overcast:</strong> \( 4 \)Y, \( 0 \)N \(\rightarrow \text{Gini} = 1 - (\frac{4}{4})^2 -
+                        (\frac{0}{4})^2 = 0 \)</li>
+                    <li><strong>Rain:</strong> \( 3 \)Y, \( 2 \)N \(\rightarrow \text{Gini} = 1 - (\frac{3}{5})^2 -
+                        (\frac{2}{5})^2 = 0.48 \)</li>
+                </ul>
+                <p>The <strong>Weighted Average</strong> messiness for Outlook is:</p>
+                <p style="text-align: center;">
+                    $$ \text{Outlook Weighted Gini} = \frac{5}{14}(0.48) + \frac{4}{14}(0) + \frac{5}{14}(0.48) \approx
+                    \mathbf{0.343} $$
+                </p>
+
+                <p style="margin-top: 15px;"><strong>3. Evaluating "Temperature" Split:</strong></p>
+                <ul>
+                    <li><strong>Hot:</strong> \( 2 \)Y, \( 2 \)N \(\rightarrow \text{Gini} = 1 - (\frac{2}{4})^2 -
+                        (\frac{2}{4})^2 = 0.50 \)</li>
+                    <li><strong>Mild:</strong> \( 4 \)Y, \( 2 \)N \(\rightarrow \text{Gini} = 1 - (\frac{4}{6})^2 -
+                        (\frac{2}{6})^2 \approx 0.444 \)</li>
+                    <li><strong>Cool:</strong> \( 3 \)Y, \( 1 \)N \(\rightarrow \text{Gini} = 1 - (\frac{3}{4})^2 -
+                        (\frac{1}{4})^2 = 0.375 \)</li>
+                </ul>
+                <p>The <strong>Weighted Average</strong> messiness for Temperature is:</p>
+                <p style="text-align: center;">
+                    $$ \text{Temp Weighted Gini} = \frac{4}{14}(0.50) + \frac{6}{14}(0.444) + \frac{4}{14}(0.375)
+                    \approx \mathbf{0.441} $$
+                </p>
+
+                <hr style="margin: 15px 0; border: 0; border-top: 1px solid #eee;">
+                <p><strong>Conclusion:</strong> The algorithm compares the scores. Since \( 0.343 \) (Outlook) is lower
+                    than \( 0.441 \) (Temperature), the group became "less messy" with Outlook. <strong>Outlook wins and
+                        becomes the root node!</strong></p>
+            </div>
+
+            <p><strong>Step 2: Outlook wins as the Root Node.</strong></p>
+            <p>The algorithm compared all features as shown above, and Outlook produced the largest reduction in
+                "messiness." So, Outlook becomes our first question.</p>
+
+            <p><strong>Step 3: Process the Branches.</strong></p>
+            <ul>
+                <li>If Outlook is <strong>Overcast</strong>: All days are "Yes". This group is perfectly pure, so the
+                    algorithm stops here and makes a "Yes" leaf.</li>
+                <li>If Outlook is <strong>Sunny</strong>: Mixed (2 Yes, 3 No). We need a new question for these 5 days!
+                </li>
+                <li>If Outlook is <strong>Rain</strong>: Mixed (3 Yes, 2 No). We need a new question for these 5 days!
+                </li>
+            </ul>
+
+            <p><strong>Step 4: Drill down into the Sunny branch.</strong></p>
+            <p>Looking <em>only</em> at the 5 Sunny days, the algorithm tests the remaining columns (Humidity, Wind,
+                Temperature). Since <strong>Humidity</strong> perfectly separates them (High = No, Normal = Yes) with a
+                Gini score of \( 0 \), it wins the branch.</p>
+
+            <p><strong>Step 5: Drill down into the Rain branch.</strong></p>
+            <p>Looking <em>only</em> at the 5 Rain days, the algorithm finds that <strong>Wind</strong> perfectly
+                separates them (Strong = No, Weak = Yes) with a Gini score of \( 0 \), so it becomes the final split.
+            </p>
+
+            <p><strong>Frequently Asked Questions (FAQ)</strong></p>
+            <ul>
+                <li><strong>Why was the "Temperature" column completely ignored in the final tree?</strong> Because at
+                    <em>every single step</em> where the algorithm had to pick a split, another column did a better job
+                    at separating Yes from No. At the root, Outlook was better. In the Sunny branch, Humidity was
+                    better. In the Rain branch, Wind was better. Temperature never won a single "messiness" contest, so
+                    it never got added to the tree!
+                </li>
+                <li><strong>Why isn't "Outlook" asked again further down the tree?</strong> Once we split by a column,
+                    all rows in that branch have the exact same value for it. Every row in the Sunny branch is Sunny.
+                    Asking "Is it Sunny?" again wouldn't separate the data any further—it's redundant.</li>
+                <li><strong>What if a column doesn't split the data perfectly? (What if a group is still
+                        messy?)</strong> That's completely normal! If a sub-group is still mixed (like the 5 "Sunny"
+                    days that had 2 Yes and 3 No), the algorithm just repeats the process <em>inside</em> that specific
+                    branch. It will test the remaining columns (like Humidity or Wind) <em>only</em> on those 5 days to
+                    find a new question that separates them further. It keeps drilling down until the groups become
+                    perfectly pure, or it runs out of questions!</li>
+                <li><strong>Why does an impurity score of 0 mean the tree stops growing (no more splits)?</strong> Two
+                    reasons:
+                    <br>&nbsp;&nbsp;1. <strong>Logically:</strong> We already have the answer! If a group is "4 Yes and
+                    0 No" (Impurity = 0), we are 100% certain the answer is "Yes". Asking another question like "Was it
+                    windy?" won't change our certainty.
+                    <br>&nbsp;&nbsp;2. <strong>Mathematically:</strong> The algorithm's goal is to <em>reduce</em> the
+                    messiness score (this reduction is called Information Gain). Impurity can't be lower than 0. If we
+                    split a pure "Yes" group by Wind, we might get "2 Yes" (Weak wind) and "2 Yes" (Strong wind). Both
+                    new groups still have an impurity of 0. Since the score didn't drop (0 to 0), the algorithm says
+                    "This split provides zero new information" and turns the node into a final "Leaf" instead.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>3. Multi-Class Example (Gini Impurity in Action)</h2>
+        <p>This example shows a more complex dataset with a multi-class target and how Gini impurity guides the splits.
+        </p>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ticket</th>
+                        <th>Age</th>
+                        <th>Income</th>
+                        <th>Student</th>
+                        <th>Credit Rating</th>
+                        <th class="target-col">Purchase Category (Target)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>T1</td>
+                        <td>Youth</td>
+                        <td>High</td>
+                        <td>No</td>
+                        <td>Fair</td>
+                        <td class="target-col">Tech</td>
+                    </tr>
+                    <tr>
+                        <td>T2</td>
+                        <td>Youth</td>
+                        <td>High</td>
+                        <td>No</td>
+                        <td>Excellent</td>
+                        <td class="target-col">Tech</td>
+                    </tr>
+                    <tr>
+                        <td>T3</td>
+                        <td>Middle</td>
+                        <td>High</td>
+                        <td>No</td>
+                        <td>Fair</td>
+                        <td class="target-col">Home</td>
+                    </tr>
+                    <tr>
+                        <td>T4</td>
+                        <td>Senior</td>
+                        <td>Medium</td>
+                        <td>No</td>
+                        <td>Fair</td>
+                        <td class="target-col">Grocery</td>
+                    </tr>
+                    <tr>
+                        <td>T5</td>
+                        <td>Senior</td>
+                        <td>Low</td>
+                        <td>Yes</td>
+                        <td>Fair</td>
+                        <td class="target-col">Grocery</td>
+                    </tr>
+                    <tr>
+                        <td>T6</td>
+                        <td>Senior</td>
+                        <td>Low</td>
+                        <td>Yes</td>
+                        <td>Excellent</td>
+                        <td class="target-col">Home</td>
+                    </tr>
+                    <tr>
+                        <td>T7</td>
+                        <td>Middle</td>
+                        <td>Low</td>
+                        <td>Yes</td>
+                        <td>Excellent</td>
+                        <td class="target-col">Home</td>
+                    </tr>
+                    <tr>
+                        <td>T8</td>
+                        <td>Youth</td>
+                        <td>Medium</td>
+                        <td>No</td>
+                        <td>Fair</td>
+                        <td class="target-col">Tech</td>
+                    </tr>
+                    <tr>
+                        <td>T9</td>
+                        <td>Youth</td>
+                        <td>Low</td>
+                        <td>Yes</td>
+                        <td>Fair</td>
+                        <td class="target-col">Tech</td>
+                    </tr>
+                    <tr>
+                        <td>T10</td>
+                        <td>Senior</td>
+                        <td>Medium</td>
+                        <td>Yes</td>
+                        <td>Fair</td>
+                        <td class="target-col">Grocery</td>
+                    </tr>
+                    <tr>
+                        <td>T11</td>
+                        <td>Youth</td>
+                        <td>Medium</td>
+                        <td>Yes</td>
+                        <td>Excellent</td>
+                        <td class="target-col">Home</td>
+                    </tr>
+                    <tr>
+                        <td>T12</td>
+                        <td>Middle</td>
+                        <td>Medium</td>
+                        <td>No</td>
+                        <td>Excellent</td>
+                        <td class="target-col">Home</td>
+                    </tr>
+                    <tr>
+                        <td>T13</td>
+                        <td>Middle</td>
+                        <td>High</td>
+                        <td>Yes</td>
+                        <td>Fair</td>
+                        <td class="target-col">Home</td>
+                    </tr>
+                    <tr>
+                        <td>T14</td>
+                        <td>Senior</td>
+                        <td>Medium</td>
+                        <td>No</td>
+                        <td>Excellent</td>
+                        <td class="target-col">Grocery</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="explanation">
+            <h3>How the Tree Is Built (Step-by-Step, Multi-Class)</h3>
+            <p><strong>Step 1: Compute parent Gini.</strong></p>
+            <p>Parent class counts: Tech = 4, Home = 6, Grocery = 4 (total = 14)</p>
+            <p>Gini(parent) = 1 − (4/14)<sup>2</sup> − (6/14)<sup>2</sup> − (4/14)<sup>2</sup> = 0.653</p>
+
+            <p><strong>Step 2: Evaluate candidate splits.</strong> We try each feature and compute the weighted Gini
+                after the split.</p>
+            <p><strong>Example split on Age:</strong></p>
+            <ul>
+                <li>Youth: Tech = 4, Home = 1, Grocery = 0 → Gini = 1 − (4/5)<sup>2</sup> − (1/5)<sup>2</sup> = 0.32
+                </li>
+                <li>Middle: Home = 4 → Gini = 0</li>
+                <li>Senior: Grocery = 4, Home = 1 → Gini = 0.32</li>
+            </ul>
+            <p>Weighted Gini(Age) = (5/14)·0.32 + (4/14)·0 + (5/14)·0.32 = 0.229</p>
+            <p>The algorithm computes the same for other features (Income, Student, Credit Rating) and chooses the
+                lowest weighted Gini. Assume Age is best, so Age becomes the root.</p>
+
+            <p><strong>Step 3: Split each branch and repeat.</strong></p>
+            <ul>
+                <li><strong>Middle branch:</strong> All are Home → pure leaf (stop).</li>
+                <li><strong>Youth branch:</strong> Try splits again. Student works well:
+                    Student = No → (Tech, Tech, Tech) Gini = 0; Student = Yes → (Tech, Home) Gini = 0.5; weighted = 0.2
+                    → choose Student.</li>
+                <li><strong>Senior branch:</strong> Credit Rating works well:
+                    Fair → (Grocery, Grocery, Grocery) Gini = 0; Excellent → (Home, Grocery) Gini = 0.5; weighted = 0.2
+                    → choose Credit Rating.</li>
+            </ul>
+
+            <p><strong>Step 4: Stop rules.</strong> When a node is pure or hits limits like max depth or min samples, it
+                becomes a leaf with the majority class.</p>
+        </div>
+
+        <div class="explanation">
+            <h3>For Dummies: Full Step-by-Step (Handholding)</h3>
+            <p><strong>Goal:</strong> Build a tree that predicts the Purchase Category (Tech/Home/Grocery) from the
+                columns.</p>
+            <p><strong>Think of it like this:</strong> Each split asks a simple question (a column), and we want
+                questions that separate the classes as cleanly as possible.</p>
+
+            <p><strong>Step 1: Start with the whole dataset.</strong></p>
+            <p>You have 14 rows with 3 classes. Counts are Tech = 4, Home = 6, Grocery = 4. This mix is “impure.”</p>
+
+            <p><strong>Step 2: Try each column as a first split.</strong> You test Age, Income, Student, Credit Rating.
+            </p>
+            <p>For each column, you:</p>
+            <ul>
+                <li>Group the rows by that column’s values (e.g., Age → Youth/Middle/Senior).</li>
+                <li>Compute the Gini impurity for each group (lower is better).</li>
+                <li>Compute the weighted average Gini across groups.</li>
+            </ul>
+
+            <p><strong>Step 3: Pick the “best splitter.”</strong></p>
+            <p>The best splitter is the column with the <em>lowest</em> weighted Gini. Here are the weighted Gini values
+                for each first split:</p>
+            <ul>
+                <li><strong>Age:</strong> 0.229 (computed above)</li>
+                <li><strong>Income:</strong> 0.616</li>
+                <li><strong>Student:</strong> 0.521</li>
+                <li><strong>Credit Rating:</strong> 0.636</li>
+            </ul>
+            <p><strong>Result:</strong> Age is lowest, so Age becomes the root.</p>
+
+            <p><strong>Step 4: Create the root node.</strong></p>
+            <p>Root = “Age?” with 3 branches: Youth, Middle, Senior.</p>
+
+            <p><strong>Step 5: Process each branch.</strong></p>
+            <ul>
+                <li><strong>Middle:</strong> All rows are Home → pure → make a leaf “Home”.</li>
+                <li><strong>Youth:</strong> Mixed (Tech/Home) → not pure → keep splitting.</li>
+                <li><strong>Senior:</strong> Mixed (Grocery/Home) → not pure → keep splitting.</li>
+            </ul>
+
+            <p><strong>Step 6: Repeat the same split search inside each mixed branch.</strong></p>
+            <p>For Youth rows, test remaining columns (Income, Student, Credit Rating). Student splits them best:</p>
+            <ul>
+                <li>Youth + Student = No → all Tech → leaf “Tech”.</li>
+                <li>Youth + Student = Yes → mixed (Tech/Home) → could split again or stop if rule says so.</li>
+            </ul>
+            <p>For Senior rows, Credit Rating splits best:</p>
+            <ul>
+                <li>Senior + Fair → all Grocery → leaf “Grocery”.</li>
+                <li>Senior + Excellent → mixed (Home/Grocery) → could split again or stop by rule.</li>
+            </ul>
+
+            <p><strong>Step 7: Stop when a node is pure or you hit a rule.</strong></p>
+            <p>Common stop rules: max depth, min samples, or no improvement. When you stop, you make a leaf with the
+                majority class.</p>
+
+            <p><strong>Final result:</strong> A tree of simple questions that routes any new row to a leaf
+                (Tech/Home/Grocery).</p>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        google.charts.load('current', { packages: ["orgchart"] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Node');
+            data.addColumn('string', 'Parent');
+            data.addColumn('string', 'Tooltip');
+
+            data.addRows([
+                // Root
+                [{ v: 'Outlook', f: '<b>Outlook?</b>' }, '', 'Root Node'],
+
+                // Level 1 Branches
+                [{ v: 'Sunny', f: 'Sunny' }, 'Outlook', 'Branch: Outlook = Sunny'],
+                [{ v: 'Overcast_Leaf', f: '<div class="leaf-yes"><b>Overcast → Play Tennis: YES</b><br>100% Pure</div>' }, 'Outlook', 'Leaf Node'],
+                [{ v: 'Rain', f: 'Rain' }, 'Outlook', 'Branch: Outlook = Rain'],
+
+                // Level 2 Nodes
+                [{ v: 'Humidity', f: '<b>Humidity?</b>' }, 'Sunny', 'Next best split for Sunny days'],
+                [{ v: 'Wind', f: '<b>Wind?</b>' }, 'Rain', 'Next best split for Rainy days'],
+
+                // Level 3 Leaves (Sunny path)
+                [{ v: 'HighHum_Leaf', f: '<div class="leaf-no"><b>High → Play Tennis: NO</b></div>' }, 'Humidity', 'High Humidity = No Play'],
+                [{ v: 'NormalHum_Leaf', f: '<div class="leaf-yes"><b>Normal → Play Tennis: YES</b></div>' }, 'Humidity', 'Normal Humidity = Play'],
+
+                // Level 3 Leaves (Rain path)
+                [{ v: 'StrongWind_Leaf', f: '<div class="leaf-no"><b>Strong → Play Tennis: NO</b></div>' }, 'Wind', 'Strong Wind = No Play'],
+                [{ v: 'WeakWind_Leaf', f: '<div class="leaf-yes"><b>Weak → Play Tennis: YES</b></div>' }, 'Wind', 'Weak Wind = Play']
+            ]);
+
+            var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+            chart.draw(data, { allowHtml: true, nodeClass: 'google-visualization-orgchart-node' });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 id,topic,problem_description,language
-1,nvcc,Compile a simple CUDA program that prints "Hello from GPU" using nvcc with appropriate flags,CUDA C/C++
-2,cudaGetDeviceCount,Write a program that queries and prints the number of CUDA-capable GPUs available,CUDA C/C++
+~~1,nvcc,Compile a simple CUDA program that prints "Hello from GPU" using nvcc with appropriate flags,CUDA C/C++~~
+~~2,cudaGetDeviceCount,Write a program that queries and prints the number of CUDA-capable GPUs available,CUDA C/C++~~
 3,cudaSetDevice,Write a program that sets the current device to GPU 0 and verifies the selection,CUDA C/C++
 4,cudaMalloc,Allocate 1MB of GPU memory and verify the allocation was successful,CUDA C/C++
 5,cudaFree,Allocate 10MB of GPU memory and then free it while checking for memory errors,CUDA C/C++

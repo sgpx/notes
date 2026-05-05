@@ -1,5 +1,5 @@
-- `nvcc` (NVIDIA CUDA Compiler)
-- `cudaGetDeviceCount()`
+~~- `nvcc` (NVIDIA CUDA Compiler)~~
+~~- `cudaGetDeviceCount()`~~
 - `cudaSetDevice()`
 - `cudaMalloc()`
 - `cudaFree()`

@@ -1,74 +1,62 @@
-Sure! Here's a simple learning problem suitable for practicing `torch.nn.Linear`.
+Here’s a simple, easy-to-understand learning problem you can solve with PyTorch and the Adam optimizer.
 
----
+Problem: Learn a linear relationship y = 2x + 1 from noisy data.
 
-### Problem: Predict a linear relationship
+What you’ll learn:
+- How to generate a small dataset
+- How to define a tiny neural network (a single linear layer) to model y = w*x + b
+- How to train with MSE loss using Adam
+- How to check that the learned parameters are close to w=2 and b=1
 
-**Goal:** Given an input feature `x`, predict the output `y` where `y` is linearly related to `x` as:
+Python code (standalone):
 
-\[ y = 2x + 1 \]
-
----
-
-### Step-by-step:
-
-1. **Generate some data:**
-
-```python
 import torch
-
-# Create input data
-x = torch.unsqueeze(torch.linspace(-1, 1, 100), dim=1)  # shape: (100, 1)
-
-# Generate target data based on the linear rule y = 2x + 1 + noise
-y = 2 * x + 1 + 0.2 * torch.randn(x.size())
-```
-
-2. **Define a model using `torch.nn.Linear`:**
-
-```python
 import torch.nn as nn
+import torch.optim as optim
 
-model = nn.Linear(in_features=1, out_features=1)
-```
+# Fix seed for reproducibility
+torch.manual_seed(0)
 
-3. **Set up a loss function and optimizer:**
+# Generate simple dataset: y = 2x + 1 + noise
+N = 200
+X = torch.linspace(-1.0, 1.0, N).unsqueeze(1)      # shape (N, 1)
+true_w, true_b = 2.0, 1.0
+noise = 0.1 * torch.randn(N, 1)
+y = true_w * X + true_b + noise                    # shape (N, 1)
 
-```python
+# Model: a tiny linear regression (1 input, 1 output)
+model = nn.Linear(1, 1)
+
+# Loss and optimizer
 criterion = nn.MSELoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
-```
+optimizer = optim.Adam(model.parameters(), lr=0.1)
 
-4. **Train the model:**
-
-```python
-for epoch in range(100):
-    # Forward pass
-    y_pred = model(x)
-    
-    # Compute loss
-    loss = criterion(y_pred, y)
-    
-    # Zero gradients, perform backward pass, and update weights
+# Training loop
+epochs = 200
+for epoch in range(epochs):
+    model.train()
     optimizer.zero_grad()
-    loss.backward()
-    optimizer.step()
-    
-    if (epoch+1) % 10 == 0:
-        print(f'Epoch [{epoch+1}/100], Loss: {loss.item():.4f}')
-```
+    pred = model(X)                                  # forward pass
+    loss = criterion(pred, y)
+    loss.backward()                                   # backward pass
+    optimizer.step()                                  # update parameters
 
-5. **Check the learned parameters:**
+    if epoch % 50 == 0:
+        w = model.weight.data.item()
+        b = model.bias.data.item()
+        print(f"Epoch {epoch}: loss={loss.item():.4f}, w={w:.4f}, b={b:.4f}")
 
-```python
-print(f'Learned weight: {model.weight.item():.2f}')
-print(f'Learned bias: {model.bias.item():.2f}')
-```
+# Check learned parameters
+model.eval()
+with torch.no_grad():
+    learned_w = model.weight.item()
+    learned_b = model.bias.item()
+    print("Learned parameters:", learned_w, learned_b)
+    # Expected to be close to w ~ 2.0 and b ~ 1.0
 
----
+Notes and quick variants:
+- If you want a little more challenge, use a slightly larger network (e.g., 2-3 layers) and try a nonlinear relationship like y = 2x^2 + 0.5x + 1.
+- Change the learning rate or add a small batch loop (shuffle data and use DataLoader) to see how Adam handles mini-batches.
+- You can add a train/test split and evaluate generalization, though for this very simple problem a single run is enough to see the idea.
 
-### Summary:
-
-This simple example uses `torch.nn.Linear` to learn the relationship `y = 2x + 1` from noisy data. After training, the model should approximate the coefficients `2` and `1`.
-
-Feel free to experiment with the number of epochs, learning rate, or data!
+This is an easy, clear problem that demonstrates creating data, defining a model, and training with Adam in PyTorch.

@@ -1,0 +1,45 @@
+- `nvcc` (NVIDIA CUDA Compiler)
+- `cudaGetDeviceCount()`
+- `cudaSetDevice()`
+- `cudaMalloc()`
+- `cudaFree()`
+- `cudaMemcpy()`
+- `cudaMemcpyAsync()`
+- `__global__` kernel qualifier
+- `__host__` qualifier
+- `__device__` qualifier
+- `<<<gridDim, blockDim>>>` launch syntax
+- `threadIdx`, `blockIdx`, `blockDim`, `gridDim`
+- `__syncthreads()`
+- `cudaDeviceSynchronize()`
+- Global memory
+- Shared memory (`__shared__`)
+- Constant memory (`__constant__`)
+- Registers
+- `atomicAdd()`
+- `atomicCAS()`
+- `cudaStream_t`
+- `cudaStreamCreate()`, `cudaStreamDestroy()`
+- `cudaEvent_t`
+- `cudaEventCreate()`, `cudaEventRecord()`, `cudaEventElapsedTime()`
+- Memory coalescing
+- Warp-level operations (`__shfl_sync()`)
+- `__warpSize`
+- `cudaGetLastError()`
+- `printf()` in kernels
+- NVIDIA Nsight Compute
+- NVIDIA Nsight Systems
+- cuBLAS
+- cuDNN
+- cuFFT
+- cuSPARSE
+- cuRAND
+- Tensor Cores
+- `wmma::` API (Warp Matrix Multiply-Accumulate)
+- Peer-to-peer transfers (`cudaEnablePeerAccess()`)
+- NCCL (NVIDIA Collective Communications Library)
+- Occupancy calculation
+- Roofline model analysis
+- Dynamic parallelism
+- Cooperative groups API
+- `cudaMallocManaged()` (Unified Memory)

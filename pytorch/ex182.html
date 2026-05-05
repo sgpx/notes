@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothing Classifier (ONNX Web)</title>
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 2rem auto; text-align: center; }
+        #canvas-container { margin: 20px 0; }
+        canvas { border: 1px solid #ccc; border-radius: 4px; }
+        #result { color: #333; font-weight: bold; }
+        .loading { color: #888; }
+    </style>
+</head>
+<body>
+
+    <h1>Women's Clothing Classifier</h1>
+    <p>Upload an image to classify it purely in your browser.</p>
+
+    <input type="file" id="imageInput" accept="image/jpeg, image/png, image/webp" disabled>
+    
+    <div id="canvas-container">
+        <canvas id="canvas" width="224" height="224"></canvas>
+    </div>
+    
+    <h2 id="result" class="loading">Loading ONNX model...</h2>
+
+    <script>
+        // These match the 4 folders (l1, l2, l3, l4) used in your Python script
+        const LABELS = ["Salwar Kameez", "Western Dress", "Jeans or Trousers", "Other"];
+        let session;
+
+        // Initialize and load the ONNX model
+        async function init() {
+            try {
+                // ort.InferenceSession.create fetches the model file
+                session = await ort.InferenceSession.create('./model.onnx');
+                
+                const resultText = document.getElementById('result');
+                resultText.innerText = "Model loaded! Please select an image.";
+                resultText.classList.remove('loading');
+                
+                document.getElementById('imageInput').disabled = false;
+            } catch (err) {
+                console.error("Failed to load model:", err);
+                document.getElementById('result').innerText = "Failed to load model.onnx. Ensure you are using a local web server.";
+            }
+        }
+
+        // Listen for file uploads
+        document.getElementById('imageInput').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => processImageAndPredict(img);
+                img.src = event.target.result;
+            }
+            reader.readAsDataURL(file);
+        });
+
+        // Replicates your PyTorch transformations: Thumbnail, Pad to White, ToTensor, Normalize
+        async function processImageAndPredict(img) {
+            document.getElementById('result').innerText = "Processing & Predicting...";
+
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+            // 1. Pad to 224x224 with white background (matches padded = Image.new('RGB', (224, 224), (255, 255, 255)))
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, 224, 224);
+
+            // 2. Keep aspect ratio (matches image.thumbnail((224, 224)))
+            const scale = Math.min(224 / img.width, 224 / img.height);
+            const newWidth = img.width * scale;
+            const newHeight = img.height * scale;
+
+            // Calculate offsets to center the image
+            const offsetX = (224 - newWidth) / 2;
+            const offsetY = (224 - newHeight) / 2;
+
+            // Draw the resized image onto the center of the white canvas
+            ctx.drawImage(img, offsetX, offsetY, newWidth, newHeight);
+
+            // 3. Extract RGB pixel data
+            const imageData = ctx.getImageData(0, 0, 224, 224).data;
+
+            // 4. Convert to ONNX Float32Array (Matches transforms.ToTensor() and transforms.Normalize)
+            // ONNX expects NCHW format: [Batch, Channels, Height, Width] -> [1, 3, 224, 224]
+            const float32Data = new Float32Array(3 * 224 * 224);
+            const imageSize = 224 * 224;
+
+            for (let i = 0; i < imageSize; i++) {
+                // imageData is an RGBA array [r, g, b, a, r, g, b, a...]
+                let r = imageData[i * 4];
+                let g = imageData[i * 4 + 1];
+                let b = imageData[i * 4 + 2];
+
+                // Normalize: ToTensor() scales to [0,1], then Normalize(0.5, 0.5) applies (x - mean) / std
+                float32Data[i]                 = (r / 255.0 - 0.5) / 0.5; // R channel
+                float32Data[i + imageSize]     = (g / 255.0 - 0.5) / 0.5; // G channel
+                float32Data[i + 2 * imageSize] = (b / 255.0 - 0.5) / 0.5; // B channel
+            }
+
+            // Create ONNX Tensor
+            const tensor = new ort.Tensor('float32', float32Data, [1, 3, 224, 224]);
+
+            // 5. Run Inference
+            try {
+                // "image" matches the input_names=["image"] from your torch.onnx.export
+                const feeds = { image: tensor }; 
+                const results = await session.run(feeds);
+                
+                // "output" matches the output_names=["output"] from your torch.onnx.export
+                const output = results.output.data; 
+
+                // 6. Apply Argmax to find the highest prediction score
+                let maxIndex = 0;
+                let maxValue = output[0];
+                for (let i = 1; i < output.length; i++) {
+                    if (output[i] > maxValue) {
+                        maxValue = output[i];
+                        maxIndex = i;
+                    }
+                }
+
+                // Display Result
+                document.getElementById('result').innerText = `Prediction: ${LABELS[maxIndex]}`;
+            } catch (err) {
+                console.error("Inference Error:", err);
+                document.getElementById('result').innerText = "Error running prediction.";
+            }
+        }
+
+        // Boot up
+        init();
+    </script>
+</body>
+</html>

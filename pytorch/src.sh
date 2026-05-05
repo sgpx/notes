@@ -45,4 +45,9 @@ function chk() {
 function p() {
         a=$(ls ex*.py | sed -r "s/ex([0-9]+)\.py/\1/" | sort -n | tail -n1)
         ac ex$a.py
+	echo copied
+}
+
+function py() {
+	./venv/bin/python3
 }

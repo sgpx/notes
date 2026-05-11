@@ -66,7 +66,7 @@ array([[3, 8, 3],
 3. Advanced:
     11. Create a 2D array of shape 5x5 and convert it to a 1D array.
     12. Compute the sum of all elements, sum of each column and sum of each row of a given array.
-    13. Normalize a 5x5 random matrix (i.e., subtract the mean and divide by the standard deviation).
+    ~~13. Normalize a 5x5 random matrix (i.e., subtract the mean and divide by the standard deviation).~~
     14. Write a function to find moving average over an array.
     15. Given an array of random integers, make an array where each element is its rank, i.e., replace the element with its rank when sorted.
 

@@ -51,3 +51,14 @@ function p() {
 function py() {
 	./venv/bin/python3
 }
+
+function stuck() {
+	a=$(ls ex*.py | sed -r "s/ex([0-9]+)\.py/\1/" | sort -n | tail -n1)
+	printf "i am trying to solve this problem but i am stuck, what do i do next? tell me only the next step, not the whole code" > ~/tmp.txt
+        cat ex$a.py >> ~/tmp.txt
+	converse-gpt4o.sh -f ~/tmp.txt
+	#oai-gpt41-nano.sh -i ~/tmp.txt
+}
+
+alias st=stuck
+

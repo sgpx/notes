@@ -13,9 +13,7 @@ function n() {
 
 function r() {
 	a=$(ls ex*.cu | sed -r "s/ex([0-9]+)\.cu/\1/" | sort -n | tail -n1)
-	nvcc ex${a}.cu
-	./a.out
-	rm a.out
+	nvcc ex${a}.cu && ./a.out
 }
 
 function e() {
@@ -49,4 +47,18 @@ function p() {
         ac ex$a.cu
 	echo copied
 }
+
+function py() {
+	./venv/bin/python3
+}
+
+function stuck() {
+	a=$(ls ex*.cu | sed -r "s/ex([0-9]+)\.cu/\1/" | sort -n | tail -n1)
+	printf "i am trying to solve this problem but i am stuck, what do i do next? tell me only the next step, not the whole code\n\n" > ~/tmp.txt
+        cat ex$a.cu >> ~/tmp.txt
+	#converse-gpt4o.sh -f ~/tmp.txt
+	oai-gpt41-nano.sh -i ~/tmp.txt
+}
+
+alias st=stuck
 

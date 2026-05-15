@@ -1,3 +1,9 @@
+# permute()
+
+returns a view of a tensor with its dimensions reordered according to given axes
+
+so if a tensor has dimension [5,2,3] and i use permute(2,0,1) i will get [3,5,2]
+
 # learnable values 
 
 In your code the main “error” is not a Python crash, but several logical and conceptual issues that make it not a proper linear‑regression training loop:

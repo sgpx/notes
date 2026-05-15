@@ -8,7 +8,6 @@ def get_order(matrix):
 	c = None
 	for n,i in enumerate(matrix):
 		if n == 0: c = len(i)
-		else:
 	return [r,c]
 
 def can_be_multiplied(mat1, mat2):
@@ -16,12 +15,33 @@ def can_be_multiplied(mat1, mat2):
 	ord2 = get_order(mat2)
 	return (ord1[1] == ord2[0], ord1, ord2)
 
+def get_cols(x, ord_x):
+	rv = []
+	r,c = ord_x
+	for i in range(c):
+		rv.append([row[i] for row in x])
+	return rv
 
 def matmul(mat1, mat2):
 	is_ok , ord1 , ord2 = can_be_multiplied(mat1, mat2)
 	if not is_ok: raise Exception("cant be multiplied")
-	for nr,r in enumerate(mat1): pass
+	ord_prod = [ord1[0], ord2[1]]
+	prod = []
+	for i in range(ord_prod[0]):
+		rv = []
+		for j in range(ord_prod[1]):
+			rv.append(0)
+		prod.append(rv)
 
+	mat2_cols = get_cols(mat2, ord2)
+
+	for nr,row in enumerate(mat1):
+		for nc,col in enumerate(mat2_cols): 
+			elem = 0
+			for f1,f2 in zip(row, col):
+				elem += (f1 * f2)
+			prod[nr][nc] = elem
+	return prod
 """
 2 2
 3 3
@@ -31,3 +51,4 @@ def matmul(mat1, mat2):
 5 6 7
 """
 
+print(matmul(a,b))

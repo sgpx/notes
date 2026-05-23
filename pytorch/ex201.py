@@ -1,8 +1,5 @@
 """
 
-83. `x = torch.zeros(10, 1, 28, 28)`; Result of `x.squeeze(1).flatten(1)`?
-84. `x = torch.zeros(2, 5)`; Result of `x.unsqueeze(1).transpose(0, 1)`?
-85. `x = torch.zeros(10)`; Result of `x.view(2, 5).T`?
 86. `x = torch.zeros(2, 2, 2)`; Result of `x.view(-1).unsqueeze(0)`?
 87. `x = torch.zeros(4, 3)`; Result of `x.view(3, 4).transpose(0, 1)`?
 88. `x = torch.zeros(1, 2, 3)`; Result of `x.permute(0, 2, 1).squeeze(0)`?
@@ -23,21 +20,10 @@
 
 import torch
 
-x = torch.zeros(10, 1, 28, 28)
+x = torch.randint(size=(2,2,2,), low=0, high=10)
 print(x, x.shape)
+x0 = x.view(-1)
+print(x0, x0.shape)
 
-x0 = x.squeeze(1)
+x = x0.unsqueeze(0)
 print(x, x.shape)
-
-x = x0.flatten(1)
-print(x, x.shape)
-
-# removes the singleton dimension at dim=1
-
-x = x0.flatten(0)
-print(x, x.shape)
-
-# removes the singleton dimension at dim=1
-# flatten(n) flattens dimensions from dim=n onwards
-
-

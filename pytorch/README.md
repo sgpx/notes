@@ -1,3 +1,62 @@
+# reshape() vs view()
+
+reshape() creates a clone while view() just uses a memory reference
+
+reshape() creates a clone but only if it is a non-contiguous tensor
+
+The user is asking whether reshape() creates a clone while view() just uses a memory reference. This is a good question about PyTorch tensor operations.
+
+Let me think about this:
+
+1. `view()` - This requires the tensor to be contiguous in memory. It creates a new tensor object that shares the same underlying data storage (same memory reference). It doesn't copy data.
+
+2. `reshape()` - This is more flexible. If the tensor is already contiguous, it will behave like `view()` and return a tensor sharing the same data. However, if the tensor is NOT contiguous, `reshape()` will automatically make a copy (clone) to ensure it can be reshaped.
+
+So the user's statement is somewhat true, but not entirely accurate:
+- `view()` definitely just uses a memory reference (doesn't copy)
+- `reshape()` MAY create a clone, but only if the tensor is not contiguous. If it's already contiguous, it works like `view()`.
+
+This is an important distinction. Let me provide a clear answer with examples.Not quite. The distinction is more nuanced:
+
+## The Key Difference
+
+| Method | Contiguous Tensor | Non-Contiguous Tensor |
+|--------|-------------------|----------------------|
+| `view()` | Uses memory reference (no copy) | **Raises an error** |
+| `reshape()` | Uses memory reference (no copy) | **Creates a clone** (copies data) |
+
+---
+
+## What Actually Happens
+
+**`view()`** is strict—it only works on contiguous tensors and never copies data. It just creates a new view of the same underlying storage.
+
+**`reshape()`** is flexible—it tries to reuse the same memory if possible (like `view()`), but if the tensor isn't contiguous, it automatically creates a copy behind the scenes so the reshape can work.
+
+## Example
+
+```python
+import torch
+
+x = torch.randn(2, 3, 4)
+y = x.transpose(1, 2)  # y is not contiguous
+
+# This fails:
+y.view(2, 12)  # RuntimeError!
+
+# This works (and creates a clone):
+z = y.reshape(2, 12)  # Automatically copies data because y isn't contiguous
+
+# This works (no copy):
+w = y.contiguous().view(2, 12)  # Explicit copy via .contiguous(), then view
+```
+
+---
+
+## So Your Original Code
+
+Your use of `.contiguous().view()` is **more explicit and efficient** than using `.reshape()` because you're manually handling the contiguity check. This gives you more control over when copies happen.
+
 # permute()
 
 returns a view of a tensor with its dimensions reordered according to given axes

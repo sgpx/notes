@@ -4,3 +4,4 @@ cifar-10-batches-py/
 ex181data/
 *.onnx
 mnist/
+dataset-ex226.txt

@@ -417,3 +417,17 @@ more interpretable as it matches data's units
 less sensitive to outliers than MSE
 
 
+### Q: In CUDA, what does blockDim.y represent, and how does it affect thread indexing and layout within a 2D thread block compared to blockDim.x?
+
+**A:** the y dimension of the current block of threads
+
+blockDim.y specifies the number of threads launched along the y dimension
+
+large blockDim.x => threads in same row access consecutive memory, promoting coalesced memory access which is good for performance
+
+large blockDim.y => threads in the same column access strided memory, which is less efficient
+
+for 2d image processing or matrix operations, you want blockDim.x to be larger to optimize memory bandwidth
+
+---
+

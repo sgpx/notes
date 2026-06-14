@@ -58,6 +58,8 @@ function stuck() {
         cat ex$a.cu >> ~/tmp.txt
 	#converse-gpt4o.sh -f ~/tmp.txt
 	oai-gpt41-nano.sh -i ~/tmp.txt
+	#nvidia-nemotron-ultra.sh -i ~/tmp.txt
+	
 }
 
 alias st=stuck

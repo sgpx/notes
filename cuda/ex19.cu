@@ -1,4 +1,3 @@
-// check
 // 24,cudaMalloc,Allocate 1GB of GPU memory and verify the allocation was successful,CUDA C++
 
 #include <cuda_runtime.h>

@@ -431,3 +431,22 @@ for 2d image processing or matrix operations, you want blockDim.x to be larger t
 
 ---
 
+### Q: Briefly explain what __shfl_xor_sync does in CUDA and how the "xor" mask determines which threads exchange values.
+
+**A:** __shfl_xor_sync stands for shuffle XOR sync. it is used to exchange data between threads in a warp without syncthreads() which is computationally expensive
+
+it is a new synchronous version of an old CUDA function __shfl_xor which applied to the old CUDA where all threads worked in lockstep
+
+the XOR mask works by deciding which thread pairs exchange values. if the mask is M, then the ith thread t_i reads the value from lane i ^ M. for example if the lane index is 0 and mask is 1, then thread 0 and thread 1 exchange values, thread 2 and thread 3 exchange values and so on
+
+---
+
+### Q: What value does __shfl_up_sync return to a thread with lane index i when called with delta = d — its own value, the value from lane i−d, or something else — and what happens for threads where i < d?
+
+**A:** if i-d is valid, it receives the value of thread at lane i-d
+if i-d is invalid i.e. i < d, it receives an undefined value
+
+CUDA does not guarantee it will be a valid value so we have to guard against it with mask/width checks
+
+---
+

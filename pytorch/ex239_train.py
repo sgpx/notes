@@ -7,8 +7,8 @@ from PIL import Image
 import glob
 import os
 
-# Check for MPS availability
-device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+# Check for cuda availability
+device = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.mps.is_available() else "cpu")
 print(f"Using device: {device}")
 
 # ============================================================================

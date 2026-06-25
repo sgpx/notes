@@ -11,4 +11,6 @@ int main() {
 	cudaMallocPitch((void**)&d_data, &pitch, width * sizeof(float), height);
 	printf("Allocated pitch memory: %d x %d\n" , width, height);
 	printf("Pitch (in bytes):%lu\n", pitch);
+
+	cudaFree(d_data);
 }

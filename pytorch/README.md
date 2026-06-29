@@ -450,3 +450,9 @@ CUDA does not guarantee it will be a valid value so we have to guard against it 
 
 ---
 
+### Q: What does cudaGetErrorName provide for a given CUDA error, and how does that differ in purpose from cudaGetErrorString?
+
+**A:** cudaGetErrorName and cudaGetErrorString both take cudaError_t as input, and return different things as a `char*`. cudaGetErrorName returns the name of the error, while cudaGetErrorString gets the human readable error stirng
+
+---
+

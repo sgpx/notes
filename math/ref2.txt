@@ -1,0 +1,77 @@
+Matrix multiplication (dot product)
+Matrix transpose
+Matrix addition and scalar multiplication
+Matrix inversion (A⁻¹)
+Determinant (det(A))
+Trace (sum of diagonal elements)
+Rank (number of linearly independent rows/columns)
+Norms (L1, L2, Frobenius norm)
+Vector dot product and orthogonality
+LU decomposition (A = LU)
+QR decomposition (A = QR)
+Singular Value Decomposition (SVD) (A = UΣVᵀ)
+Eigendecomposition (A = PDP⁻¹)
+Cholesky decomposition (for positive definite matrices)
+Eigenvalues (λ: characteristic polynomial det(A - λI) = 0)
+Eigenvectors (Av = λv)
+Diagonalization
+Spectral theorem
+Positive definiteness and eigenvalues
+Condition number (related to eigenvalue spread)
+Vectorization (converting matrices to vectors)
+Kronecker product
+Matrix calculus (gradients of matrix operations)
+Pseudo-inverse (Moore-Penrose inverse)
+Tensor operations (generalizing to >2 dimensions)
+Partial derivatives (∂f/∂x)
+Gradient (∇f: vector of all partial derivatives)
+Jacobian matrix (matrix of all first-order partial derivatives)
+Hessian matrix (matrix of all second-order partial derivatives)
+Chain rule (composition of functions: df/dx = df/du · du/dx)
+Product rule and quotient rule
+Gradient descent (iterative optimization using gradients)
+Convexity (convex vs. non-convex functions)
+Local minima vs. global minima
+Saddle points
+Learning rate and step size
+Convergence criteria
+Second-order optimization (Newton's method, using Hessian)
+Computational graphs
+Forward pass and backward pass
+Automatic differentiation (AD)
+Vanishing/exploding gradients
+Probability density function (PDF)
+Cumulative distribution function (CDF)
+Gaussian (normal) distribution (mean μ, variance σ²)
+Uniform distribution
+Bernoulli and binomial distributions
+Exponential distribution
+Mean, variance, standard deviation, covariance
+Covariance matrix (Σ)
+Correlation
+Expected value E[X]
+Independence vs. correlation
+Law of large numbers and central limit theorem
+Entropy (H(X) = -Σ p(x) log p(x))
+Cross-entropy (used in classification loss functions)
+KL divergence (relative entropy)
+Mutual information
+Solving Ax = b (direct methods, iterative methods)
+Ill-conditioned vs. well-conditioned matrices
+Matrix preconditioning
+Floating-point precision
+Numerical errors and rounding errors
+Stability of algorithms
+Mixed precision training (relevant to deep learning)
+Squared error loss (L2 loss)
+Cross-entropy loss (classification)
+KL divergence loss
+Regularization (L1, L2 penalties)
+Batch normalization (normalization in layers)
+Weight initialization (Xavier, He initialization)
+Singular value initialization
+Whitening and decorrelation
+Dimensionality reduction (PCA using SVD/eigendecomposition)
+Tucker decomposition (tensor factorization)
+CP decomposition (Canonical Polyadic)
+Matrix factorization (for embeddings, recommendation systems)

@@ -1,0 +1,56 @@
+"""
+## Problem 2: Multi-Class Classification with Label Smoothing
+
+Demonstrate how to use `torch.nn.functional.cross_entropy` with logits and how to apply label smoothing.
+
+- Create a 3-class classification problem with 20 random samples
+- Train a linear layer to predict the class logits using `torch.nn.Linear(10,3)` and `torch.nn.functional.cross_entropy`
+- Compute and print the accuracy of the model on the training data by comparing `torch.argmax(logits, dim=1)` with true labels
+- Add label smoothing (e.g., 0.1) to the loss and retrain for 5 epochs, then report the new loss value
+- Use the weight parameter in `cross_entropy` or `nn.BCEWithLogitsLoss` with smoothing
+
+"""
+
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+loss_fxn = torch.nn.functional.cross_entropy
+
+
+classes = torch.randint(low=0, high=3, size=(20,)).to(dtype=torch.float32)
+y_true = torch.nn.functional.one_hot(classes, num_classes=3)
+print(y_true)
+
+x_true = torch.randint(low=0, high=20, size=(20, 10)).to(dtype=torch.float32)
+print(x_true)
+
+class SimpleNN(nn.Module):
+	def __init__(self):
+		super().__init__()
+		self.fc1 = nn.Linear(10,3)
+
+	def forward(self, x):
+		x = self.fc1(x)
+		return x
+
+model = SimpleNN()
+
+y_hat = model(x_true)
+loss = loss_fxn(y_hat, y_true)
+smooth = 0.1
+div = y_hat.size(1)-1
+weight = torch.full_like(y_hat, smooth/div)
+labels = torch.arange(20, dtype=torch.long)
+for i,lbl in enumerate(y_true):
+	weight[i, lbl[i]] = 1 - smooth
+
+
+optimizer = optim.SGD(model.parameters(), lr=0.01)
+for _ in range(5):
+	loss_smooth = loss_fxn(y_hat, labels, weight=weight)
+	optimizer.zero_grad()
+	loss_smooth.backward()
+	optimizer.step()
+
+

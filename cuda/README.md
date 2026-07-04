@@ -73,3 +73,12 @@ we can also use the int3 data type directly like `int3 foo; foo.x = 1;` but make
 
 ---
 
+### `cudaGetDeviceCount(int*c)`
+
+stores the number of devices in the int pointer, returns cudaError_t
+
+---
+
+### `cudaGetErrorString(int)`
+
+takes int, returns const char* description of error

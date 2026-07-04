@@ -41,7 +41,7 @@ if [[ "$1" != "--check" ]] ; then
 # Run second oai-gpt41-nano command
 	level="easy"
 	if [ "$2" != "" ]; then level="$2" ; fi
-	oai-gpt41-nano.sh -p "create an $level learning problem that can be solved with pytorch ${z}" > tmp.txt
+	oai-gpt41-nano.sh -p "create an $level learning problem that can be solved with cuda c++ ${z}" > tmp.txt
 	vbx.sh -f tmp.txt
 
 	cwd="$(pwd)/en4-pr-${ctr}.txt"
@@ -51,11 +51,11 @@ if [[ "$1" != "--check" ]] ; then
 	cp "$target" curr.md
 else
 	echo "check the solution for the problem" > ~/tmp.txt
-        a=$(ls ex*.py | sed -r "s/ex([0-9]+)\.py/\1/" | sort -n | tail -n1)
-	echo checking ex${a}.py
+        a=$(ls ex*.cu | sed -r "s/ex([0-9]+)\.cu/\1/" | sort -n | tail -n1)
+	echo checking ex${a}.cu
 	cat curr.md >> ~/tmp.txt
 	printf "\n\nthis is the real solution created by the student, ignore the provided solution\n\n" >> ~/tmp.txt
-	cat ex$a.py >> ~/tmp.txt
+	cat ex$a.cu >> ~/tmp.txt
 	oai-gpt41-nano.sh -i ~/tmp.txt
 fi
 

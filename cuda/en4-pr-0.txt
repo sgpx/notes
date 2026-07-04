@@ -1,0 +1,63 @@
+This is a perfect, introductory problem because it focuses solely on querying the device environment without requiring complex kernel programming or memory management.
+
+## The Easy Learning Problem: GPU Discovery
+
+### 💡 Problem Statement
+
+**Goal:** Write a simple CUDA C++ program that uses the `cudaGetDeviceCount()` function to determine and print the total number of NVIDIA GPUs detected by the CUDA runtime on the system.
+
+**Context:** In systems where multiple GPUs are installed, it is often necessary to programmatically discover how many devices are available before attempting to launch parallel computations.
+
+---
+
+### 🎯 Learning Objectives
+
+1. **Understanding CUDA Runtime:** Learn how to interact with the CUDA runtime environment (the driver/system-level information) from the host (CPU) code.
+2. **Function Usage:** Master the usage of system introspection functions like `cudaGetDeviceCount()`.
+3. **Host-Device Interaction:** Understand the basic interaction flow between the CPU code and the GPU hardware.
+4. **Error Handling (Basic):** Learn how to check the return value to ensure the operation was successful.
+
+### 🛠️ Solution Steps (For the Student)
+
+1. **Include Necessary Headers:** You will need the standard C++ headers and the CUDA runtime header.
+2. **Call the Function:** Use the specific CUDA runtime function to get the device count.
+3. **Print the Result:** Display the obtained count to the standard output.
+
+### 💻 Example Solution (C++)
+
+```cpp
+#include <iostream>
+#include <cuda_runtime.h>
+
+/**
+ * Main function to discover and print the number of available GPUs.
+ */
+int main() {
+    // Step 1: Call cudaGetDeviceCount()
+    // This function returns an integer representing the number of devices.
+    int deviceCount = 0;
+    
+    // Check for errors in the function call
+    cudaError_t err = cudaGetDeviceCount(&deviceCount);
+    
+    // Step 2: Error Handling
+    if (err != cudaSuccess) {
+        // If an error occurs (e.g., CUDA not installed or driver issues)
+        std::cerr << "Error: Failed to get device count. CUDA Error: " << cudaGetErrorString(err) << std::endl;
+        return 1; // Return an error code
+    }
+    
+    // Step 3: Print the Result
+    std::cout << "--- CUDA Device Discovery ---" << std::endl;
+    std::cout << "Successfully detected " << deviceCount << " CUDA devices." << std::endl;
+    
+    return 0; // Success
+}
+```
+
+### 🧠 Discussion Points for Deeper Learning
+
+1. **What is `cudaSuccess`?** (The standard way to check for successful CUDA API calls.)
+2. **What happens if the user has no NVIDIA GPU?** (The result will be 0, and the program will correctly report that 0 devices were found.)
+3. **Why not use a different function?** (This contrasts using a runtime function (`cudaGetDeviceCount`) versus a device-specific function, which is often used inside kernels.)
+4. **When would you need this knowledge?** (Before allocating massive amounts of device memory or initializing multi-GPU parallel workloads.)

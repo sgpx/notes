@@ -234,3 +234,22 @@ Imagine you are working with an RGB image (3D array) and you want to scale the c
 2. They are not equal, and neither of them is 1.
 
 **Result:** `ValueError`. Broadcasting fails immediately.
+
+# np.isclose(a,b)
+
+tells if a is close to b within acceptable tolerances since LHS and RHS sometimes will not be exactly the same e.g. 5.9999999 and 6.0
+
+uses the formula
+
+
+```
+abs(a - b) <= (atol + rtol * abs(b))
+```
+
+atol = absolute tolerance
+rtol = relative tolerance
+
+# np.allclose(mat_A, mat_B)
+
+tells if all alements of mat_A are close to all corresponding elements of mat_B, essentially telling the matrices are equal within acceptable tolerances
+

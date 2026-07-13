@@ -57,7 +57,7 @@ function stuck() {
 	printf "i am trying to solve this problem but i am stuck, what do i do next? tell me only the next step, not the whole code\n\n" > ~/tmp.txt
         cat a$a.py >> ~/tmp.txt
 	converse-gpt4o.sh -f ~/tmp.txt
-	#oai-gpt41-nano.sh -i ~/tmp.txt
+	#nvidia-nemotron-ultra.sh -i ~/tmp.txt
 }
 
 alias st=stuck

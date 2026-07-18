@@ -1,5 +1,4 @@
-Here’s an easy, self-contained learning problem you can solve with a simple deep learning model that targets matrix inversion (A⁻¹).
-
+"""
 Problem idea:
 - Learn a function f that maps a small invertible matrix A to its inverse A⁻¹. That is, f: R^{n×n} → R^{n×n}, aiming to approximate A⁻¹.
 - Start with n = 2 for simplicity (flatten matrices to vectors). You’ll train a network to take the 4 entries of A and output the 4 entries of A⁻¹.
@@ -76,4 +75,22 @@ What you’ll learn from this exercise:
 - The quality of approximation depends on matrix conditioning; very ill-conditioned A can make learning harder.
 - It’s a good demo of “learn a function that is known analytically” and then compare to exact computation.
 
-If you’d like, I can tailor this to your preferred framework (TensorFlow/Keras, PyTorch, etc.) and provide a ready-to-run script for 2×2 matrices.
+"""
+import torch
+
+
+A = torch.distributions.uniform.Uniform(-1, 1).sample((1000, 2, 2))
+det = torch.abs(A[:,0,0] * A[:,1,1] - A[:,0,1]*A[:,1,0])
+mask = det > 0.1
+A = A[mask]
+print(A.shape)
+A_inv = torch.linalg.inv(A)
+num_samples = A.shape[0]
+A = A.reshape(num_samples, 4)
+A_inv = A_inv.reshape(num_samples, 4)
+
+A_train, A_test = torch.data.utils.random_split(A, [0.8, 0.2])
+A_inv_train, A_inv_test = torch.data.utils.random_split(A_inv, [0.8, 0.2])
+
+
+print(A_train, A_test)

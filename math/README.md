@@ -73,4 +73,30 @@ A*v = lambda*v
 
 # SVD
 
+we can decompose a matrix into A
+
+A = U * sigma * V^T
+
+let A = 
+
+first we calculate
+
+A^T*A  = [[3,1],[1,3]] 
+
+A^T 
+
+# inverse matrix
+
+for a square matrix A, A_inv is a matrix such that
+
+A*A_inv = I
+
+=> A_inv*A = I
+
+only square matrices can have inverses
+
+the order of the inverse matrix A_inv is the same as the original matrix A
+
+a square matrix has an inverse only if its determinant det(A) != 0
+
 

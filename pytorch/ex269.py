@@ -16,5 +16,6 @@ lr = 0.01
 print(x)
 print(J(x))
 print(grad)
-x = x - lr*grad
+with torch.no_grad(): # disable graph tracking for update step
+	x = x - lr*grad
 print(x)

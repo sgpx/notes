@@ -3,7 +3,7 @@
 #include <cuda_runtime.h>
 #include <iostream>
 
-__global__ void expsum(float *d_ptr, float *d_res, int N) {
+__global__ void expkern(float *d_ptr, float *d_res, int N) {
 	int tid = (blockDim.x*blockIdx.x) + threadIdx.x;
 	if(tid < N) {
 		d_res[tid] = __expf(d_ptr[tid]);
@@ -27,7 +27,7 @@ int main() {
 		h_A[i] = (i+1) % 10;
 	}
 	cudaMemcpy(d_A, h_A, sz*N, cudaMemcpyHostToDevice);
-	expsum<<<num_blocks, num_threads>>>(d_A, d_res, N);
+	expkern<<<num_blocks, num_threads>>>(d_A, d_res, N);
 	cudaDeviceSynchronize();
 	cudaMemcpy(h_A, d_res, sz*N, cudaMemcpyDeviceToHost);
 	for(int i = 0 ; i < N ; i++ ) {

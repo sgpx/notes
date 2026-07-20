@@ -82,3 +82,28 @@ stores the number of devices in the int pointer, returns cudaError_t
 ### `cudaGetErrorString(int)`
 
 takes int, returns const char* description of error
+
+---
+
+### `__fdividef`
+
+__fdividef(x, y) is a fast, hardware-level intrinsic function in CUDA that calculates x / y for single-precision floating-point numbers.
+## Key Differences
+
+| Feature | Standard Division (x / y) | Fast Intrinsic (__fdividef(x, y)) |
+|---|---|---|
+| Execution Speed | Slower (takes more clock cycles) [2, 3] | Extremely fast (maps to hardware) [2] |
+| Precision | IEEE 754 compliant (highly accurate) [1, 4] | Slightly lower accuracy [1, 2] |
+| Handling of Large y | Handles full floating-point range [4] | Denormals are flushed to zero [1, 4] |
+
+## Why it is faster
+Standard division requires a complex software routine to guarantee maximum precision across edge cases. __fdividef bypasses this routine. It compiles directly into a single SFU (Special Function Unit) instruction on the GPU hardware. [1] 
+## When to use it
+
+* Use it for deep learning activation functions (like Sigmoid or Tanh) where absolute mathematical precision is less critical than execution speed.
+* Avoid it if your application relies on exact numerical stability or encounters very large denominators (|y| > 2¹²⁶).
+
+Would you like to see assembly code (PTX) or benchmark the speedup for your kernel?
+
+[1] [https://forums.developer.nvidia.com](https://forums.developer.nvidia.com/t/cuda-sample/63177)
+

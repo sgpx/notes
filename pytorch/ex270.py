@@ -5,5 +5,4 @@ f = lambda X : X**3
 
 x = torch.tensor([2.0, 3.0])
 
-
 print(torch.autograd.functional.jacobian(f, x))

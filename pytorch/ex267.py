@@ -77,7 +77,18 @@ What you’ll learn from this exercise:
 
 """
 import torch
+import torch.nn as nn
+from torch.utils.data import TensorDataset, random_split, DataLoader
 
+def relative_frobenius_error(Y_true, Y_pred, eps=1e-12):
+    # Y_* are (B,4). reshape to (B,2,2)
+    Bt = Y_true.shape[0]
+    Y_true_m = Y_true.reshape(Bt, 2, 2)
+    Y_pred_m = Y_pred.reshape(Bt, 2, 2)
+
+    num = torch.linalg.norm(Y_true_m - Y_pred_m, ord='fro', dim=(1,2))
+    den = torch.linalg.norm(Y_true_m, ord='fro', dim=(1,2))
+    return (num / (den + eps)).mean().item()
 
 A = torch.distributions.uniform.Uniform(-1, 1).sample((1000, 2, 2))
 det = torch.abs(A[:,0,0] * A[:,1,1] - A[:,0,1]*A[:,1,0])
@@ -88,9 +99,61 @@ A_inv = torch.linalg.inv(A)
 num_samples = A.shape[0]
 A = A.reshape(num_samples, 4)
 A_inv = A_inv.reshape(num_samples, 4)
+X = A
+Y = A_inv
 
-A_train, A_test = torch.data.utils.random_split(A, [0.8, 0.2])
-A_inv_train, A_inv_test = torch.data.utils.random_split(A_inv, [0.8, 0.2])
+dataset = TensorDataset(X, Y)
+train_size = int(0.8*len(dataset))
+test_size = len(dataset) - train_size
 
+tv_set, test_set = random_split(dataset, [train_size, test_size])
 
-print(A_train, A_test)
+train_size = int(0.8*len(tv_set))
+test_size = len(tv_set) - train_size
+train_set, validation_set = random_split(tv_set, [train_size, test_size])
+
+train_loader = DataLoader(train_set, batch_size=32)
+test_loader = DataLoader(test_set, batch_size=32)
+validation_loader = DataLoader(validation_set, batch_size=32)
+
+class SimpleNN(nn.Module):
+	def __init__(self):
+		super().__init__()
+		self.fc1 = nn.Linear(4, 64)
+		self.fc2 = nn.Linear(64, 32)
+		self.fc3 = nn.Linear(32, 4)
+		self.relu = nn.ReLU()
+
+	def forward(self, x):
+		x = self.fc1(x)
+		x = self.relu(x)
+		x = self.fc2(x)
+		x = self.relu(x)
+		x = self.fc3(x)
+		return x
+
+model = SimpleNN()
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+criterion = nn.MSELoss()
+
+NUM_EPOCHS = 100
+
+model.train()
+for epoch in range(NUM_EPOCHS):
+	for X_batch, Y_batch in train_loader:
+		optimizer.zero_grad()
+		pred = model(X_batch)
+		loss = criterion(pred, Y_batch)
+		loss.backward()
+		optimizer.step()
+		print(epoch, loss.item())
+
+model.eval()
+
+with torch.no_grad():
+	for X_batch, Y_batch in test_loader:
+		pred = model(X_batch)		
+		test_loss = criterion(pred, Y_batch)
+		print(test_loss.item())
+
+	

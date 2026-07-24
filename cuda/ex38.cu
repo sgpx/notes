@@ -14,13 +14,13 @@ void CUDA_CHECK(cudaError_t result) {
 }
 
 __global__ void frobenius(int *A, int M, int N, int *res) {
-	
 	int tid = threadIdx.x + (blockDim.x * blockIdx.x);
-	for(int i = 0; i < blockDim.x ; i++) {
-		int cpr = (blockDim.x + blockIdx.x) - i;
-		res[i] = __sqrt(__powf(A[i], 2) + __powf(A[cpr], 2)) ;
+	if(tid < M*N) {
+		A[tid] = A[tid] * A[tid];
 	}
-
+	for(int s = blockDim.x/2; s > 0; s /= 2) {
+		// what to do next
+	}
 }
 
 
@@ -49,6 +49,7 @@ int main() {
 	err = cudaMemcpy(d_A, h_A, sizeof(int)*M*N, cudaMemcpyHostToDevice);
 	CUDA_CHECK(err);
 	frobenius<<<num_blocks, num_threads>>>(d_A, M, N, d_res);
+	err = cudaDeviceSynchronize();
 	err = cudaMemcpy(h_res, d_res, sizeof(int)*M*N, cudaMemcpyDeviceToHost);
 	CUDA_CHECK(err);
 

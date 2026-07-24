@@ -1,5 +1,6 @@
 #!/bin/bash
 LLM=qwen25.sh
+LLM=oai-gpt5-nano.sh 
 ext=py
 lockpath="$HOME/prog/mluniv"
 LLM_INPUT_FILE=~/prog/gpt4/a.txt

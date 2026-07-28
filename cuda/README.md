@@ -146,3 +146,23 @@ CUDA does not guarantee it will be a valid value so we have to guard against it 
 
 ---
 
+###
+
+__global__ void sum_reduce(int *d_ptr, int N, int *d_res) {
+        extern int __shared__ sdata[]; // every thread has its own sdata
+        int tid = threadIdx.x + (blockIdx.x * blockDim.x); // global thread index, to map to the overall data
+        sdata[threadIdx.x] = tid < N  ? d_ptr[tid] : 0; // maps to a global thread value to a local thread id
+        __syncthreads(); // sync
+        for(int s = blockDim.x / 2 ; s > 0 ; s>>=1) { // data of thread i+(N/2) added to thread i
+                if(threadIdx.x < s) {
+                        sdata[threadIdx.x] += sdata[threadIdx.x + s];
+                }
+                __syncthreads();
+        }
+        if (threadIdx.x == 0) {
+            d_res[blockIdx.x] = sdata[0]; // transfer accumulated results to blockId in d_res
+        }
+
+}
+
+

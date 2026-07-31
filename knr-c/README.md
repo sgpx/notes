@@ -1,3 +1,23 @@
+# heap vs stack memory
+
+--------------------------------------
+| stack           | heap             |
+--------------------------------------
+| LIFO            | FIFO             |
+--------------------------------------
+| very fast       | slow             |
+--------------------------------------
+| limited, fixed  | unlimited        |
+--------------------------------------
+| automatic       | manual           |
+| allocation and  | allocaton and    |
+| free            | free             |
+--------------------------------------
+| no fragmentation| fragmentation    |
+--------------------------------------
+| thread safe     | not thread safe  |
+--------------------------------------
+
 # pass by value 
 
 function parameters are passed by value by default

@@ -8,6 +8,7 @@ function nc() {
 function n() {
 	a=$(ls ex*.cu | sed -r "s/ex([0-9]+)\.cu/\1/" | sort -n | tail -n1)
 	b=$((a+1))
+	cp -v template.txt ex$b.cu
 	nano ex$b.cu
 }
 

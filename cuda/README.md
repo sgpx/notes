@@ -166,3 +166,14 @@ __global__ void sum_reduce(int *d_ptr, int N, int *d_res) {
 }
 
 
+---
+
+# CUDA_CHECK auxillary function
+
+void CUDA_CHECK(cudaError_t result) {
+        if (result != cudaSuccess) {
+                std::cout << "error" << cudaGetErrorString(result) << std::endl ;
+                cudaDeviceReset();
+                exit(result);
+        }
+}

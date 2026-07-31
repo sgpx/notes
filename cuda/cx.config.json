@@ -1,0 +1,10 @@
+{
+    "name": "cudarepo",
+    "desc": "cuda practice repo",
+    "apikey": "/Users/sp/oaikey.txt",
+    "ext": "cu",
+    "llm": "gpt-4.1-mini",
+    "folder": ".",
+    "additional": [],
+    "exclude": []
+}

@@ -1,3 +1,4 @@
+cx.config.json
 .DS_Store
 node_modules/
 .next/
@@ -5,3 +6,4 @@ venv/
 __pycache__/
 *.onnx
 *.pth
+.env

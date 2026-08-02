@@ -177,3 +177,15 @@ void CUDA_CHECK(cudaError_t result) {
                 exit(result);
         }
 }
+
+---
+
+# `__constant__` memory
+
+- __constant__ memory is a special read-only storage area
+- used for data shared across all threads
+- stored in global VRAM
+- max 64kb per grid
+- visible to all threads
+- CPU can read and write
+

@@ -40,4 +40,4 @@ L_j,i = [ A_ji - sum(k=1->i-1)(L_jk)(L_ik) ]/L_ii
 
 - symmetry: cholesky is twice as fast as standard LU decomposition because it exploits the symmetry of the matrix
 - stability: it is numerically stable and does not require pivots
-- applications: it is used to solve linear systems like Ax=B, do matrix inversion, generate correlated random variables in monte carlo simulations, 
+- applications: it is used to solve linear systems like Ax=B, do matrix inversion, generate correlated random variables in monte carlo simulations

@@ -55,6 +55,7 @@ rotated = coords_centered @ R_inv + center
 rotated_int = np.round(rotated).astype(int)
 
 output = np.zeros_like(image)
-for ((x_out,y_out),(x_orig,y_orig)) in zip(rotated_int, coords):
-	if (0 <= x_out < N) and (0 <= y_out < N):
-		output[x_out,y_out] = image[x_orig,y_orig]
+
+for ((x_out, y_out), (x_orig, y_orig)) in zip(rotated_int, coords):
+    if (0 <= y_out < N) and (0 <= x_out < N): # <-- y_out is row, x_out is col
+        output[y_out, x_out] = image[y_orig, x_orig]

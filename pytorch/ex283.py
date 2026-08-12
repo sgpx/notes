@@ -93,7 +93,7 @@ class CircleCNN(nn.Module):
         )
         self.relu = nn.ReLU()
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.fc1 = nn.Linear(32 * 30 * 22, 64)
+        self.fc1 = nn.Linear(32*15*20, 64)
         self.fc2 = nn.Linear(64, 1)
 
     def forward(self, x):
@@ -124,7 +124,7 @@ test_loader = torch.utils.data.DataLoader(test_dataset, shuffle=False, batch_siz
 model = CircleCNN()
 model = model.to(device)
 criterion = nn.MSELoss()
-optimizer = optim.Adam(model.parameters(), lr=1e-5)
+optimizer = optim.Adam(model.parameters(), lr=0.1)
 
 NUM_EPOCHS = 100
 

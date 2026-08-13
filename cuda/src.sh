@@ -14,7 +14,13 @@ function n() {
 
 function r() {
 	a=$(ls ex*.cu | sed -r "s/ex([0-9]+)\.cu/\1/" | sort -n | tail -n1)
-	nvcc ex${a}.cu && ./a.out
+	fn="ex${a}.cu"
+	ext=""
+	if [ "$(grep -i blas $fn)" != "" ]; then
+		ext="$ext -lcublas"
+	fi
+	echo nvcc $fn $ext
+	nvcc $fn $ext && ./a.out
 }
 
 function e() {

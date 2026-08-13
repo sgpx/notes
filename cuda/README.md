@@ -189,3 +189,24 @@ void CUDA_CHECK(cudaError_t result) {
 - visible to all threads
 - CPU can read and write
 
+# cuBLAS
+
+basic linear algebra solver library
+
+# SGEMM
+
+single precision general matrix multiply
+
+computes the equation, where A,B,C and alpha,beta are known
+
+C_new = alpha.A.B + beta.C
+
+for SGEMM, we need to know m & n & k
+
+A_(mxk)  * B_(kxn) = C_(mxn)
+
+
+
+
+
+

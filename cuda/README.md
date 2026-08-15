@@ -206,7 +206,10 @@ for SGEMM, we need to know m & n & k
 A_(mxk)  * B_(kxn) = C_(mxn)
 
 
+# floating point implicit double multiplication performance penalty
 
+d_A[i] = 7.0 * d_B[i] incurs a performance penalty because double is FP64
 
+you must use the suffix `f` keep the precision at FP32 to avoid the penalty
 
-
+d_A[i] = 7.0f * d_B[i]

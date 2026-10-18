@@ -1,0 +1,89 @@
+<h1 id="date-week-1-c-tasks">📅 Week 1 C++ Tasks</h1>
+<h2 id="task-1--smart-pointer-warm-up">Task 1 — Smart Pointer
+Warm-up</h2>
+<p><strong>Problem:</strong><br />
+Write a simple <code>Point</code> class (with <code>x</code> and
+<code>y</code> coordinates) and manage a <code>Point</code> instance
+using <code>std::unique_ptr</code>.</p>
+<ul>
+<li>Create the <code>Point</code> dynamically.</li>
+<li>Print its coordinates.</li>
+<li>No manual <code>delete</code>.</li>
+</ul>
+<p>✅ Focus: Constructors, <code>unique_ptr</code>,
+<code>operator-&gt;</code>.</p>
+<hr />
+<h2 id="task-2--vector-of-objects">Task 2 — Vector of Objects</h2>
+<p><strong>Problem:</strong><br />
+Create a <code>std::vector</code> that stores multiple
+<code>Point</code> objects (from Task 1).</p>
+<ul>
+<li>Fill it with 5 points (use a loop).</li>
+<li>Write a function that prints all points.</li>
+</ul>
+<p>✅ Focus: <code>std::vector</code>, range-for loops, passing by
+reference.</p>
+<hr />
+<h2 id="task-3--copy-vs-move">Task 3 — Copy vs Move</h2>
+<p><strong>Problem:</strong><br />
+Create a <code>StringHolder</code> class that owns a
+<code>std::string</code>.</p>
+<ul>
+<li>Implement a <strong>copy constructor</strong> and a <strong>move
+constructor</strong> manually.</li>
+<li>Print when copy/move happens.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>StringHolder<span class="op">(</span><span class="at">const</span> StringHolder<span class="op">&amp;</span> other<span class="op">);</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>StringHolder<span class="op">(</span>StringHolder<span class="op">&amp;&amp;</span> other<span class="op">);</span></span></code></pre></div>
+<ul>
+<li>Write a function that takes a <code>StringHolder</code> <strong>by
+value</strong> and observe copy/move calls.</li>
+</ul>
+<p>✅ Focus: Copy/move semantics, <code>std::move</code>.</p>
+<hr />
+<h2 id="task-4--simple-resource-manager-raii">Task 4 — Simple Resource
+Manager (RAII)</h2>
+<p><strong>Problem:</strong><br />
+Simulate managing a file resource:</p>
+<ul>
+<li>Write a class <code>FileHandler</code> that "opens" a file on
+construction (simulate with <code>std::cout</code>) and "closes" it on
+destruction.</li>
+<li>No explicit <code>close()</code> calls — use RAII.</li>
+</ul>
+<p>Example output:</p>
+<pre><code>Opening file mydata.txt
+File mydata.txt closed</code></pre>
+<p>✅ Focus: RAII (Resource Acquisition Is Initialization).</p>
+<hr />
+<h2 id="task-5--templates-basic">Task 5 — Templates Basic</h2>
+<p><strong>Problem:</strong><br />
+Write a <strong>generic function</strong> <code>add()</code> that adds
+two values of any type (int, float, double).</p>
+<p>Example usage:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">auto</span> sum1 <span class="op">=</span> add<span class="op">(</span><span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">);</span>      <span class="co">// int</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">auto</span> sum2 <span class="op">=</span> add<span class="op">(</span><span class="fl">2.5</span><span class="op">,</span> <span class="fl">3.7</span><span class="op">);</span>  <span class="co">// double</span></span></code></pre></div>
+<p>✅ Focus: function templates.</p>
+<hr />
+<h2 id="optional-mini-bonus-challenge--debug-printer">(Optional) Mini
+Bonus Challenge — Debug Printer</h2>
+<p><strong>Problem:</strong><br />
+Create a variadic template function <code>debug()</code> that prints all
+its arguments, separated by commas.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>debug<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="st">&quot;hello&quot;</span><span class="op">,</span> <span class="fl">3.14</span><span class="op">);</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">// Output: 1, hello, 3.14</span></span></code></pre></div>
+<p>✅ Focus: Variadic templates (if you want extra challenge).</p>
+<hr />
+<h1 id="dart-goals-for-week-1">🎯 Goals for Week 1</h1>
+<ul>
+<li>Understand constructors, destructors, and memory ownership.</li>
+<li>Use <code>unique_ptr</code>, <code>vector</code>, move semantics
+naturally.</li>
+<li>Write small classes and functions confidently.</li>
+<li>Get hands-on muscle memory.</li>
+</ul>
+<hr />

@@ -1,0 +1,69 @@
+Here’s a simple, beginner-friendly learning problem that uses PyTorch and the ReLU activation.
+
+Problem
+- Task: Learn to approximate the function y = max(0, x) (a basic ReLU) from data.
+- Why it’s easy: It’s a simple, non-linear function that a small neural network with a ReLU hidden layer should learn quickly.
+
+Data
+- Input x sampled from [-5, 5].
+- Target y = max(0, x).
+
+Model
+- A tiny feedforward network with one hidden layer and ReLU activation:
+  - Input -> Linear(1 -> 16) -> ReLU -> Linear(16 -> 1)
+
+Training
+- Loss: Mean Squared Error (MSE)
+- Optimizer: Adam
+- Epochs: a few hundred
+- Evaluation: check that predictions resemble max(0, x)
+
+Minimal runnable code (plain Python with PyTorch)
+
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torch.utils.data import TensorDataset, DataLoader
+
+# Data
+N = 1000
+x = (torch.rand(N, 1) * 10) - 5  # uniform in [-5, 5]
+y = torch.clamp(x, min=0)       # y = max(0, x)
+
+dataset = TensorDataset(x, y)
+loader = DataLoader(dataset, batch_size=32, shuffle=True)
+
+# Model
+model = nn.Sequential(
+    nn.Linear(1, 16),
+    nn.ReLU(),
+    nn.Linear(16, 1)
+)
+
+criterion = nn.MSELoss()
+optimizer = optim.Adam(model.parameters(), lr=0.01)
+
+# Train
+for epoch in range(250):
+    for xb, yb in loader:
+        pred = model(xb)
+        loss = criterion(pred, yb)
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+    if (epoch + 1) % 50 == 0:
+        print(f"Epoch {epoch+1}, loss {loss.item():.4f}")
+
+# Evaluate
+with torch.no_grad():
+    x_test = torch.linspace(-5, 5, 100).unsqueeze(1)
+    y_true = torch.clamp(x_test, min=0)
+    y_pred = model(x_test)
+    print("Sample predictions:", y_pred[:5].squeeze().tolist())
+
+Tips and variations
+- If you want a slightly harder target, try y = max(0, x - 0.5) + max(0, -x + 2). This still uses ReLU but creates a more complex piecewise-linear shape.
+- To make it exact, you can even set up a tiny network with a known ReLU shape (but learning exact ReLU from data is still a regression task).
+- Use different hidden sizes (e.g., 8 or 32) or more layers to see how the network captures the ReLU nonlinearity.
+
+This problem demonstrates how to use ReLU as the activation in a small network and lets a learner observe how a neural network approximates a simple, well-known nonlinearity.

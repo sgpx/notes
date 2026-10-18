@@ -1,0 +1,6 @@
+[uchicago]
+name=UChicagoCentOS6Vault
+baseurl=http://bay.uchicago.edu/centos-vault/centos/6.10/os/x86_64/
+gpgcheck=0
+gpgkey=""
+enabled=1

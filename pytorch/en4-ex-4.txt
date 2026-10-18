@@ -1,0 +1,99 @@
+Sure! Here’s a quick, simple guide to `torch.ones()` in PyTorch — easy to follow with examples.
+
+---
+
+### What is `torch.ones()`?
+
+- Creates a tensor filled **only with 1s**.
+- You tell it the **shape** (size) of the tensor you want.
+
+---
+
+### Basic syntax:
+
+```python
+torch.ones(size)
+```
+
+- `size` = a tuple describing the shape (dimensions).
+
+---
+
+### Examples:
+
+```python
+import torch
+```
+
+---
+
+### 1. A vector of 5 ones
+
+```python
+torch.ones(5)
+# Output: tensor([1., 1., 1., 1., 1.])
+```
+
+---
+
+### 2. A 2 x 3 matrix of ones
+
+```python
+torch.ones((2, 3))
+# Output:
+# tensor([[1., 1., 1.],
+#         [1., 1., 1.]])
+```
+
+---
+
+### 3. A 3D tensor: 2 x 2 x 2
+
+```python
+torch.ones((2, 2, 2))
+# Output: 3D tensor with 8 ones total
+```
+
+---
+
+### 4. Specify data type (`dtype`)
+
+```python
+torch.ones(3, dtype=torch.int32)
+# tensor([1, 1, 1], dtype=torch.int32)
+```
+
+---
+
+### 5. Put `ones` tensor on GPU (if available)
+
+```python
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+torch.ones(4, device=device)
+```
+
+---
+
+### 6. Like `torch.zeros()` but all 1s!
+
+```python
+torch.zeros(3)
+# tensor([0., 0., 0.])
+
+torch.ones(3)
+# tensor([1., 1., 1.])
+```
+
+---
+
+### Quick recap:
+
+- `torch.ones(size)` = tensor filled with ones
+- Shape = size tuple (number of elements in each dimension)
+- Optional: set dtype and device
+
+---
+
+Got it?  
+Try running these yourself!  
+Playing with shape helps you understand tensors better. 😊

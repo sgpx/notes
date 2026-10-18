@@ -1,0 +1,17 @@
+#!/bin/bash
+if [ "$1" = "" ]; then
+	fn="app";
+else
+	fn="$1";
+fi
+
+time yarn create expo-app $fn --template blank
+cd $fn
+rm -rfv .git
+rwchk=$(jq '.dependencies | keys | .[]' package.json | grep react-native-web)
+
+if [ "$rwchk" != "" ]; then
+	yarn remove react-native-web
+fi
+
+yarn expo install redux react-redux redux-persist @react-native-async-storage/async-storage @types/react-native prop-types react-native-screens react-native-safe-area-context react-native-vector-icons @react-navigation/native-stack @react-navigation/native @react-navigation/stack

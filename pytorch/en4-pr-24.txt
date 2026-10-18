@@ -1,0 +1,46 @@
+**Problem:**
+
+You are training a simple linear model: `y = w * x + b`.  You want to calculate the gradients of `y` with respect to `w` and `b`.
+
+Write a PyTorch program to do the following:
+
+1.  Create two tensors, `x` and `y`, with some initial values (you can choose these values).
+2.  Calculate `y` based on `x`, `w`, and `b`.
+3.  Call `y.backward()` to compute the gradients.
+4.  Print the gradients of `y` with respect to `x` ( `dy/dx`) and `b` (`dy/db`).
+
+**Specific Requirements:**
+
+*   Set `requires_grad=True` for both `x` and `y`.
+*   Choose reasonable values for `x` and `y` that will result in non-zero gradients for `w` and `b`.  (You don't need to use extreme 
+values, but avoid values that will make all the gradients zero).
+*   Print the gradients with informative labels (e.g., "dy/dx:", "dy/db:").
+
+**Expected Outcome:**
+
+The code should output something like:
+
+```
+dy/dx: tensor(1.0)
+dy/db: tensor(1.0)
+```
+
+(The exact numerical values might vary slightly due to floating-point calculations, but the gradients should be non-zero).
+
+**This problem tests:**
+
+*   Correctly setting `requires_grad=True`.
+*   Understanding how the `backward()` method propagates gradients through a computation graph.
+*   Interpreting the `grad` attribute of the resulting tensor.
+*   Applying the chain rule (implicitly).
+
+Let me know when you’ve solved it and want to discuss the solution!  I'm here to help if you get stuck. Good luck!
+
+---
+
+**Hints (if needed):**
+
+*   Remember that `y` is a function of `x`, `w`, and `b`.  The `backward()` method will automatically compute the derivative of `y` with 
+respect to each of these variables.
+*   The gradients will be in the same order as the tensors you used in the computation.
+*   Don't worry about the specific values you use for `x`, `y`, `w`, and `b` – the important thing is that `backward()` works correctly.

@@ -1,0 +1,2 @@
+#!/bin/bash
+curl -v https://tranquil-depths-43669.herokuapp.com/

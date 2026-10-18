@@ -1,0 +1,9 @@
+c.py
+.mypy_cache
+node_modules/
+output.txt
+__pycache__
+__pycache__/
+venv/
+*.xpi
+v11/

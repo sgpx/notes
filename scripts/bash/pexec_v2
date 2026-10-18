@@ -1,0 +1,3 @@
+#!/bin/bash
+container_id=$(podman ps -aq | head -n1)
+podman exec -it $container_id $@

@@ -1,0 +1,56 @@
+cpu architecture determines instructions that can be executed by the CPU
+
+human readable language closest to machine code is called assembly
+
+# assembly program structure
+
+- directives
+- instructions
+- labels
+
+# directives
+
+- reserve memory for variables
+- control program sections in use
+- macros
+- etc
+
+# instructions
+
+- readable substitutes for numerical machine code instructions
+- optional label
+- usually 1+ operands
+
+# writing structure
+
+- assembly programs written in lines of 80 characters
+- each line divided into four columns
+- first column: optional labels, 8 characters wide
+- second column: assembly instructions or directives, 8 characters wide
+- third column: operands, 16 characters wide
+- fourth column: comments, 48 characters wide
+
+# labels
+
+- modern assemblers make two passes
+- first pass constructs symbol table which maps each label or symbol to numerical value
+- second pass assembler converts the assembly instruction and data declarations into binary, using symbol table
+
+- labels are assigned value of address counter (AC) at the point when they appear
+- labels can be used in program to refer to address of data, functions, etc
+
+# directives
+
+used to:
+
+- define symbols
+- allocate storage
+- control behavior of assembler
+
+assembler directives begin with `.` followed by sequence of letters. example `.data`
+
+# instructions
+
+commands executed on CPU
+
+

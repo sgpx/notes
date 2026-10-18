@@ -1,0 +1,76 @@
+function nc() {
+	a=$(ls ex*.cu | sed -r "s/ex([0-9]+)\.cu/\1/" | sort -n | tail -n1)
+	b=$((a+1))
+	cp -v ex$a.cu ex$b.cu
+        nano ex$b.cu
+}
+
+function n() {
+	a=$(ls ex*.cu | sed -r "s/ex([0-9]+)\.cu/\1/" | sort -n | tail -n1)
+	b=$((a+1))
+	cp -v template.txt ex$b.cu
+	nano ex$b.cu
+}
+
+function r() {
+	a=$(ls ex*.cu | sed -r "s/ex([0-9]+)\.cu/\1/" | sort -n | tail -n1)
+	fn="ex${a}.cu"
+	ext=""
+	if [ "$(grep -i blas $fn)" != "" ]; then
+		ext="$ext -lcublas"
+	fi
+	echo nvcc $fn $ext
+	nvcc $fn $ext && ./a.out
+}
+
+function e() {
+	a=$(ls ex*.cu | sed -r "s/ex([0-9]+)\.cu/\1/" | sort -n | tail -n1)
+	nano ex${a}.cu
+}
+
+function l() {
+	bash next.sh
+}
+
+function er() {
+	nano README.md
+}
+
+function c() {
+        a=$(ls ex*.cu | sed -r "s/ex([0-9]+)\.cu/\1/" | sort -n | tail -n1)
+	chkgpt.sh ex$a.cu
+}
+
+function nxt() {
+	bash n4.sh --next
+}
+
+function chk() {
+	bash n4.sh --check
+}
+
+function p() {
+        a=$(ls ex*.cu | sed -r "s/ex([0-9]+)\.cu/\1/" | sort -n | tail -n1)
+        ac ex$a.cu
+	echo copied
+}
+
+function py() {
+	./venv/bin/python3
+}
+
+function stuck() {
+	a=$(ls ex*.cu | sed -r "s/ex([0-9]+)\.cu/\1/" | sort -n | tail -n1)
+	printf "i am trying to solve this problem but i am stuck, what do i do next? tell me only the next step, not the whole code\n\n" > ~/tmp.txt
+        cat ex$a.cu >> ~/tmp.txt
+	#converse-gpt4o.sh -f ~/tmp.txt
+	#oai-gpt41-nano.sh -i ~/tmp.txt
+	nvidia-nemotron-ultra.sh -i ~/tmp.txt
+	
+}
+
+alias st=stuck
+
+if [ "$1" = "-s" ]; then
+	stuck
+fi

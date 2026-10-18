@@ -1,0 +1,73 @@
+Sure! Here's a simple, visual-style explanation of `torch.matmul()` with quick examples:
+
+---
+
+### What is `torch.matmul()`?
+- It **multiplies** two tensors (matrices or vectors).
+- Think of it as **matrix multiplication** or **dot product**.
+
+---
+
+### Basic Types of Inputs
+
+| Shape | What it means | Example…
+|---------|-----------------|--------------|
+| `(A, B)` * `(B, C)` | Matrices (2D) | Multiply to get `(A, C)` |
+| `(A, B, C)` * `(A, B, C)` | Batched matrices | Multiply each pair in batch |
+| `(N,)` * `(N,)` | Vectors | Dot product (scalar) |
+| `(N, 1)` * `(1, M)` | Row/column vectors | Result: `(N, M)` |
+
+---
+
+### Simple Examples
+
+#### 1. Vector dot product
+```python
+import torch
+
+a = torch.tensor([1, 2])  # shape (2,)
+b = torch.tensor([3, 4])  # shape (2,)
+result = torch.matmul(a, b)
+print(result)  # Output: 1*3 + 2*4 = 11
+```
+
+---
+
+#### 2. Matrix multiplication
+```python
+A = torch.tensor([[1, 2],
+                  [3, 4]])
+
+B = torch.tensor([[5, 6],
+                  [7, 8]])
+
+C = torch.matmul(A, B)
+print(C)
+# Output:
+# [[1*5+2*7, 1*6+2*8],
+#  [3*5+4*7, 3*6+4*8]]
+# [[19, 22],
+#  [43, 50]]
+```
+
+---
+
+#### 3. Batch of matrices
+```python
+A = torch.randn(2, 3, 4)  # batch of 2 matrices, 3x4
+B = torch.randn(2, 4, 5)  # same batch, 4x5
+
+C = torch.matmul(A, B)
+# Result: shape (2, 3, 5)
+```
+
+---
+
+### Quick Tips
+- Use `torch.matmul()` for matrix multiplication.
+- For element-wise multiply, use `*`.
+- For batch processing, just give batched tensors!
+
+---
+
+Would you like more examples?

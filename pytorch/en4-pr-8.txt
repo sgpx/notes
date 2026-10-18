@@ -1,0 +1,41 @@
+Sure! Here's a simple learning problem involving `tensor.shape`:
+
+---
+
+**Problem:**
+
+Suppose you have a tensor representing a batch of grayscale images, where each image is 28 pixels high and 28 pixels wide. The tensor has shape `(batch_size, height, width)`.
+
+Given the following tensor, determine its shape:
+
+```python
+import tensorflow as tf
+
+images = tf.random.uniform((64, 28, 28))
+```
+
+**Question:**
+
+What is the value of `images.shape`?
+
+---
+
+**Solution:**
+
+The shape of the tensor is `(64, 28, 28)` because:
+
+- `64` is the batch size (number of images)
+- `28` is the height of each image
+- `28` is the width of each image
+
+---
+
+**Answer:**
+
+```plaintext
+(64, 28, 28)
+```
+
+---
+
+This problem helps learners understand how `tensor.shape` reflects the dimensions of data in machine learning tasks.

@@ -1,0 +1,8 @@
+namespace MyMiddleware.CustomMiddleware {
+    public class MyMiddlewareClass : IMiddleware {
+        public async Task InvokeAsync(HttpContext context, RequestDelegate next) {
+            await context.Response.WriteAsync("- foo -");
+            await next(context);
+        } 
+    }
+}

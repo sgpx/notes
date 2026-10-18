@@ -1,0 +1,48 @@
+Sure! Here's a simple learning problem that demonstrates how to use `tensor.unsqueeze()` in PyTorch.
+
+---
+
+### Problem: Add an Extra Dimension to a Tensor
+
+**Objective:** Given a 1D tensor, add an extra dimension to convert it into a 2D tensor with shape `(1, N)`.
+
+**Steps:**
+
+1. Create a 1D tensor of numbers, e.g., `[1, 2, 3, 4]`.
+2. Use `tensor.unsqueeze()` to add an extra dimension at the beginning (dimension 0).
+3. Verify the shape of the resulting tensor.
+
+---
+
+### Example Solution:
+
+```python
+import torch
+
+# Step 1: Create a 1D tensor
+x = torch.tensor([1, 2, 3, 4])
+print("Original tensor:", x)
+print("Original shape:", x.shape)
+
+# Step 2: Add an extra dimension at position 0
+x_unsqueezed = x.unsqueeze(0)
+print("Unsqueezed tensor:", x_unsqueezed)
+print("Unsqueezed shape:", x_unsqueezed.shape)
+```
+
+**Expected Output:**
+
+```
+Original tensor: tensor([1, 2, 3, 4])
+Original shape: torch.Size([4])
+Unsqueezed tensor: tensor([[1, 2, 3, 4]])
+Unsqueezed shape: torch.Size([1, 4])
+```
+
+---
+
+### Explanation:
+- `unsqueeze(0)` adds a new dimension at position 0, turning the shape from `(4,)` to `(1, 4)`.
+- You can also add an extra dimension at other positions, e.g., `unsqueeze(1)`.
+
+This simple problem helps beginners understand how to manipulate tensor dimensions, which is useful in many deep learning tasks such as batching and input shaping.

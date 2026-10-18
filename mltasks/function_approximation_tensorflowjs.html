@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D Polynomial Regression Visualizer</title>
+    <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.20.0/dist/tf.min.js"></script>
+    <style>
+        :root {
+            --bg: #0b1020;
+            --panel: #11172b;
+            --panel-2: #151c33;
+            --text: #e5ecff;
+            --muted: #9aa7c7;
+            --accent: #6ee7ff;
+            --accent-2: #f59e0b;
+            --line: #2a3557;
+            --good: #22c55e;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(110, 231, 255, 0.18), transparent 30%),
+                radial-gradient(circle at top right, rgba(245, 158, 11, 0.12), transparent 25%),
+                linear-gradient(180deg, #08101f 0%, var(--bg) 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .shell {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: rgba(9, 14, 30, 0.8);
+            border: 1px solid rgba(154, 167, 199, 0.16);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero {
+            padding: 24px 28px;
+            border-bottom: 1px solid rgba(154, 167, 199, 0.14);
+            background: linear-gradient(135deg, rgba(17, 23, 43, 0.98), rgba(21, 28, 51, 0.8));
+        }
+
+        .hero h1 {
+            margin: 0 0 8px;
+            font-size: 28px;
+            letter-spacing: -0.03em;
+        }
+
+        .hero p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.45;
+        }
+
+        .equation-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 14px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(11, 16, 32, 0.72);
+            border: 1px solid rgba(154, 167, 199, 0.18);
+            color: #dbeafe;
+            font-size: 14px;
+            font-variant-numeric: tabular-nums;
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
+        .equation-pill code {
+            color: #8be9fd;
+            font-weight: 700;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 320px;
+            min-height: 720px;
+        }
+
+        @media (max-width: 960px) {
+            .layout { grid-template-columns: 1fr; }
+        }
+
+        #plot {
+            width: 100%;
+            height: 720px;
+        }
+
+        .sidebar {
+            padding: 22px;
+            border-left: 1px solid rgba(154, 167, 199, 0.14);
+            background: linear-gradient(180deg, rgba(17, 23, 43, 0.9), rgba(12, 17, 34, 0.95));
+        }
+
+        .card {
+            background: rgba(21, 28, 51, 0.95);
+            border: 1px solid rgba(154, 167, 199, 0.14);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .note {
+            color: #c7d2fe;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .control {
+            margin-bottom: 14px;
+        }
+
+        .control label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+        }
+
+        .control input[type="range"] {
+            width: 100%;
+            accent-color: var(--accent);
+        }
+
+        .value {
+            margin-top: 6px;
+            padding: 8px 10px;
+            background: rgba(11, 16, 32, 0.9);
+            border: 1px solid rgba(154, 167, 199, 0.14);
+            border-radius: 10px;
+            font-variant-numeric: tabular-nums;
+            color: var(--accent);
+            text-align: center;
+        }
+
+        .btn {
+            width: 100%;
+            border: 0;
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 10px;
+            color: #07111f;
+            background: linear-gradient(135deg, var(--accent), #9ff3ff);
+        }
+
+        .btn.secondary {
+            color: var(--text);
+            background: linear-gradient(135deg, #26314f, #1a2340);
+            border: 1px solid rgba(154, 167, 199, 0.16);
+        }
+
+        .stats {
+            display: grid;
+            gap: 10px;
+        }
+
+        .stat {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .stat span:first-child { color: var(--muted); }
+        .stat span:last-child { font-variant-numeric: tabular-nums; color: #ffd166; }
+        .stat .good { color: var(--good); }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <div class="hero">
+            <h1>2D Polynomial Regression Visualizer</h1>
+            <p>Same degree, simpler view: cubic target curve versus a TensorFlow.js model prediction rendered in Plotly.</p>
+            <div class="equation-pill">
+                <span>Actual equation:</span>
+                <code id="equationLabel">y = 3.0x^3 + 2.0x^2 - 5.0x + 15.0</code>
+            </div>
+        </div>
+
+        <div class="layout">
+            <div id="plot"></div>
+
+            <aside class="sidebar">
+                <div class="card">
+                    <div class="note">
+                        The original 3D polynomial was reduced to a 2D cubic:
+                        <strong>y = ax^3 + bx^2 + cx + d</strong>.
+                        Plotly makes the comparison clearer and less cluttered than the 3D mesh.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="control">
+                        <label for="aSlider">Cubic coefficient a</label>
+                        <input id="aSlider" type="range" min="1" max="5" step="0.1" value="3">
+                        <div class="value" id="aDisplay">3.0</div>
+                    </div>
+                    <div class="control">
+                        <label for="bSlider">Quadratic coefficient b</label>
+                        <input id="bSlider" type="range" min="-5" max="5" step="0.1" value="2">
+                        <div class="value" id="bDisplay">2.0</div>
+                    </div>
+                    <div class="control">
+                        <label for="cSlider">Linear coefficient c</label>
+                        <input id="cSlider" type="range" min="-10" max="10" step="0.1" value="-5">
+                        <div class="value" id="cDisplay">-5.0</div>
+                    </div>
+                    <div class="control">
+                        <label for="dSlider">Constant term d</label>
+                        <input id="dSlider" type="range" min="-20" max="20" step="0.1" value="15">
+                        <div class="value" id="dDisplay">15.0</div>
+                    </div>
+
+                    <button class="btn" id="trainBtn">Train 40 Epochs</button>
+                    <button class="btn secondary" id="resetBtn">Reset Model</button>
+                </div>
+
+                <div class="card">
+                    <div class="stats">
+                        <div class="stat"><span>Epochs Trained</span><span class="good" id="epochStat">0</span></div>
+                        <div class="stat"><span>Current Loss</span><span class="good" id="lossStat">N/A</span></div>
+                        <div class="stat"><span>Max Error</span><span id="maxErrorStat">±0</span></div>
+                        <div class="stat"><span>Mean Error</span><span id="meanErrorStat">±0</span></div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script>
+        const state = {
+            a: 3,
+            b: 2,
+            c: -5,
+            d: 15,
+            epochsTrained: 0,
+            isTraining: false
+        };
+
+        let model;
+        let trainInputs;
+        let trainOutputs;
+
+        function targetY(x) {
+            return state.a * Math.pow(x, 3) + state.b * Math.pow(x, 2) + state.c * x + state.d;
+        }
+
+        function formatTerm(value, variable, power = '') {
+            const sign = value >= 0 ? '+' : '-';
+            const absValue = Math.abs(value).toFixed(1);
+            return `${sign} ${absValue}${variable}${power}`;
+        }
+
+        function updateEquationLabel() {
+            const parts = [
+                `y = ${state.a.toFixed(1)}x^3`,
+                `${formatTerm(state.b, 'x', '^2')}`,
+                `${formatTerm(state.c, 'x')}`,
+                `${formatTerm(state.d, '')}`
+            ];
+
+            document.getElementById('equationLabel').innerText = parts.join(' ');
+        }
+
+        function generateDataset() {
+            const xs = [];
+            const ys = [];
+
+            for (let x = -5; x <= 5; x += 0.1) {
+                xs.push([x]);
+                ys.push([targetY(x) / 100]);
+            }
+
+            if (trainInputs) trainInputs.dispose();
+            if (trainOutputs) trainOutputs.dispose();
+            trainInputs = tf.tensor2d(xs);
+            trainOutputs = tf.tensor2d(ys);
+        }
+
+        function initModel() {
+            if (model) {
+                model.dispose();
+            }
+
+            model = tf.sequential();
+            model.add(tf.layers.dense({ units: 32, activation: 'tanh', inputShape: [1] }));
+            model.add(tf.layers.dense({ units: 32, activation: 'tanh' }));
+            model.add(tf.layers.dense({ units: 1 }));
+            model.compile({
+                optimizer: tf.train.adam(0.01),
+                loss: 'meanSquaredError'
+            });
+
+            state.epochsTrained = 0;
+            document.getElementById('epochStat').innerText = '0';
+            document.getElementById('lossStat').innerText = 'N/A';
+            updateEquationLabel();
+        }
+
+        function predictCurve() {
+            const xs = [];
+            for (let x = -5; x <= 5; x += 0.1) xs.push([x]);
+
+            return tf.tidy(() => {
+                const input = tf.tensor2d(xs);
+                const preds = model.predict(input);
+                return Array.from(preds.dataSync()).map(v => v * 100);
+            });
+        }
+
+        function createSamples() {
+            const xs = [];
+            const ys = [];
+            for (let x = -5; x <= 5; x += 0.1) {
+                xs.push(x);
+                ys.push(targetY(x));
+            }
+            return { xs, ys };
+        }
+
+        function renderPlot() {
+            const { xs, ys } = createSamples();
+            const pred = predictCurve();
+
+            let maxErr = 0;
+            let sumErr = 0;
+            for (let i = 0; i < xs.length; i++) {
+                const err = Math.abs(pred[i] - ys[i]);
+                maxErr = Math.max(maxErr, err);
+                sumErr += err;
+            }
+
+            document.getElementById('maxErrorStat').innerText = '±' + maxErr.toFixed(2);
+            document.getElementById('meanErrorStat').innerText = '±' + (sumErr / xs.length).toFixed(2);
+
+            const targetTrace = {
+                x: xs,
+                y: ys,
+                mode: 'lines',
+                name: 'True cubic curve',
+                line: { color: '#22c55e', width: 4 }
+            };
+
+            const predTrace = {
+                x: xs,
+                y: pred,
+                mode: 'lines',
+                name: 'NN prediction',
+                line: { color: '#f59e0b', width: 3, dash: 'dot' }
+            };
+
+            Plotly.react('plot', [targetTrace, predTrace], {
+                margin: { l: 60, r: 24, t: 24, b: 52 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: '#0b1020',
+                font: { color: '#e5ecff' },
+                xaxis: {
+                    title: 'x',
+                    gridcolor: '#24304f',
+                    zerolinecolor: '#42506d'
+                },
+                yaxis: {
+                    title: 'y',
+                    gridcolor: '#24304f',
+                    zerolinecolor: '#42506d'
+                },
+                legend: {
+                    orientation: 'h',
+                    x: 0,
+                    y: 1.12
+                }
+            }, {
+                displayModeBar: true,
+                responsive: true
+            });
+        }
+
+        async function trainNetwork() {
+            if (state.isTraining) return;
+            state.isTraining = true;
+            const btn = document.getElementById('trainBtn');
+            btn.innerText = 'Training...';
+
+            for (let i = 0; i < 40; i++) {
+                const history = await model.fit(trainInputs, trainOutputs, {
+                    epochs: 1,
+                    batchSize: 32,
+                    shuffle: true
+                });
+
+                state.epochsTrained++;
+                document.getElementById('epochStat').innerText = String(state.epochsTrained);
+                document.getElementById('lossStat').innerText = history.history.loss[0].toFixed(5);
+                renderPlot();
+                await tf.nextFrame();
+            }
+
+            btn.innerText = 'Train 40 More Epochs';
+            state.isTraining = false;
+        }
+
+        function bindControl(id, key, displayId) {
+            const input = document.getElementById(id);
+            const display = document.getElementById(displayId);
+            input.addEventListener('input', () => {
+                state[key] = parseFloat(input.value);
+                display.innerText = state[key].toFixed(1);
+                updateEquationLabel();
+                generateDataset();
+                renderPlot();
+            });
+        }
+
+        document.getElementById('trainBtn').addEventListener('click', trainNetwork);
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            if (state.isTraining) return;
+            initModel();
+            generateDataset();
+            renderPlot();
+        });
+
+        bindControl('aSlider', 'a', 'aDisplay');
+        bindControl('bSlider', 'b', 'bDisplay');
+        bindControl('cSlider', 'c', 'cDisplay');
+        bindControl('dSlider', 'd', 'dDisplay');
+
+        initModel();
+        generateDataset();
+        renderPlot();
+    </script>
+</body>
+</html>

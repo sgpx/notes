@@ -1,0 +1,271 @@
+# numpy
+
+`pip3 install numpy`
+
+# array
+
+```
+import numpy as np
+a = np.array([2,3,4,5])
+print(a.size)
+print(a.shape)
+print(a.sum)
+
+b = np.array([5,6,7,8])
+c = a+b
+print(c)
+print(c[-1])
+print(c[1:3])
+```
+
+# arange
+
+```
+>>> import numpy as np
+>>> a = np.arange(5)
+>>> a
+array([0, 1, 2, 3, 4])
+>>> a.fill(0)
+>>> a
+array([0, 0, 0, 0, 0])
+```
+
+# random.randint
+
+gives a array of integers in the defined range of the defined shape
+
+```
+>>> np.random.randint(10,55,(3,4,2))
+array([[[54, 30],
+        [26, 45],
+        [46, 38],
+        [35, 11]],
+
+       [[20, 49],
+        [42, 29],
+        [11, 44],
+        [26, 27]],
+
+       [[47, 19],
+        [28, 26],
+        [20, 25],
+        [18, 43]]])
+```
+
+# argsort
+
+gives the position of the element in a sorted array
+
+```
+>>> import numpy as np
+>>> a = np.array([1,2,3])
+>>> np.argsort(a)
+array([0, 1, 2])
+>>> a = np.array([1,2,3,1])
+>>> np.argsort(a)
+array([0, 3, 1, 2])
+```
+
+# sum
+
+```
+>>> a = np.array([1,2,3])
+>>> b = np.sum(a)
+>>> print(b)
+5
+```
+
+# append
+
+```
+>>> a = np.array([1])
+>>> np.append(a, 1)
+array([1, 1])
+```
+
+
+# argpartition(a, K)
+
+outputs an array of indices
+
+in the array of indices, the first K elements are the indices of the K smallest elements in a
+
+```
+>>> a = np.array([9,2,9,5,4])
+>>> np.argpartition(a, 2)
+array([1, 4, 3, 2, 0])
+```
+
+# unravel_index(flat_index, shape, order='F'|'C')
+
+
+converts a flat index into its corresponding 2D coordinates (row, column) based on the specified array shape and order (row major or column major)
+
+```
+import numpy as np
+shape = (3,3)
+flat_index
+```
+
+# numpy.dot()
+
+```
+>>> a = np.random.randint(1,5,(5))
+>>> b = np.random.randint(1,5,(5))
+>>> c = np.dot(a,b)
+>>> print(a,b,c)
+[2 4 2 2 4] [4 4 2 4 2] 44
+```
+
+for 2d matrices np.dot(a,b) is actual matrix multiplication while a*b is just the multiplication of the corresponding elements
+
+```
+>>> a
+array([[0, 2],
+       [1, 4]])
+>>> b
+array([[0, 1],
+       [3, 4]])
+>>> np.dot(a,b)
+array([[ 6,  8],
+       [12, 17]])
+>>> a*b
+array([[ 0,  2],
+       [ 3, 16]])
+```
+
+# np.linalg.det()
+
+compute determinant
+
+```
+>>> a = np.random.randint(1,5,(2,2))
+>>> a
+array([[3, 2],
+       [4, 3]])
+>>> np.linalg.det(a)
+```
+
+# np.linalg.inv()
+
+compute inverse of square matrix
+
+```
+>>> import numpy as np
+>>> a = np.random.randint(1,5,(2,2))
+>>> a
+array([[3, 3],
+       [2, 1]])
+>>> np.linalg.inv(a)
+array([[-0.33333333,  1.        ],
+       [ 0.66666667, -1.        ]])
+>>> np.dot(a,np.linalg.inv(a))
+array([[1.00000000e+00, 2.22044605e-16],
+       [1.11022302e-16, 1.00000000e+00]])
+>>> np.dot(a,np.linalg.inv(a)).astype(int)
+array([[1, 0],
+       [0, 1]])
+```
+
+# np.newaxis
+
+np.newaxis adds a new axis (dimension) to an array, allowing it to be broadcasted properly.
+
+arrayexample1d[:, np.newaxis, np.newaxis] transforms arrayexample1d into a 3D array, making it compatible for element-wise multiplication.
+
+# broadcast
+
+Understanding the exact rules of broadcasting will save you from endless `ValueError` headaches!
+
+For a broadcasting operation to be successful, NumPy compares the shapes of the two arrays dimension by dimension, starting from the **trailing dimensions (from right to left)**.
+
+Two dimensions are considered compatible if they meet **at least one** of these three conditions:
+
+### **1. The dimensions are exactly equal.**
+
+If the specific dimension in both arrays has the same number, they are perfectly compatible. NumPy will just do a standard element-wise operation.
+
+* **Array A:** `(4, 3)`
+* **Array B:** `(4, 3)`
+* **Result:** Compatible! The output shape will be `(4, 3)`.
+
+### **2. One of the dimensions is 1.**
+
+If a dimension is `1` in either array, NumPy will "stretch" or "copy" that dimension to match the size of the other array's dimension.
+
+* **Array A:** `(4, 3)`
+* **Array B:** `(4, 1)`
+* **Result:** Compatible! Array B's second dimension (1) is stretched to match Array A's second dimension (3). The output shape will be `(4, 3)`.
+
+### **3. One array has fewer dimensions (Implicit Padding).**
+
+If the arrays don't have the same number of dimensions, NumPy automatically pads the smaller shape with `1`s **on the left side** until both shapes have the same length. Then, it applies rules 1 and 2.
+
+* **Array A:** `(4, 3)`
+* **Array B:** `(   3)`  *(a 1D array)*
+* **How NumPy sees it:** Array B is padded on the left to become `(1, 3)`.
+* **Result:** Compatible! The padded `1` stretches to `4`, and the `3`s match. Output shape is `(4, 3)`.
+
+---
+
+### **Let's look at a complex success story:**
+
+Imagine you are working with an RGB image (3D array) and you want to scale the color channels using a 1D array.
+
+* **Image shape:** `(256, 256, 3)`
+* **Scale array:** `(          3)`
+
+**How NumPy processes this right-to-left:**
+
+1. Right-most dimension: `3` and `3`. (Rule 1: They match).
+2. Middle dimension: `256` and missing. NumPy pads the missing one with `1`. `256` and `1` are compatible (Rule 2: Stretch the 1 to 256).
+3. Left-most dimension: `256` and missing. Padded with `1`. `256` and `1` are compatible (Rule 2: Stretch the 1 to 256).
+
+**Result:** Broadcasting succeeds!
+
+### **And a classic failure case:**
+
+* **Array A:** `(4, 3)`
+* **Array B:** `(4,  )`
+
+**How NumPy processes this right-to-left:**
+
+1. Right-most dimension: Array A is `3`, Array B is `4`.
+2. They are not equal, and neither of them is 1.
+
+**Result:** `ValueError`. Broadcasting fails immediately.
+
+# np.isclose(a,b)
+
+tells if a is close to b within acceptable tolerances since LHS and RHS sometimes will not be exactly the same e.g. 5.9999999 and 6.0
+
+uses the formula
+
+
+```
+abs(a - b) <= (atol + rtol * abs(b))
+```
+
+atol = absolute tolerance
+rtol = relative tolerance
+
+# np.allclose(mat_A, mat_B)
+
+tells if all alements of mat_A are close to all corresponding elements of mat_B, essentially telling the matrices are equal within acceptable tolerances
+
+# np.convolve
+
+convolution sums all overlapping products with a sliding window
+
+A = [a1, a2, a3]
+B = [b1, b2, b3]
+res = np.convolve(A, B, 'full')
+
+res = [a1*b1, a1*b2 + a2*b1, a1*b3 + a2*b2 + a3*b1, a3*b2 + a2*b3, a3*b3]
+
+## np.convolve(A,B, 'valid') will only compute products for a perfectly overlapping position
+
+A = [a1, a2, a3]
+B = [b1, b2, b3]
+res = np.convolve(A, B, 'valid')
+res = [a1*b3 + a2*b2 + a3*b1]

@@ -1,0 +1,16 @@
+#!/bin/bash
+if [ "$1" = "" ]; then
+	x=$(podman ps -aq | head -n1)
+else
+	x="$1"
+fi
+
+
+if [ "$2" = "" ]; then
+	cmd="bash"
+else
+	cmd="$2"
+fi
+
+echo podman exec -it $x $cmd
+podman exec -it $x $cmd

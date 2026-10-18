@@ -1,0 +1,38 @@
+int (*daytab)[13]
+
+gettoken() : tokentype = NAME, token = int
+
+datatype = "int"
+
+dcl()
+
+=> gettoken() : tokentype = '('
+=> ns = 0
+=> dirdcl()
+
+=>=> type == '('
+=>=> dcl()
+=>=>=> gettoken() : tokentype = '*'
+=>=>=> ns = 1
+=>=>=> gettoken() : tokentype = NAME, token = daytab
+=>=>=> dirdcl()
+=>=>=>=> name = "daytab"
+=>=>=>=> gettoken() : tokentype = ')'
+=>=>=> out = "pointer to"
+
+pointer to array[13] of int
+
+int *daytab[13]
+
+gettoken() : tokentype = NAME, token = int
+
+dcl()
+
+=> gettoken() : tokentype = '*'
+=> ns = 1
+=> dirdcl()
+=>=> gettoken() : tokentype = NAME, token = "daytab"
+=>=> name = "daytab"
+=>=> while( gettoken is PARENS or BRACKETS)
+=>=> out = "array[13] of "
+=> out = "array[13] of pointer to"

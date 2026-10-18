@@ -1,0 +1,71 @@
+Sure! Here's a simple learning problem that involves moving tensors to a specific device (CPU or GPU) using `torch.device`. This will help you understand how to utilize `tensor.device` for device management.
+
+---
+
+### Learning Problem: Move Tensors to a Specific Device and Perform Addition
+
+**Objective:**  
+Create two tensors, move them to a specified device (CPU or GPU), and perform element-wise addition. Verify that the result is on the same device.
+
+---
+
+### Step-by-Step:
+
+1. **Choose a device:**   
+   Use `torch.device()` to specify CPU or GPU (if available).
+
+2. **Create tensors:**   
+   Initialize two tensors with some values.
+
+3. **Move tensors to the device:**   
+   Use `.to(device)` to move tensors to the desired device.
+
+4. **Perform an operation:**   
+   Add the tensors together.
+
+5. **Check the device of the result:**  
+   Confirm that the result is on the same device.
+
+---
+
+### Example code:
+
+```python
+import torch
+
+# 1. Specify device (CPU or GPU if available)
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print(f"Using device: {device}")
+
+# 2. Create two tensors
+tensor_a = torch.tensor([1, 2, 3])
+tensor_b = torch.tensor([4, 5, 6])
+
+# 3. Move tensors to the specified device
+tensor_a = tensor_a.to(device)
+tensor_b = tensor_b.to(device)
+
+# 4. Perform addition
+result = tensor_a + tensor_b
+
+# 5. Check device of the result
+print(f"Tensor A device: {tensor_a.device}")
+print(f"Tensor B device: {tensor_b.device}")
+print(f"Result device: {result.device}")
+
+# Output the result
+print(f"Result: {result}")
+```
+
+---
+
+### What you will learn:
+
+- How to select and specify a device with `torch.device()`.
+- How to move tensors to a device using `.to()`.
+- How tensor devices can be checked with `.device`.
+- Performing tensor operations on different devices.
+
+---
+
+This simple practice will help you understand device management in PyTorch!

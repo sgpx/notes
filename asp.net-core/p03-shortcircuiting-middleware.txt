@@ -1,0 +1,23 @@
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
+
+app.Use(async (HttpContext h, RequestDelegate r) =>
+{
+    await h.Response.WriteAsync("hello1");
+    await r(h);
+});
+
+
+
+app.Run(async (HttpContext h) =>
+{
+    await h.Response.WriteAsync("hello2");
+});
+
+app.Use(async (HttpContext h, RequestDelegate r) =>
+{
+    await h.Response.WriteAsync("hello3");
+    await r(h);
+});
+
+app.Run();

@@ -1,0 +1,12 @@
+using Ff;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddTransient<IFoo, Foo>();
+
+var app = builder.Build();
+
+app.MapGet("/", (IFoo f) => f.Greet());
+
+app.Run();
+

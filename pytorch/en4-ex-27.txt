@@ -1,0 +1,65 @@
+Sure! Here's a simple, quick guide to `torch.nn.Linear`:
+
+---
+
+### What is `torch.nn.Linear`?
+It's a layer in PyTorch that does **linear transformation**:  
+\[ \text{output} = \text{input} \times \text{weights}^T + \text{bias} \]
+
+---
+
+### Basic Example:
+
+```python
+import torch
+import torch.nn as nn
+
+layer = nn.Linear(3, 2)  # 3 inputs, 2 outputs
+
+x = torch.tensor([1.0, 2.0, 3.0])  # input
+output = layer(x)
+print(output)
+```
+
+---
+
+### Key points:
+- **Input features**: size of input vector (3)
+- **Output features**: size of output vector (2)
+- **Weights & bias** are automatically created
+
+---
+
+### Batch inputs:
+Multiple samples at once:
+
+```python
+x = torch.tensor([[1., 2., 3.], [4., 5., 6.]])  # batch of 2
+output = layer(x)
+print(output)
+```
+
+*Output shape: (2, 2)*
+
+---
+
+### Custom weights & bias:
+Set weights/bias manually:
+
+```python
+layer.weight.data = torch.tensor([[1., 0., -1.], [0., 1., 1.]])
+layer.bias.data = torch.tensor([0.5, -0.5])
+output = layer(x)
+print(output)
+```
+
+---
+
+### Summary:
+- Creates a **learnable linear mapping**
+- Works with batches of data
+- You can **customize weights/bias** if needed
+
+---
+
+Let me know if you want more examples!

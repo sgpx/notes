@@ -1,0 +1,12 @@
+namespace Ff
+{
+    public interface IFoo
+    {
+        string Greet();
+    }
+
+    class Foo : IFoo
+    {
+        public string Greet() { return "hfoo"; }
+    }
+}

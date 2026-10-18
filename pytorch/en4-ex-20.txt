@@ -1,0 +1,95 @@
+Sure! 😊 Here's a simple, example-filled explanation of `torch.stack()`:
+
+---
+
+### What is `torch.stack()`?
+
+It combines multiple tensors into one **new** tensor along a new dimension.
+
+---
+
+### Think of it like stacking sheets of paper
+
+- Each tensor is like a sheet of paper.
+- `torch.stack()` stacks sheets on top of each other into a stack.
+
+---
+
+### Basic Example
+
+```python
+import torch
+
+a = torch.tensor([1, 2])
+b = torch.tensor([3, 4])
+
+result = torch.stack([a, b])
+print(result)
+```
+
+**Output:**
+```
+tensor([[1, 2],
+        [3, 4]])
+```
+
+*Nice! It made a 2x2 tensor, stacking `a` on top of `b`.*
+
+---
+
+### Connection to new dimension
+
+- By default, `torch.stack()` creates a new dimension at position 0.
+- You can change it with `dim=...`.
+
+---
+
+### Example with `dim=1`
+
+```python
+result = torch.stack([a, b], dim=1)
+print(result)
+```
+
+**Output:**
+```
+tensor([[1, 3],
+        [2, 4]])
+```
+*Now, the new dimension is side to side!*
+
+---
+
+### More Examples
+
+#### Stacking 3 tensors
+
+```python
+a = torch.tensor([1])
+b = torch.tensor([2])
+c = torch.tensor([3])
+
+stacked = torch.stack([a, b, c])
+print(stacked)
+```
+
+**Output:**
+```
+tensor([1, 2, 3])
+```
+*(Same shape, 1D)*
+
+---
+
+#### Different shapes? No. All tensors must be same shape!
+
+---
+
+### Summary:
+- `torch.stack([t1, t2, ...])` combines tensors into a new tensor.
+- Adds a new dimension at `dim=0` by default.
+- All tensors must have the same shape.
+
+---
+
+Want an example with 3D tensors? Just ask! 😊

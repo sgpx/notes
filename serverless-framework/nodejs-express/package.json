@@ -1,0 +1,10 @@
+{
+  "name": "nodejs-express",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.2",
+    "serverless-http": "^2.7.0"
+  }
+}

@@ -1,0 +1,834 @@
+<p>Understood.</p>
+<p>I’m going to treat this seriously: <strong>instructor mode</strong>
+plus <strong>learning-manager mode</strong>.</p>
+<p>Your target is not “I can run PyTorch tutorials.” Your target is:</p>
+<ul>
+<li><strong>strong ML fundamentals</strong></li>
+<li><strong>deep learning mastery</strong></li>
+<li><strong>real mathematical understanding</strong></li>
+<li><strong>solid C++</strong></li>
+<li><strong>real CUDA/kernel-level competence</strong></li>
+<li><strong>portfolio quality high enough for top-tier AI/DL
+roles</strong></li>
+</ul>
+<p>I’ll be blunt where needed, because that is the fastest path.</p>
+<hr />
+<h1 id="1-honest-assessment-of-your-current-level">1. Honest assessment
+of your current level</h1>
+<p>Based on the history you shared, here is the most accurate read I can
+give.</p>
+<h2 id="what-you-already-have">What you already have</h2>
+<p>You have built a <strong>good foundation in PyTorch
+mechanics</strong>, especially:</p>
+<ul>
+<li>tensor creation</li>
+<li>reshaping/view/flatten/squeeze/unsqueeze</li>
+<li>transpose/permute/contiguity</li>
+<li>device movement</li>
+<li>basic autograd</li>
+<li>simple training loops</li>
+<li>linear regression / MLP basics</li>
+<li>some CNN exposure</li>
+<li>some benchmarking curiosity</li>
+<li>first contact with CUDA runtime APIs</li>
+</ul>
+<p>That is real progress.</p>
+<h2 id="but-heres-the-key-truth">But here’s the key truth</h2>
+<p>Most of your work so far is still in the category of:</p>
+<ul>
+<li><strong>framework fluency</strong></li>
+<li><strong>toy model experimentation</strong></li>
+<li><strong>basic scripting</strong></li>
+<li><strong>surface-level CUDA exposure</strong></li>
+</ul>
+<p>That is <strong>not yet close to top-tier AI/DL job
+readiness</strong>.</p>
+<p>And that is okay.</p>
+<p>It means you are <strong>past beginner</strong>, but you have not yet
+built the layers that top-tier employers care about most:</p>
+<ul>
+<li>first-principles math</li>
+<li>derivation ability</li>
+<li>implementation from scratch</li>
+<li>systems depth</li>
+<li>C++ engineering</li>
+<li>kernel-level GPU reasoning</li>
+<li>modern architectures beyond basics</li>
+<li>research and debugging maturity</li>
+</ul>
+<hr />
+<h1 id="2-my-diagnosis-by-domain">2. My diagnosis by domain</h1>
+<h2 id="a-pytorch--tensor-fluency">A. PyTorch / tensor fluency</h2>
+<p><strong>Current level:</strong> good beginner to early
+intermediate</p>
+<p>Evidence:</p>
+<ul>
+<li>many tensor exercises</li>
+<li>reshaping, flattening, permutation, device usage</li>
+<li>basic autograd and training loops</li>
+</ul>
+<p>Verdict:</p>
+<ul>
+<li>good base</li>
+<li>diminishing returns from more tiny tensor API drills</li>
+</ul>
+<h2 id="b-deep-learning-fundamentals">B. Deep learning fundamentals</h2>
+<p><strong>Current level:</strong> beginner</p>
+<p>Evidence:</p>
+<ul>
+<li>linear regression</li>
+<li>basic MLPs</li>
+<li>some CNN work</li>
+<li>text classifier pipeline</li>
+<li>some optimization loops</li>
+</ul>
+<p>Verdict:</p>
+<ul>
+<li>you can train simple models</li>
+<li>but likely cannot yet derive/implement many internals from
+scratch</li>
+<li>not yet strong on initialization, normalization, sequence models,
+attention, transformer internals</li>
+</ul>
+<h2 id="c-math">C. Math</h2>
+<p><strong>Current level:</strong> not sufficiently demonstrated</p>
+<p>Evidence:</p>
+<ul>
+<li>almost no direct evidence of rigorous linear
+algebra/calculus/probability work</li>
+<li>one custom vector class task, but not enough</li>
+</ul>
+<p>Verdict:</p>
+<ul>
+<li>this is a major gap</li>
+<li>top-tier AI interviews will expose this instantly if not fixed</li>
+</ul>
+<h2 id="d-classical-ml">D. Classical ML</h2>
+<p><strong>Current level:</strong> weak</p>
+<p>Evidence:</p>
+<ul>
+<li>some iris classification/regression</li>
+<li>no clear from-scratch logistic regression, PCA, k-means,
+regularization theory, calibration, etc.</li>
+</ul>
+<p>Verdict:</p>
+<ul>
+<li>needs a dedicated chapter</li>
+</ul>
+<h2 id="e-cuda">E. CUDA</h2>
+<p><strong>Current level:</strong> novice</p>
+<p>Evidence:</p>
+<ul>
+<li>device query</li>
+<li>set device</li>
+<li>allocation</li>
+<li>memcpy</li>
+</ul>
+<p>Verdict:</p>
+<ul>
+<li>you have not yet started real CUDA programming</li>
+<li>no kernels yet</li>
+<li>no blocks/threads indexing</li>
+<li>no shared memory</li>
+<li>no reductions</li>
+<li>no tiling</li>
+<li>no profiling</li>
+</ul>
+<h2 id="f-c">F. C++</h2>
+<p><strong>Current level:</strong> essentially not started</p>
+<p>Evidence:</p>
+<ul>
+<li>no C++ history shown</li>
+</ul>
+<p>Verdict:</p>
+<ul>
+<li>this is currently your biggest systems gap</li>
+</ul>
+<hr />
+<h1 id="3-the-biggest-shift-we-need-to-make">3. The biggest shift we
+need to make</h1>
+<p>You do <strong>not</strong> need more <code>squeeze()</code>,
+<code>view()</code>, and <code>arange()</code> exercises.</p>
+<p>Those helped. Good. Done.</p>
+<p>Now the learning strategy must change from:</p>
+<ul>
+<li>“many tiny syntax drills”</li>
+</ul>
+<p>to:</p>
+<ul>
+<li><strong>fewer, deeper, first-principles builds</strong></li>
+<li><strong>written derivations</strong></li>
+<li><strong>from-scratch implementations</strong></li>
+<li><strong>benchmarks</strong></li>
+<li><strong>tests</strong></li>
+<li><strong>professional repo structure</strong></li>
+<li><strong>systems thinking</strong></li>
+</ul>
+<p>That is the difference between tutorial-level familiarity and real
+competence.</p>
+<hr />
+<h1 id="4-what-i-would-change-in-your-curriculum">4. What I would change
+in your curriculum</h1>
+<p>Your example curriculum is actually strong in spirit. The main issue
+is <strong>sequencing</strong> and <strong>a few missing
+modules</strong>.</p>
+<h2 id="keep">Keep</h2>
+<p>Your major buckets are good:</p>
+<ul>
+<li>Theoretical Bedrock</li>
+<li>Deep Learning Core</li>
+<li>Modern Architectures</li>
+<li>AI Systems</li>
+<li>Advanced Research</li>
+</ul>
+<p>That structure is solid.</p>
+<h2 id="change-1-insert-a-missing-chapter">Change 1: insert a missing
+chapter</h2>
+<p>You need a dedicated chapter between Theoretical Bedrock and Deep
+Learning Core:</p>
+<h2 id="machine-learning-fundamentals"><strong>Machine Learning
+Fundamentals</strong></h2>
+<p>This is currently underrepresented.</p>
+<p>Add exercises like:</p>
+<ul>
+<li>Linear Regression from Scratch</li>
+<li>Logistic Regression from Scratch</li>
+<li>Softmax Regression</li>
+<li>Cross-Entropy Derivation</li>
+<li>Regularization and Bias-Variance</li>
+<li>PCA via SVD</li>
+<li>k-Means</li>
+<li>Train/Validation/Test Discipline</li>
+<li>ROC-AUC / PR-AUC</li>
+<li>Calibration / Brier Score</li>
+</ul>
+<p>Top-tier AI/DL engineers are usually not hired for tree methods
+alone, but they are expected to understand core ML principles cold.</p>
+<hr />
+<h2 id="change-2-replace-c-basics-with-modern-c-foundations">Change 2:
+replace “C Basics” with “Modern C++ Foundations”</h2>
+<p>Your AI systems chapter says “C for AI Systems,” but your target is
+<strong>C++</strong>.</p>
+<p>So I would revise that section into:</p>
+<h2 id="modern-c-for-ai-systems"><strong>Modern C++ for AI
+Systems</strong></h2>
+<p>You need:</p>
+<ul>
+<li>values, references, pointers</li>
+<li>stack vs heap</li>
+<li>RAII</li>
+<li>constructors / destructors</li>
+<li>copy vs move semantics</li>
+<li>smart pointers</li>
+<li>STL containers</li>
+<li>templates</li>
+<li>operator overloading</li>
+<li><code>const</code> correctness</li>
+<li>CMake</li>
+<li>debugging</li>
+<li>sanitizers</li>
+<li>multithreading basics</li>
+<li>pybind11</li>
+<li>LibTorch</li>
+</ul>
+<p>For AI jobs, <strong>modern C++</strong> matters much more than plain
+C.</p>
+<hr />
+<h2 id="change-3-move-cuda-earlier">Change 3: move CUDA earlier</h2>
+<p>Do not leave CUDA too late.</p>
+<p>After basic C++ foundations, start:</p>
+<ul>
+<li>CUDA hello world</li>
+<li>vector addition</li>
+<li>reduction</li>
+<li>tiled matmul</li>
+<li>softmax</li>
+<li>shared memory</li>
+<li>streams</li>
+<li>profiling</li>
+</ul>
+<p>CUDA takes time to become intuitive. Start earlier.</p>
+<hr />
+<h2 id="change-4-add-missing-numerical-stability-content">Change 4: add
+missing “numerical stability” content</h2>
+<p>This is a major gap in many self-taught students.</p>
+<p>Add explicit exercises on:</p>
+<ul>
+<li>stable softmax</li>
+<li>log-sum-exp</li>
+<li>underflow / overflow</li>
+<li>FP16 vs BF16 vs FP32</li>
+<li>gradient explosion / vanishing</li>
+<li>finite-difference gradient checking</li>
+<li>in-place autograd pitfalls</li>
+</ul>
+<p>This matters a lot in real training and systems interviews.</p>
+<hr />
+<h2
+id="change-5-delay-flashy-advanced-topics-until-core-is-strong">Change
+5: delay flashy advanced topics until core is strong</h2>
+<p>These are great topics, but not now:</p>
+<ul>
+<li>RLHF</li>
+<li>PPO</li>
+<li>DPO</li>
+<li>diffusion internals</li>
+<li>FlashAttention-style deep kernel work</li>
+<li>advanced quantization stacks</li>
+</ul>
+<p>They should come <strong>after</strong>:</p>
+<ul>
+<li>math</li>
+<li>optimization</li>
+<li>transformer fundamentals</li>
+<li>C++</li>
+<li>real CUDA basics</li>
+</ul>
+<p>Otherwise you risk “advanced topic cosplay” without true mastery.</p>
+<hr />
+<h1 id="5-revised-roadmap-i-would-put-you-on">5. Revised roadmap I would
+put you on</h1>
+<p>I’m optimizing this for a <strong>top-tier Research Engineer / ML
+Systems / Deep Learning Engineer</strong> profile.</p>
+<p>If you can study:</p>
+<ul>
+<li><strong>15–20 hours/week</strong> → think <strong>9–12
+months</strong></li>
+<li><strong>25–30 hours/week</strong> → think <strong>6–8
+months</strong></li>
+</ul>
+<p>That is realistic.</p>
+<hr />
+<h2 id="phase-0--environment-and-engineering-habits">Phase 0 —
+Environment and engineering habits</h2>
+<p><strong>Duration:</strong> 1 week</p>
+<h3 id="goals">Goals</h3>
+<ul>
+<li>Git/GitHub workflow</li>
+<li>repo structure</li>
+<li>Python environment discipline</li>
+<li>pytest</li>
+<li>Linux familiarity</li>
+<li>CMake setup</li>
+<li>if needed: remote NVIDIA machine setup</li>
+</ul>
+<h3 id="exit-criteria">Exit criteria</h3>
+<p>You can run:</p>
+<ul>
+<li>Python tests</li>
+<li>C++ build</li>
+<li>CUDA compile/run</li>
+</ul>
+<hr />
+<h2 id="phase-1--mathematical-bedrock--scratch-implementations">Phase 1
+— Mathematical bedrock + scratch implementations</h2>
+<p><strong>Duration:</strong> 4–6 weeks</p>
+<p>Use your curriculum items:</p>
+<ul>
+<li>1 Dot Product</li>
+<li>2 Matrix Multiplication</li>
+<li>3 Eigenvalue Solver</li>
+<li>4 SVD Logic</li>
+<li>5 Jacobian</li>
+<li>6 Hessian</li>
+<li>7 Chain Rule</li>
+<li>8 Log-loss derivatives</li>
+<li>9 Bayes</li>
+<li>10 Entropy</li>
+<li>11 KL divergence</li>
+<li>12 MLE</li>
+<li>13–16 optimizers</li>
+<li>17–20 autograd/VJP</li>
+</ul>
+<h3 id="required-additions">Required additions</h3>
+<ul>
+<li>finite-difference gradient check</li>
+<li>stable softmax/cross-entropy</li>
+<li>numerical conditioning examples</li>
+</ul>
+<h3 id="exit-criteria-1">Exit criteria</h3>
+<p>You can:</p>
+<ul>
+<li>derive gradients manually</li>
+<li>implement optimizers from scratch</li>
+<li>explain Jacobian vs Hessian</li>
+<li>build a micrograd-style engine</li>
+<li>explain entropy / KL / MLE intuitively and mathematically</li>
+</ul>
+<hr />
+<h2 id="phase-2--classical-ml-fundamentals">Phase 2 — Classical ML
+fundamentals</h2>
+<p><strong>Duration:</strong> 3–4 weeks</p>
+<h3 id="topics">Topics</h3>
+<ul>
+<li>linear regression from scratch</li>
+<li>logistic regression from scratch</li>
+<li>softmax regression</li>
+<li>regularization</li>
+<li>bias-variance tradeoff</li>
+<li>PCA via SVD</li>
+<li>k-means</li>
+<li>metrics and calibration</li>
+</ul>
+<h3 id="exit-criteria-2">Exit criteria</h3>
+<p>You can:</p>
+<ul>
+<li>derive logistic loss</li>
+<li>train logistic regression without sklearn magic</li>
+<li>explain PCA geometrically and computationally</li>
+<li>choose evaluation metrics correctly</li>
+</ul>
+<hr />
+<h2 id="phase-3--deep-learning-core">Phase 3 — Deep learning core</h2>
+<p><strong>Duration:</strong> 5–6 weeks</p>
+<p>Use your curriculum:</p>
+<ul>
+<li>21 broadcasting</li>
+<li>22 custom autograd</li>
+<li>23 memory layout / stride / offset</li>
+<li>24 in-place vs out-of-place</li>
+<li>25 Xavier</li>
+<li>26 Kaiming</li>
+<li>27 BatchNorm scratch</li>
+<li>28 LayerNorm scratch</li>
+<li>29–32 regularization</li>
+<li>33–36 CNN/residual/depthwise/dilated</li>
+<li>37–40 RNN/LSTM/GRU/clipping</li>
+</ul>
+<h3 id="exit-criteria-3">Exit criteria</h3>
+<p>You can:</p>
+<ul>
+<li>implement norm layers and dropout</li>
+<li>explain initialization mathematically</li>
+<li>train CNNs correctly</li>
+<li>explain sequence model failure modes</li>
+<li>reason about memory layout and contiguity</li>
+</ul>
+<hr />
+<h2 id="phase-4--attention-and-transformers">Phase 4 — Attention and
+transformers</h2>
+<p><strong>Duration:</strong> 5–6 weeks</p>
+<p>Use:</p>
+<ul>
+<li>41–48 attention + transformer assembly</li>
+<li>49–52 tokenization + decoding</li>
+<li>53–56 PEFT / LoRA / QLoRA</li>
+</ul>
+<h3 id="exit-criteria-4">Exit criteria</h3>
+<p>You can:</p>
+<ul>
+<li>implement self-attention and MHA</li>
+<li>explain scaling by <code>sqrt(d_k)</code></li>
+<li>build a small transformer</li>
+<li>explain masking and causal attention</li>
+<li>fine-tune with LoRA</li>
+</ul>
+<hr />
+<h2 id="phase-5--modern-c-for-ai-systems">Phase 5 — Modern C++ for AI
+systems</h2>
+<p><strong>Duration:</strong> 6–8 weeks, in parallel</p>
+<h3 id="topics-1">Topics</h3>
+<ul>
+<li>modern C++ syntax and semantics</li>
+<li>RAII</li>
+<li>move semantics</li>
+<li>STL</li>
+<li>templates</li>
+<li>chrono benchmarking</li>
+<li>multithreading basics</li>
+<li>pybind11</li>
+<li>LibTorch</li>
+</ul>
+<h3 id="exit-criteria-5">Exit criteria</h3>
+<p>You can:</p>
+<ul>
+<li>write clean C++17/20</li>
+<li>build with CMake</li>
+<li>expose a C++ op to Python</li>
+<li>run a LibTorch inference program</li>
+</ul>
+<hr />
+<h2 id="phase-6--cuda-programming">Phase 6 — CUDA programming</h2>
+<p><strong>Duration:</strong> 6–8 weeks</p>
+<p>Use:</p>
+<ul>
+<li>69 CUDA hello world</li>
+<li>70 vector add</li>
+<li>71 shared-memory matmul</li>
+<li>72 stream synchronization</li>
+<li>73–76 Triton kernels</li>
+</ul>
+<h3 id="add-mandatory-missing-exercises">Add mandatory missing
+exercises</h3>
+<ul>
+<li>reduction kernel</li>
+<li>tiled GEMM</li>
+<li>softmax kernel</li>
+<li>layernorm kernel</li>
+<li>memory coalescing experiments</li>
+<li>occupancy/profiling notes</li>
+<li>Nsight analysis</li>
+</ul>
+<h3 id="exit-criteria-6">Exit criteria</h3>
+<p>You can:</p>
+<ul>
+<li>write correct kernels</li>
+<li>reason about thread/block indexing</li>
+<li>use shared memory properly</li>
+<li>benchmark against CPU/PyTorch</li>
+<li>explain coalescing, occupancy, latency hiding</li>
+</ul>
+<hr />
+<h2 id="phase-7--distributed-training--inference-systems">Phase 7 —
+Distributed training / inference systems</h2>
+<p><strong>Duration:</strong> 4–6 weeks</p>
+<p>Use:</p>
+<ul>
+<li>77–80 DDP/FSDP/all-reduce/pipeline parallelism</li>
+<li>81–84 quantization/pruning/distillation/KV cache</li>
+<li>93–96 advanced kernels and precision benchmarking</li>
+</ul>
+<h3 id="exit-criteria-7">Exit criteria</h3>
+<p>You can:</p>
+<ul>
+<li>explain DDP at a systems level</li>
+<li>implement or mock all-reduce</li>
+<li>explain KV cache usefulness</li>
+<li>discuss quantization tradeoffs</li>
+</ul>
+<hr />
+<h2 id="phase-8--replication-capstones-interview-prep">Phase 8 —
+Replication, capstones, interview prep</h2>
+<p><strong>Duration:</strong> 6–8 weeks</p>
+<p>Use:</p>
+<ul>
+<li>85–88 paper replication</li>
+<li>89–92 retrieval / vector search</li>
+<li>97–100 alignment topics</li>
+</ul>
+<h3 id="but-your-main-capstones-should-be">But your main capstones
+should be:</h3>
+<ol type="1">
+<li><strong>Micrograd / autograd engine</strong></li>
+<li><strong>NumPy ML package</strong> with optimizers and core
+models</li>
+<li><strong>Transformer from scratch in PyTorch</strong></li>
+<li><strong>C++/pybind11 extension</strong></li>
+<li><strong>CUDA kernel benchmark suite</strong></li>
+<li><strong>One serious paper reproduction</strong></li>
+</ol>
+<p>These become portfolio assets.</p>
+<hr />
+<h1 id="6-what-you-should-do-next-specifically">6. What you should do
+next, specifically</h1>
+<p>Here is the <strong>immediate priority queue</strong> I would unlock
+from your curriculum.</p>
+<h2 id="immediate-next-exercises-from-your-list">Immediate next
+exercises from your list</h2>
+<p>In this order:</p>
+<ol type="1">
+<li>Vector Dot Product</li>
+<li>Matrix Multiplication from Scratch</li>
+<li>Jacobian Matrix Calculation</li>
+<li>Chain Rule Manual Expansion</li>
+<li>Partial Derivatives of Log-Loss</li>
+<li>Information Entropy Calculator</li>
+<li>KL Divergence Implementation</li>
+<li>Maximum Likelihood Estimation</li>
+<li>SGD with Momentum</li>
+<li>Adam Optimizer Logic</li>
+<li>RMSProp Implementation</li>
+<li>Micrograd Scalar Autograd</li>
+<li>Backprop through Tanh</li>
+<li>Vector-Jacobian Products</li>
+<li>Tensor Broadcasting Rules</li>
+<li>Memory Layout (Stride/Offset)</li>
+<li>In-place vs Out-of-place Ops</li>
+<li>Xavier Initialization</li>
+<li>Kaiming Initialization</li>
+<li>CUDA Hello World Kernel</li>
+<li>Vector Addition Kernel</li>
+</ol>
+<h2 id="add-these-missing-exercises-immediately">Add these missing
+exercises immediately</h2>
+<p>These are not optional:</p>
+<ul>
+<li>Logistic Regression from Scratch</li>
+<li>Stable Softmax + Cross-Entropy</li>
+<li>Finite-Difference Gradient Check</li>
+<li>CMake + simple C++ project setup</li>
+<li>Modern C++ RAII mini-exercise</li>
+</ul>
+<hr />
+<h1 id="7-the-next-46-weeks-your-first-serious-sprint">7. The next 4–6
+weeks: your first serious sprint</h1>
+<h2 id="week-1-linear-algebra--first-c">Week 1: Linear algebra + first
+C++</h2>
+<h3 id="theory">Theory</h3>
+<ul>
+<li>Dot product</li>
+<li>Matrix multiplication</li>
+</ul>
+<h3 id="build">Build</h3>
+<ul>
+<li>implement both from scratch in Python</li>
+<li>no <code>np.dot</code>, no <code>torch.mm</code> inside the core
+implementation</li>
+</ul>
+<h3 id="systems">Systems</h3>
+<ul>
+<li>start modern C++</li>
+<li>write
+<code>dot(std::vector&lt;float&gt;, std::vector&lt;float&gt;)</code></li>
+</ul>
+<h3 id="deliverable">Deliverable</h3>
+<ul>
+<li>Python code</li>
+<li>C++ code</li>
+<li>tests</li>
+<li>short note: “dot product as alignment” and “matrix multiplication as
+composition of linear maps”</li>
+</ul>
+<hr />
+<h2 id="week-2-calculus-for-ml">Week 2: Calculus for ML</h2>
+<h3 id="theory-1">Theory</h3>
+<ul>
+<li>Jacobian</li>
+<li>chain rule</li>
+<li>derivative of MSE</li>
+<li>derivative of logistic / log-loss</li>
+</ul>
+<h3 id="build-1">Build</h3>
+<ul>
+<li>symbolic/manual derivations</li>
+<li>verify with finite differences</li>
+</ul>
+<h3 id="systems-1">Systems</h3>
+<ul>
+<li>C++ matrix class skeleton</li>
+<li>constructors, operator overloading, const correctness</li>
+</ul>
+<h3 id="deliverable-1">Deliverable</h3>
+<ul>
+<li>derivation write-up</li>
+<li>code verification notebook/script</li>
+<li>C++ matrix class v1</li>
+</ul>
+<hr />
+<h2 id="week-3-probability--optimization--autograd">Week 3: Probability
++ optimization + autograd</h2>
+<h3 id="theory-2">Theory</h3>
+<ul>
+<li>entropy</li>
+<li>KL divergence</li>
+<li>MLE</li>
+<li>SGD / momentum / RMSProp / Adam</li>
+</ul>
+<h3 id="build-2">Build</h3>
+<ul>
+<li>implement optimizers from scratch</li>
+<li>build scalar autograd engine</li>
+<li>backprop through tanh</li>
+</ul>
+<h3 id="deliverable-2">Deliverable</h3>
+<ul>
+<li>micrograd-style engine</li>
+<li>optimizer implementations</li>
+<li>short explanation: why Adam works and where it can fail</li>
+</ul>
+<hr />
+<h2 id="week-4-pytorch-internals--numerics">Week 4: PyTorch internals +
+numerics</h2>
+<h3 id="theory-3">Theory</h3>
+<ul>
+<li>broadcasting rules</li>
+<li>strides and contiguity</li>
+<li>in-place autograd risks</li>
+<li>Xavier / Kaiming initialization</li>
+</ul>
+<h3 id="build-3">Build</h3>
+<ul>
+<li>broadcasting examples</li>
+<li>stride inspection</li>
+<li>stable softmax + CE</li>
+<li>gradient check</li>
+</ul>
+<h3 id="deliverable-3">Deliverable</h3>
+<ul>
+<li>a mini report on:
+<ul>
+<li>when <code>.view()</code> fails</li>
+<li>why <code>.contiguous()</code> matters</li>
+<li>when in-place ops break gradients</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="week-56-start-real-cuda">Week 5–6: Start real CUDA</h2>
+<h3 id="theory-4">Theory</h3>
+<ul>
+<li>thread/block/grid</li>
+<li>kernel launch mental model</li>
+<li>memory copies</li>
+<li>CPU vs GPU execution intuition</li>
+</ul>
+<h3 id="build-4">Build</h3>
+<ul>
+<li>CUDA hello world</li>
+<li>vector addition kernel</li>
+<li>compare result with CPU baseline</li>
+<li>benchmark modestly</li>
+</ul>
+<h3 id="deliverable-4">Deliverable</h3>
+<ul>
+<li><code>.cu</code> source</li>
+<li>correctness checks</li>
+<li>benchmark notes</li>
+<li>explanation of thread indexing</li>
+</ul>
+<hr />
+<h1 id="8-how-i-will-define-mastery">8. How I will define “mastery”</h1>
+<p>From now on, an exercise is <strong>not complete</strong> just
+because the code runs.</p>
+<p>For each serious exercise, you need:</p>
+<ol type="1">
+<li><strong>Correctness</strong></li>
+<li><strong>Tests</strong></li>
+<li><strong>Theory explanation</strong></li>
+<li><strong>Edge-case reasoning</strong></li>
+<li><strong>Complexity or memory discussion</strong></li>
+<li><strong>Benchmarking</strong> when applicable</li>
+</ol>
+<p>If you cannot explain:</p>
+<ul>
+<li>what the algorithm is doing,</li>
+<li>why it works,</li>
+<li>its failure modes,</li>
+<li>and its computational cost,</li>
+</ul>
+<p>then you do not own it yet.</p>
+<p>That is how top-tier interviews think.</p>
+<hr />
+<h1 id="9-new-standard-for-your-project-structure">9. New standard for
+your project structure</h1>
+<p>Stop treating everything as one-off scripts only.</p>
+<p>Use a more professional structure going forward:</p>
+<pre class="text"><code>ai_mastery/
+  math/
+  ml/
+  dl/
+  cpp/
+  cuda/
+  tests/
+  notes/
+  benchmarks/</code></pre>
+<p>And for each exercise/project:</p>
+<ul>
+<li><code>README.md</code></li>
+<li><code>solution.py</code> or <code>solution.cpp/.cu</code></li>
+<li><code>tests/</code></li>
+<li><code>notes.md</code></li>
+<li><code>benchmark.md</code> if relevant</li>
+</ul>
+<p>This matters because employers judge engineering maturity too.</p>
+<hr />
+<h1 id="10-one-very-important-infrastructure-note">10. One very
+important infrastructure note</h1>
+<p>Your history suggests some Apple/MPS usage.</p>
+<p>That is fine for PyTorch practice.</p>
+<p>But for <strong>CUDA mastery</strong>, you need a real <strong>NVIDIA
++ CUDA</strong> environment.</p>
+<p>If you do not have that locally, set up one of:</p>
+<ul>
+<li>remote Linux box with NVIDIA GPU</li>
+<li>cloud GPU instance</li>
+<li>WSL2/Linux with proper CUDA setup if you have NVIDIA hardware</li>
+</ul>
+<p><strong>MPS is not a substitute for CUDA learning.</strong></p>
+<hr />
+<h1 id="11-my-blunt-summary">11. My blunt summary</h1>
+<h2 id="strengths">Strengths</h2>
+<ul>
+<li>good PyTorch exposure</li>
+<li>solid comfort with tensor mechanics</li>
+<li>you’ve built momentum</li>
+<li>you’re not starting from zero</li>
+</ul>
+<h2 id="weaknesses">Weaknesses</h2>
+<ul>
+<li>math rigor not yet established</li>
+<li>classical ML still weak</li>
+<li>no real C++</li>
+<li>no real CUDA kernels yet</li>
+<li>too much history in tiny scripts, not enough depth projects</li>
+</ul>
+<h2 id="what-happens-next">What happens next</h2>
+<p>We pivot from:</p>
+<ul>
+<li>framework familiarity</li>
+</ul>
+<p>to:</p>
+<ul>
+<li><strong>derivation</strong></li>
+<li><strong>scratch implementations</strong></li>
+<li><strong>systems programming</strong></li>
+<li><strong>real capstones</strong></li>
+</ul>
+<p>That is the right move.</p>
+<hr />
+<h1 id="12-your-first-assignment">12. Your first assignment</h1>
+<p>Start here.</p>
+<h2 id="assignment-1">Assignment 1</h2>
+<h3 id="part-a--python">Part A — Python</h3>
+<p>Implement from scratch:</p>
+<ol type="1">
+<li><code>dot(a, b)</code></li>
+<li><code>matmul(A, B)</code></li>
+</ol>
+<p>Constraints:</p>
+<ul>
+<li>use plain Python or NumPy arrays as storage</li>
+<li>do <strong>not</strong> use <code>np.dot</code>,
+<code>np.matmul</code>, <code>torch.mm</code>, or <code>@</code> inside
+the implementation</li>
+<li>verify results against NumPy/PyTorch</li>
+</ul>
+<h3 id="part-b--c">Part B — C++</h3>
+<p>Implement:</p>
+<ol type="1">
+<li><code>float dot(const std::vector&lt;float&gt;&amp; a, const std::vector&lt;float&gt;&amp; b)</code></li>
+</ol>
+<p>Requirements:</p>
+<ul>
+<li>compile cleanly</li>
+<li>handle size mismatch</li>
+<li>add at least 3 tests</li>
+</ul>
+<h3 id="part-c--math-write-up">Part C — Math write-up</h3>
+<p>Write short derivations for:</p>
+<ol type="1">
+<li>the Jacobian of <code>y = Wx + b</code></li>
+<li>the gradient of <code>L = 1/2 ||Wx - t||^2</code> with respect to
+<code>W</code></li>
+</ol>
+<h3 id="part-d--short-explanation">Part D — Short explanation</h3>
+<p>In 5–10 sentences each:</p>
+<ol type="1">
+<li>Why does dot product measure alignment?</li>
+<li>Why is matrix multiplication composition of linear maps?</li>
+</ol>
+<hr />
+<p>If you want, I can do the next step in a very structured way:</p>
+<ul>
+<li>turn this into a <strong>tracked curriculum</strong></li>
+<li>give you a <strong>week-by-week plan</strong></li>
+<li>create a <strong>grading rubric</strong></li>
+<li>and then review your submitted solutions one by one like a real
+instructor</li>
+</ul>
+<p>If you’re ready, send me either:</p>
+<ol type="1">
+<li>your <strong>hours/week</strong>, <strong>target role</strong>, and
+<strong>GPU situation</strong>, or</li>
+<li>your <strong>Assignment 1 solution</strong>, and I’ll review it and
+assign the next block.</li>
+</ol>

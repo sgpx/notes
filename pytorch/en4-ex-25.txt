@@ -1,0 +1,76 @@
+Sure! Here's a simple and quick guide to **torch.no_grad()** with easy examples:
+
+---
+
+### What is torch.no_grad()?
+- It **tells PyTorch** **"Don’t build gradients"**.  
+- Use when you **don't want to train** or **update weights**.  
+- Good for **saving memory** when doing inference.
+
+---
+
+### Why use it?
+- Speed up **prediction**.
+- Save **RAM**.
+- Prevent **unwanted gradients**.
+
+---
+
+### Basic Example 1: Inference (prediction)
+
+```python
+import torch
+model = torch.nn.Linear(2, 1)
+x = torch.tensor([[1.0, 2.0]])
+
+# Without no_grad()
+prediction = model(x)  # gradients are stored here
+
+# With no_grad()
+with torch.no_grad():
+    prediction = model(x)
+```
+
+**Difference?**  
+- The second run **won't store gradients**, faster and uses less memory.
+
+---
+
+### Basic Example 2: Calculate without changing weights
+
+```python
+model = torch.nn.Linear(1,1)
+x = torch.tensor([[1.0]], requires_grad=True)
+
+# Normally, training involves gradients
+loss = (model(x) - 2)**2
+loss.backward()
+
+# Now, just predict, no update
+with torch.no_grad():
+    pred = model(torch.tensor([[3.0]]))
+print(pred)
+```
+
+---
+
+### Important!  
+**Use torch.no_grad() when:**
+- Testing or evaluating your model
+- Making predictions
+- Getting outputs without training?
+
+---
+
+### Quick Tips:
+- Wrap code that doesn't need gradients with **`with torch.no_grad()`**.
+- Not using it during training is okay, but it uses more resources.
+
+---
+
+**Summary:**  
+Use `with torch.no_grad()` **to turn off gradient tracking** when you only want to **predict or evaluate**. Fast, saves memory!
+
+---
+
+Hope this helps! 😊

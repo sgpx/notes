@@ -1,0 +1,72 @@
+This problem is designed to be extremely accessible. It uses the core concept of a **Linear Layer** in a neural network, which is the foundation of all deep learning.
+
+The concept being tested is how input data is transformed by learned parameters (weights) via the dot product.
+
+---
+
+## 🧠 The Easy Learning Problem: The Simple Prediction
+
+### Scenario: The Feature Machine
+
+Imagine you are building a tiny, single-neuron model to predict a score based on two input features. This model uses a set of learned **Weights** to combine the inputs and produce a prediction.
+
+### The Goal
+
+Calculate the final prediction score by performing a matrix multiplication (dot product) and adding a bias.
+
+### The Data (The Matrices)
+
+**1. Input Data Matrix ($X$):** This is the feature vector we are feeding into the model.
+$$X = \begin{bmatrix} 2 \\ 5 \end{bmatrix}$$
+(Feature 1 = 2, Feature 2 = 5)
+
+**2. Weight Matrix ($W$):** These are the parameters the model "learned" during training.
+$$W = \begin{bmatrix} 0.5 \\ 1.5 \end{bmatrix}$$
+(Weight for Feature 1 = 0.5, Weight for Feature 2 = 1.5)
+
+**3. Bias ($b$):** A simple constant added to the result.
+$$b = 3.0$$
+
+### The Task
+
+Calculate the final prediction ($P$) using the formula:
+$$P = (X \cdot W) + b$$
+
+---
+
+## Step-by-Step Solution (The Deep Learning Math)
+
+### Step 1: Perform the Matrix Multiplication (Dot Product)
+
+We calculate the dot product of the input $X$ and the weight matrix $W$.
+
+$$X \cdot W = \begin{bmatrix} 2 \\ 5 \end{bmatrix} \cdot \begin{bmatrix} 0.5 \\ 1.5 \end{bmatrix}$$
+
+$$X \cdot W = (2 \times 0.5) + (5 \times 1.5)$$
+
+$$X \cdot W = 1.0 + 7.5$$
+
+$$\mathbf{X \cdot W = 8.5}$$
+
+### Step 2: Add the Bias
+
+Now, we add the bias value ($b=3.0$) to the result from Step 1.
+
+$$P = (X \cdot W) + b$$
+
+$$P = 8.5 + 3.0$$
+
+$$\mathbf{P = 11.5}$$
+
+---
+
+## 💡 Learning Takeaway
+
+**The Final Prediction is 11.5.**
+
+### Why This Matters in Deep Learning:
+
+1.  **The Core Operation:** The entire process we just performed ($X \cdot W + b$) is the simplest form of a **Linear Transformation** (the fundamental operation within any standard Neural Network layer).
+2.  **Weights are Key:** The weights ($W$) are the crucial part. In real deep learning, we don't manually choose $W$; the optimization algorithm (like Gradient Descent) learns the optimal values for $W$ through training data.
+3.  **Tensors:** $X$ and $W$ are examples of **Tensors** (multi-dimensional arrays), which is the native data structure used in deep learning frameworks like TensorFlow and PyTorch.
+4.  **The Layer:** This calculation represents a single **Dense Layer** (or fully connected layer) in a neural network.

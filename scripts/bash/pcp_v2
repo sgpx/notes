@@ -1,0 +1,18 @@
+#!/bin/bash
+container_id=$(podman ps -aq | head -n1)
+
+a="$1"
+b="$2"
+
+cmd=""
+
+if [ "$a" = "-c2l" ]; then
+	cmd="podman cp $container_id:/root/$b ."
+fi
+
+if [ "$a" = "-l2c" ]; then
+	cmd="podman cp $b $container_id:/root/$b"
+fi
+
+echo $cmd
+$cmd

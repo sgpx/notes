@@ -1,0 +1,18 @@
+#!/bin/bash
+container_id=$(podman ps -aq | head -n 1)
+tmp=$(grep -E "^/.+$" <<< "$1")
+
+if [ "$tmp" = "" ]; then
+	source_path="/root/$1"
+else
+	source_path="$1"
+fi
+
+if [ "$2" = "" ]; then
+	dest_path="."
+else
+	dest_path="$2"
+fi
+
+echo podman cp $container_id:$source_path $dest_path
+podman cp $container_id:$source_path $dest_path

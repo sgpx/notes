@@ -1,0 +1,73 @@
+#!/bin/bash
+
+function xecho(){
+	1>&2 echo $@
+}
+function whist(){
+	xecho writing to apkb_hist
+	echo $1 > ~/.apkb_hist
+}
+
+function validate_hist(){
+	hist=$(cat ~/.apkb_hist | head -n1 | grep -E "[0-9]{1,3}\.[0-9]{1,3}")
+	echo $hist
+}
+
+function check_hist(){
+	vh=$(validate_hist)
+	if [ "$(validate_hist)" != "" ]; then
+		xecho valid
+		echo $vh
+	else
+		xecho invalid history
+		echo "$(read_ipb)"
+	fi
+}
+
+function read_ipb(){
+	xecho "enter IP 192.168.[XX:XX]"
+	read x
+	echo $x
+	whist $x
+}
+
+gradlew_loc=""
+
+for i in $(find . -iname gradlew); do
+	b=$(grep node_modules <<< "$i")
+	if [ "$b" = "" ]; then
+		gradlew_loc="$i";
+		break;
+	fi
+done
+
+if [ "$gradlew_loc" = "" ]; then
+	echo ERROR: gradlew not found
+	exit
+fi
+
+gradlew_dir=$(sed -r "s/\/gradlew//" <<< "$gradlew_loc")
+1>/dev/null pushd $gradlew_dir
+echo PWD is $PWD
+echo activating gradle wrapper: $gradlew_loc
+echo ./gradlew assembleRelease
+./gradlew assembleRelease
+
+if [ "$1" != "" ]; then
+	echo using arg $1
+	ipb="$1"
+	whist $ipb
+else
+	if [ -r ~/.apkb_hist ]; then
+		xecho hist exists
+		ipb=$(check_hist)
+	else
+		ipb=$(read_ipb)
+	fi
+fi
+
+
+apkloc=$(find . -iname *.apk | head -n1)
+echo $apkloc
+echo curl -v -T $apkloc ftp://ftp:ftp@192.168.$ipb:2121/x.apk
+curl -v -T $apkloc ftp://ftp:ftp@192.168.$ipb:2121/x.apk

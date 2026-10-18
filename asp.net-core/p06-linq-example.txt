@@ -1,0 +1,6 @@
+﻿// See https://aka.ms/new-console-template for more information
+int[] x = [1,2,3,4,5,6,7];
+
+int[] y = (from z in x where z % 2 == 0 select z).ToArray<int>();
+
+y.ToList().ForEach(x => Console.WriteLine(x));

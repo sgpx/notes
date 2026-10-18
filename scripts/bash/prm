@@ -1,0 +1,5 @@
+#!/bin/bash
+engine="docker" # "podman"
+
+echo $engine rm $($engine ps -aq)
+$engine rm $($engine ps -aq)

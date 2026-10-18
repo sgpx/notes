@@ -1,0 +1,36 @@
+#!/bin/bash
+# engine="podman" # or "docker"
+engine="docker"
+#distroname="fedora"
+distroname="ubuntu"
+
+function exe(){
+	echo "$1";
+	$1;
+}
+
+exe "$engine --version"
+
+if [ "$engine" = "podman" ]; then
+	podman_is_running=$(ps -ef | grep -i podman | grep -i gvproxy)
+	if [ "$podman_is_running" = "" ]; then
+		exe "podman machine start"
+	fi
+fi
+
+
+if [ "$1" = "" ]; then
+	container_name="${distroname}1"
+else
+	container_name="$1"
+fi
+
+container_exists="$($engine ps -a | grep $container_name)"
+
+if [ "$container_exists" = "" ]; then
+	exe "$engine run --name $container_name -it -d -p 5000:5000 -p 5432:5432 -p 27017:27017 -p 3306:3306 ${distroname} bash"
+else
+	exe "$engine start $container_name"
+fi
+
+exe "$engine exec -it $container_name bash"

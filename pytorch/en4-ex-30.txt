@@ -1,0 +1,121 @@
+Here’s a student-friendly, low-text-dense guide to torch.optim.Adam with lots of short examples.
+
+What Adam does (quick intuition)
+- It’s an optimizer that adapts learning rates for every parameter.
+- It keeps two running stats of gradients:
+  - 1st moment (m): momentum-ish, keeps track of direction.
+  - 2nd moment (v): scales by gradient magnitude (like RMSProp).
+- It uses bias-corrected estimates and updates parameters with a step that’s scaled by these stats.
+
+Defaults to know
+- lr (learning rate) = 0.001
+- betas = (0.9, 0.999)
+- eps = 1e-08
+- weight_decay = 0 (L2 penalty; see AdamW below)
+- amsgrad = False (uses standard Adam)
+
+Short, practical code skeleton
+- Simple, common pattern:
+  import torch
+  import torch.nn as nn
+  import torch.optim as optim
+
+  model = nn.Linear(10, 1)
+  loss_fn = nn.MSELoss()
+  opt = optim.Adam(model.parameters(), lr=0.01)
+
+  for x, y in data_loader:
+      opt.zero_grad()
+      pred = model(x)
+      loss = loss_fn(pred, y)
+      loss.backward()
+      opt.step()
+
+Now, 8 quick examples (each is small and self-contained)
+
+Example 1 — Different learning rates for different parts
+- Why: some layers need bigger/smaller steps.
+- Code:
+  optimizer = optim.Adam([
+      {'params': model.layer1.parameters(), 'lr': 0.01},
+      {'params': model.layer2.parameters(), 'lr': 0.001},
+  ])
+  # Then the usual loop with optimizer.step()
+
+Example 2 — Using AdamW (decoupled weight decay)
+- Why: proper L2 regularization, often better for large models.
+- Code:
+  optimizer = optim.AdamW(model.parameters(), lr=0.001, weight_decay=0.01)
+
+Example 3 — LR scheduler with Adam
+- Why: gradually reduce LR as training goes on.
+- Code:
+  optimizer = optim.Adam(model.parameters(), lr=0.01)
+  scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)
+
+  for epoch in range(50):
+      for x, y in data_loader:
+          opt.zero_grad()
+          loss.backward()
+          opt.step()
+      scheduler.step()
+
+Example 4 — Inspecting optimizer state (for debugging)
+- Why: see per-parameter momentum and variance.
+- Code:
+  opt = optim.Adam(model.parameters(), lr=0.01)
+  # after a few steps
+  print(opt.state)  # keys include per-parameter tensors like 'exp_avg' and 'exp_avg_sq'
+
+Example 5 — Saving and loading checkpoint (model + optimizer)
+- Why: resume training later.
+- Code:
+  torch.save({
+      'model_state': model.state_dict(),
+      'optimizer_state': opt.state_dict(),
+  }, 'checkpoint.pt')
+
+  # Later:
+  chkpt = torch.load('checkpoint.pt')
+  model.load_state_dict(chkpt['model_state'])
+  opt.load_state_dict(chkpt['optimizer_state'])
+
+Example 6 — Per-parameter statistics in practice
+- Why: see which params have the largest updates.
+- Code:
+  for name, param in model.named_parameters():
+      if param.grad is not None:
+          print(name, param.grad.abs().mean().item())
+
+Example 7 — Gradient clipping with Adam
+- Why: control exploding grads (optional with Adam).
+- Code:
+  for x, y in data_loader:
+      opt.zero_grad()
+      loss.backward()
+      torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+      opt.step()
+
+Example 8 — Hyperparameters to tweak (short list)
+- Try these as small experiments:
+  - lr: 0.01, 0.001, 0.0001
+  - betas: (0.9, 0.999) is default; try (0.9, 0.9999)
+  - eps: 1e-08 (default), 1e-7
+  - weight_decay: 0, 0.01, 0.001
+  - amsgrad: True/False
+- Quick pattern: change one at a time and compare validation loss.
+
+Extra handy tips (quick reads)
+- Adam vs SGD: Adam often works well with little tuning; SGD with momentum can win on some datasets when finely tuned.
+- If you see training instability, try a smaller lr or a different eps.
+- For regularization, prefer AdamW over Adam with weight_decay, especially for big networks.
+- When you’re stuck: try a tiny model, run a few epochs, and sanity-check that loss decreases.
+
+Tiny checklist for a student
+- Use Adam for many real-world nets by default.
+- If you need clean weight decay, switch to AdamW.
+- Start with lr=0.001 or 0.01; adjust after a few runs.
+- Save checkpoints so you can recover training.
+- If gradients explode, clip them or lower lr.
+
+If you want, I can tailor these examples to a specific small model (e.g., a tiny MLP on a toy dataset) and walk through the exact training loop step by step.

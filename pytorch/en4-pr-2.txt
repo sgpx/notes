@@ -1,0 +1,39 @@
+Sure! Here's an easy learning problem that can be solved using `torch.arange()` in PyTorch:
+
+---
+
+### Problem: Create a Tensor of Even Numbers from 0 to 18
+
+**Task:**  
+Use `torch.arange()` to create a 1D tensor containing all even numbers starting from 0 up to (and including) 18.
+
+---
+
+### Solution:
+
+```python
+import torch
+
+# Create tensor of even numbers from 0 to 18
+even_numbers = torch.arange(0, 19, 2)
+print(even_numbers)
+```
+
+---
+
+### Explanation:
+
+- `torch.arange(start, end, step)` generates numbers starting from `start` up to **but not including** `end`, stepping by `step`.
+- Here, `start=0`, `end=19` to include 18 (since 19 is excluded), and `step=2` to get only even numbers.
+
+---
+
+### Output:
+
+```
+tensor([ 0,  2,  4,  6,  8, 10, 12, 14, 16, 18])
+```
+
+---
+
+This is a simple and practical problem to practice using `torch.arange()`! Would you like me to create similar problems or explain other tensor operations?

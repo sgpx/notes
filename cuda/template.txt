@@ -1,0 +1,15 @@
+#include <cuda_runtime.h>
+#include <iostream>
+#define GET_NUM_BLOCKS(N, T) ((N + T - 1) / T)
+
+void CUDA_CHECK(cudaError_t result) {
+        if (result != cudaSuccess) {
+                std::cout << "error" << cudaGetErrorString(result) << std::endl ;
+                cudaDeviceReset();
+                exit(result);
+        }
+}
+
+int main() {
+	return 0;
+}

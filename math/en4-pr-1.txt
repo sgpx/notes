@@ -1,0 +1,91 @@
+This problem is designed to introduce the concept of matrix transposition by framing it within a context that resembles the basic operations found in a neural network layer (input data and weights).
+
+## 🧠 The Easy Learning Problem: The Feature Mapping Challenge
+
+### 🎯 Goal
+
+To understand how matrix transposition works and why it is essential for compatible calculations in deep learning.
+
+---
+
+### ⚙️ The Scenario: Feature Mapping
+
+Imagine you are working with a very simple, two-dimensional feature map in a small neural network layer. You have a set of input features and a set of weight parameters that need to be multiplied together to produce an output.
+
+#### Step 1: Define the Input Data Matrix ($X$)
+
+This matrix represents the input features from a batch of data.
+$$X = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{pmatrix}$$
+(This matrix is $2 \times 3$, meaning 2 rows and 3 columns.)
+
+#### Step 2: Define the Weight Matrix ($W$)
+
+This matrix represents the learned weights of the layer. For the multiplication to be valid, the number of columns in $X$ must equal the number of rows in $W$.
+$$W = \begin{pmatrix} 10 & 20 \\ 30 & 40 \\ 50 & 60 \end{pmatrix}$$
+(This matrix is $3 \times 2$, meaning 3 rows and 2 columns.)
+
+---
+
+### ❓ The Challenge
+
+**Task:** You need to perform a specific operation: calculating the transpose of the Weight Matrix ($W^T$) and then multiplying the Input Matrix ($X$) by this transposed matrix ($X \cdot W^T$).
+
+**Find the result of the following:**
+$$X \cdot W^T$$
+
+---
+
+### 💡 Conceptual Hint (Why we do this)
+
+In Deep Learning, matrix multiplication is fundamental. When we transition from one set of features to another, the dimensions must align. Transposing a matrix changes its orientation (rows become columns and columns become rows). This is often necessary to ensure that the dimensions are compatible for the multiplication operation, even if the direct multiplication ($X \cdot W$) doesn't work directly.
+
+---
+
+## ✅ Solution and Explanation
+
+### 1. Calculate the Transpose of $W$ ($W^T$)
+
+The transpose operation swaps the rows and columns of the original matrix.
+
+$$W = \begin{pmatrix} 10 & 20 \\ 30 & 40 \\ 50 & 60 \end{pmatrix} \quad \longrightarrow \quad W^T = \begin{pmatrix} 10 & 30 & 50 \\ 20 & 40 & 60 \end{pmatrix}$$
+(The original $3 \times 2$ matrix becomes a $2 \times 3$ matrix.)
+
+### 2. Perform the Matrix Multiplication ($X \cdot W^T$)
+
+Now we multiply the Input Matrix $X$ ($2 \times 3$) by the Transposed Weight Matrix $W^T$ ($2 \times 3$).
+
+Wait! **Crucial Check:** For the multiplication $X \cdot W^T$ to be valid, the number of columns in $X$ (which is 3) must equal the number of rows in $W^T$ (which is 2).
+$$X (2 \times \mathbf{3}) \cdot W^T (2 \times 3)$$
+
+**🛑 ERROR!** $3 \neq 2$. The direct multiplication $X \cdot W^T$ is **NOT possible** with these specific matrices.
+
+---
+
+### 💡 The Real DL Insight (The Correction)
+
+The problem highlights a key concept in linear algebra: **The order of multiplication matters.**
+
+If we want to calculate the standard weight calculation in a neural network, the order must be: **(Input) $\times$ (Weights)**, or **(Weights) $\times$ (Input)**.
+
+**Let's try the correct order: $W^T \cdot X$**
+
+1.  **$W^T$** is $2 \times 3$
+2.  **$X$** is $2 \times 3$
+    This multiplication ($2 \times 3$ times $2 \times 3$) is **also NOT possible**.
+
+**Let's try the other possible valid operation: $X \cdot W$**
+
+1.  **$X$** is $2 \times 3$
+2.  **$W$** is $3 \times 2$
+    This multiplication ($2 \times 3$ times $3 \times 2$) **IS VALID** and the result will be a $2 \times 2$ matrix.
+
+$$\begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{pmatrix} \cdot \begin{pmatrix} 10 & 20 \\ 30 & 40 \\ 50 & 60 \end{pmatrix} = \begin{pmatrix} (10+60+150) & (20+80+180) \\ (40+150+300) & (80+200+360) \end{pmatrix}$$
+
+$$\text{Result} = \begin{pmatrix} 220 & 280 \\ 490 & 640 \end{pmatrix}$$
+
+### 🚀 Conclusion for Deep Learning
+
+This exercise demonstrates that:
+
+1.  **Matrix Transpose ($W^T$):** It reverses the dimensions of the matrix, which is often required when performing specific operations like calculating the gradient or matching dimensions for compatibility.
+2.  **Order Matters:** In matrix multiplication ($A \cdot B$), the dimensions must be compatible ($A$'s columns = $B$'s rows). Transposing a matrix is a tool to *make* the dimensions compatible so that a useful operation can be performed, which is the core of how complex mathematical models (like neural networks) connect input features to outputs.

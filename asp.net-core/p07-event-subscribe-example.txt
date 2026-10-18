@@ -1,0 +1,23 @@
+﻿using System;
+
+namespace Example {
+    public class Button() {
+        public event EventHandler Click;
+
+        public void OnClick() {
+            Click?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    class Program {
+        static void Button_Click(object sender, EventArgs e) {
+            Console.WriteLine("Button clicked");
+        }
+
+        static void Main(string[] args) {
+            Button button = new Button();
+            button.Click += Button_Click;
+            button.OnClick();
+        }
+    }
+}

@@ -1,0 +1,634 @@
+===
+-rw-r--r--@ 1 sp  staff  615 28 Apr 08:43 ./a06.cpp
+/*
+Task: Simple Resource Manager (RAII)
+
+Problem:
+Simulate managing a file resource:
+Write a class FileHandler that "opens" a file on construction (simulate with std::cout) and "closes" it on destruction.
+No explicit close() calls — use RAII. */
+
+#include <iostream>
+#include <fstream>
+
+class FileHandler
+{
+    public:
+        std::ifstream myfile;
+
+        FileHandler(const std::string& fpath) : myfile(fpath) {
+            std::cout << "file opened" << std::endl;
+        }
+
+        ~FileHandler() {
+            std::cout << "file closed" << std::endl;
+        }
+
+};
+
+int main()
+{
+    FileHandler("a.html");
+}
+===
+===
+-rw-r--r--@ 1 sp  staff  435 29 Apr 08:35 ./a12.cpp
+/*
+
+Problem:
+Create a vector of integers and use lambda functions inside std::for_each to square all the elements.
+
+*/
+
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+int main()
+{
+    std::vector<int> v = {1, 3, 5, 6};
+    auto foo = [](int &a)
+    {
+        a *= a;
+    };
+    std::for_each(v.begin(), v.end(), foo);
+
+    std::for_each(v.begin(), v.end(), [](int &a)
+                  { std::cout << a << std::endl; });
+}===
+===
+-rw-r--r--@ 1 sp  staff  776 29 Apr 08:46 ./a13.cpp
+/*
+
+Problem:
+Create a class StringWrapper that wraps around std::string.
+Implement a move constructor and move assignment operator.
+
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+class StringWrapper
+{
+
+public:
+    std::string mystr;
+
+    StringWrapper(std::string s)
+    {
+        mystr = s;
+    }
+    StringWrapper(StringWrapper &&other) noexcept
+    {
+        mystr = std::move(other.mystr);
+    }
+
+    ~StringWrapper() = default;
+
+
+    StringWrapper &operator=(StringWrapper &&other) noexcept {
+        if(this != &other) {
+            mystr = std::move(other.mystr);
+        }
+        return *this;
+    }
+
+
+};
+
+int main()
+{
+    std::string foo = "foo";
+    StringWrapper a(foo);
+    StringWrapper b = std::move(a);
+    std::cout << b.mystr << std::endl;
+}===
+===
+-rw-r--r--@ 1 sp  staff  400 28 Apr 08:53 ./a07.cpp
+/**
+ * 
+ * Task 5 — Templates Basic
+
+Problem:
+Write a generic function add() that adds two values of any type (int, float, double).
+Example usage:
+auto sum1 = add(3, 4);      // int
+auto sum2 = add(2.5, 3.7);  // double
+ * 
+ */
+#include <iostream>
+
+template <typename T> T add(T a, T b) {
+    return a + b;
+}
+
+int main() {
+    auto a = add(5.0,6.1);
+    std::cout << a << std::endl;
+    return 0;
+}===
+===
+-rw-r--r--@ 1 sp  staff  649 29 Apr 08:29 ./a11.cpp
+/*
+## Task 3 — Constructor Overloading & Initializer Lists  
+**Problem:**  
+Create a class `Person` that has two constructors:
+1. A default constructor.
+2. A constructor that takes a name and age, using an initializer list.
+
+- Print the person's name and age after construction.
+*/
+#include <iostream>
+
+class Person
+{
+public:
+    std::string name;
+    int age;
+    Person() {
+    };
+    Person(std::string _name, int _age) : name(_name), age(_age)
+    {
+        std::cout << "name : " << name << std::endl;
+        std::cout << "age : " << age << std::endl;
+    };
+};
+
+int main() {
+    Person *p = new Person("1", 5);
+    delete p;
+    return 0;
+}===
+===
+-rw-r--r--@ 1 sp  staff  595 27 Apr 11:20 ./a05.cpp
+#include <iostream>
+#include <string>
+
+class StringHolder {
+	public:
+		std::string target;
+		StringHolder(std::string s) {
+			target = s;
+		}
+		StringHolder(const StringHolder& other) {
+			std::cout << "copy constructor called" << std::endl;
+			target = other.target;
+		}
+		StringHolder(StringHolder&& other) noexcept {
+			std::cout << "move constructor called"<< std::endl;
+			target = std::move(other.target);
+		}
+		~StringHolder() = default ; 
+};
+
+int main() {
+	StringHolder sh1("foobar");
+	StringHolder sh2 = sh1;
+	std::cout << sh2.target << std::endl;
+	StringHolder sh3 = std::move(sh1);
+}
+===
+===
+-rw-r--r--@ 1 sp  staff  595 27 Apr 11:16 ./a04.cpp
+#include <iostream>
+#include <string>
+
+class StringHolder {
+	public:
+		std::string target;
+		StringHolder(std::string s) {
+			target = s;
+		}
+		StringHolder(const StringHolder& other) {
+			std::cout << "copy constructor called" << std::endl;
+			target = other.target;
+		}
+		StringHolder(StringHolder&& other) noexcept {
+			std::cout << "move constructor called"<< std::endl;
+			target = std::move(other.target);
+		}
+		~StringHolder() = default ; 
+};
+
+int main() {
+	StringHolder sh1("foobar");
+	StringHolder sh2 = sh1;
+	std::cout << sh2.target << std::endl;
+	StringHolder sh3 = std::move(sh1);
+}
+===
+===
+-rw-r--r--@ 1 sp  staff  502 28 Apr 13:19 ./a10.cpp
+/**
+ * 
+ * 
+ * Problem:
+Create a vector of integers.
+Sort it using std::sort.
+Find a specific element using std::find.
+Bonus: Reverse the vector using std::reverse
+ */
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main()
+{
+    std::vector<int> v = {1, 4, 1, 0, -1, -9, 6};
+    auto x = std::find(v.begin(), v.end(), -1);
+    std::cout << distance(v.begin(), x) << std::endl;
+    std::reverse(v.begin(), v.end());
+    std::sort(v.begin(), v.end(), std::greater<int>());
+    return 0;
+}===
+===
+-rw-r--r--@ 1 sp  staff  221 29 Apr 08:50 ./a14.cpp
+#include <string>
+#include <iostream>
+
+int main()
+{
+    std::string c1 = "lol";
+    std::string c2 = std::move(c1);
+
+    std::cout << "c1: " << c1 << std::endl;
+    std::cout << "c2: " << c2 << std::endl;
+
+    return 0;
+}===
+===
+-rw-r--r--  1 sp  staff  156 27 Apr 10:00 ./a01.cpp
+#include <iostream>
+#include <memory>
+
+int main() {
+	std::unique_ptr<int> ptr = std::make_unique<int>(10);
+	std::cout << "Value: " << *ptr << std::endl ;
+}
+===
+===
+-rw-r--r--@ 1 sp  staff  1230 29 Apr 08:58 ./a15.cpp
+/*
+Problem:
+
+Create a std::vector<StringWrapper>.
+Add multiple StringWrapper objects to it.
+Move the whole vector into another vector.
+Print out the strings from the new vector.
+Confirm that moving did not copy strings unnecessarily.
+*/
+
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+class StringWrapper
+{
+
+public:
+    std::string mystr;
+
+    StringWrapper(std::string s)
+    {
+        mystr = s;
+    }
+    StringWrapper(StringWrapper &&other) noexcept
+    {
+        mystr = std::move(other.mystr);
+    }
+
+    ~StringWrapper() = default;
+
+    StringWrapper &operator=(StringWrapper &&other) noexcept
+    {
+        if (this != &other)
+        {
+            mystr = std::move(other.mystr);
+        }
+        return *this;
+    }
+};
+
+int main()
+{
+    std::vector<StringWrapper> v;
+    v.push_back(StringWrapper("hello1"));
+    v.push_back(StringWrapper("hello2"));
+    v.push_back(StringWrapper("hello3"));
+
+    std::vector<StringWrapper> v2 = std::move(v);
+    for(auto iter = v.begin(); iter != v.end(); ++iter) {
+        std::cout << "v : " << iter->mystr << std::endl;
+    }
+
+    for(auto iter = v2.begin(); iter != v2.end(); ++iter) {
+        std::cout << "v2 : " << iter->mystr << std::endl;
+    }
+
+    return 0;
+}===
+===
+-rw-r--r--@ 1 sp  staff  863 27 Apr 10:11 ./a03.cpp
+/*
+
+Task 2 — Vector of Objects
+
+Problem:
+Create a std::vector that stores multiple Point objects (from Task 1).
+
+    Fill it with 5 points (use a loop).
+    Write a function that prints all points.
+
+
+Task 1 — Smart Pointer Warm-up
+
+Problem:
+Write a simple Point class (with x and y coordinates) and manage a Point instance using std::unique_ptr.
+
+    Create the Point dynamically.
+    Print its coordinates.
+    No manual delete.
+
+✅ Focus: Constructors, unique_ptr, operator->.
+
+*/
+
+#include <iostream>
+#include <memory>
+#include <vector>
+
+class Point {
+	public:
+		int x;
+		int y;
+
+		Point(int x1, int y1) {
+			x = x1;
+			y = y1;			
+			std::cout << "Created" << std::endl ; 
+		}
+
+		~Point() {
+			std::cout << "Destroyed" << std::endl ;
+		}
+};
+
+int main() {
+	std::vector<Point> myvec;
+
+	for(int i = 0; i < 5 ; i++) {
+	myvec.push_back(Point(3*i,4*i));	
+	}
+
+}
+===
+===
+-rw-r--r--  1 sp  staff  183  1 May 10:02 ./a17.cpp
+#include <iostream>
+#include <functional>
+
+void sayHello(int x) {
+	std::cout << "hello: " << x*2  << std::endl;
+}
+
+int main() {
+	std::function<void(int)> func = sayHello;
+	func(5);
+}
+===
+===
+-rw-r--r--  1 sp  staff  164  1 May 10:02 ./a16.cpp
+#include <iostream>
+#include <functional>
+
+void sayHello() {
+	std::cout << "hello" << std::endl;
+}
+
+int main() {
+	std::function<void()> func = sayHello;
+	func();
+}
+===
+===
+-rw-r--r--  1 sp  staff  806 27 Apr 10:06 ./a02.cpp
+/*
+
+Task 1 — Smart Pointer Warm-up
+
+Problem:
+Write a simple Point class (with x and y coordinates) and manage a Point instance using std::unique_ptr.
+
+    Create the Point dynamically.
+    Print its coordinates.
+    No manual delete.
+
+✅ Focus: Constructors, unique_ptr, operator->.
+
+*/
+
+#include <iostream>
+#include <memory>
+
+class Point {
+	public:
+		int x;
+		int y;
+
+		Point(int x1, int y1) {
+			x = x1;
+			y = y1;			
+			std::cout << "Created" << std::endl ; 
+		}
+
+		~Point() {
+			std::cout << "Destroyed" << std::endl ;
+		}
+};
+
+int main() {
+        std::unique_ptr<int> ptr = std::make_unique<int>(10);
+        std::cout << "Value: " << *ptr << std::endl ;
+
+        std::unique_ptr<Point> mypoint = std::make_unique<Point>(3,4);
+        std::cout << mypoint->x << ", " << mypoint->y << std::endl ;
+}
+===
+===
+-rw-r--r--  1 sp  staff  153  1 May 10:03 ./a18.cpp
+#include <iostream>
+#include <functional>
+
+
+int main() {
+	std::function<void(int)> func = [](int a) {
+		std::cout << a*5 << std::endl;
+	};
+
+	func(11);
+}
+===
+===
+-rw-r--r--  1 sp  staff  661  1 May 15:11 ./a19.cpp
+#include <iostream>
+#include <string>
+#include <memory>
+
+
+
+class Car : public std::enable_shared_from_this<Car> {
+	public:
+		std::string maker;
+		std::string model;
+
+	Car(std::string maker1, std::string model1) : maker(maker1) , model(model1) {
+		
+	}
+
+	void get_info() {
+		std::cout << maker << " " << model << std::endl;
+	}
+
+	std::shared_ptr<Car> getShared() {
+		return shared_from_this();
+	}
+};
+
+int main() {
+	std::string maker = "mazda";
+	std::string model = "rx7";
+	std::shared_ptr<Car> p1 = std::make_shared<Car>(maker, model);
+	std::shared_ptr<Car> p2 = std::move(p1);
+	p2->get_info();		
+	std::shared_ptr<Car> p3 = p2->getShared();
+	p3->get_info();		
+	
+}
+===
+===
+-rw-r--r--@ 1 sp  staff  967 28 Apr 13:10 ./a09.cpp
+
+/*
+
+Problem:
+Create a base class Shape with a virtual method area().
+Then, create two derived classes: Circle and Rectangle, each implementing area() differently.
+Use virtual functions for polymorphism.
+Use a pointer to base class (Shape*) to store derived objects and call area().
+
+*/
+
+#include <cmath>
+#include <iostream>
+
+class Shape
+{
+public:
+    virtual double area() const = 0;
+    virtual ~Shape() = default;
+};
+
+class Circle : public Shape
+{
+public:
+    double r;
+    Circle(double r1) : r(r1) {};
+    virtual double area() const
+    {
+
+        return M_PI * r * r;
+    }
+};
+
+class Rectangle : public Shape
+{
+public:
+    double l, w;
+    Rectangle(double l1, double w1) : l(l1), w(w1)
+    {
+    }
+    virtual double area() const
+    {
+        return l * w;
+    }
+};
+
+int main()
+{
+    Shape *r = new Rectangle(5, 6);
+    Shape *c = new Circle(3);
+    std::cout << r->area() << std::endl;
+    std::cout << c->area() << std::endl;
+
+    delete r;
+    delete c;
+}===
+===
+-rw-r--r--@ 1 sp  staff  555 28 Apr 09:10 ./a08.cpp
+/*
+Task — Debug Printer
+
+Problem:
+Create a variadic template function debug() that prints all its arguments, separated by commas.
+Example:
+debug(1, "hello", 3.14);
+// Output: 1, hello, 3.14
+✅ Focus: Variadic templates (if you want extra challenge).
+*/
+
+#include <iostream>
+
+
+template <typename T, typename ... Args> void debug(T a) {
+    std::cout << a << std::endl;
+}
+
+template <typename T, typename ... Args> void debug(T a, Args... args) {
+    std::cout << a << ", ";
+    debug(args...);
+}
+
+int main() {
+    debug(1, "hello", 3.14);
+    return 0;
+}===
+===
+-rw-r--r--  1 sp  staff  663  1 May 15:13 ./a20.cpp
+#include <iostream>
+#include <string>
+#include <memory>
+
+
+
+class Car : public std::enable_shared_from_this<Car> {
+	public:
+		std::string maker;
+		std::string model;
+
+	Car(std::string maker1, std::string model1) : maker(maker1) , model(model1) {
+		
+	}
+
+	void get_info() {
+		std::cout << maker << " " << model << std::endl;
+	}
+
+	std::shared_ptr<Car> getShared() {
+		return shared_from_this();
+	}
+};
+
+int main() {
+	std::string maker = "mazda";
+	std::string model = "rx7";
+	std::shared_ptr<Car> p1 = std::make_shared<Car>(maker, model);
+	std::shared_ptr<Car> p3 = p1->getShared();
+
+	std::shared_ptr<Car> p2 = std::move(p1);
+	p2->get_info();		
+	p3->get_info();		
+
+	
+}
+===

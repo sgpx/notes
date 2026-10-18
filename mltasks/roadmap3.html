@@ -1,0 +1,800 @@
+<p>Absolutely. Here is the <strong>revised learning plan</strong>,
+updated from the initial one using everything you’ve shown me:</p>
+<ul>
+<li>extensive <strong>PyTorch practice</strong></li>
+<li>substantial <strong>C / K&amp;R C</strong></li>
+<li>real <strong>C++ foundations</strong></li>
+<li>meaningful <strong>sklearn / tabular ML workflow</strong></li>
+<li>early <strong>CUDA runtime exposure</strong></li>
+</ul>
+<hr />
+<h1 id="revised-learning-plan">Revised learning plan</h1>
+<h2 id="1-what-changed-from-the-initial-plan">1. What changed from the
+initial plan</h2>
+<p>My initial plan assumed:</p>
+<ul>
+<li>weaker systems background</li>
+<li>weaker C/C++</li>
+<li>weaker classical ML workflow familiarity</li>
+</ul>
+<p>Now that I’ve seen the full picture, the plan changes in 4 major
+ways:</p>
+<h3 id="change-1--less-beginner-systems-work">Change 1 — less beginner
+systems work</h3>
+<p>You do <strong>not</strong> need a long “learn basic programming /
+basic C++” phase.</p>
+<p>You already have:</p>
+<ul>
+<li>real C exposure</li>
+<li>K&amp;R-style systems thinking</li>
+<li>ownership / RAII / smart pointer exposure in C++</li>
+<li>some threading</li>
+<li>STL basics</li>
+<li>low-level memory intuition</li>
+</ul>
+<p>So we’ll <strong>accelerate C++ and start AI-oriented systems work
+earlier</strong>.</p>
+<hr />
+<h3
+id="change-2--sklearn-becomes-theory-consolidation-not-more-api-practice">Change
+2 — sklearn becomes “theory consolidation,” not “more API practice”</h3>
+<p>You already know a decent amount of:</p>
+<ul>
+<li>pipelines</li>
+<li>preprocessing</li>
+<li>CV</li>
+<li>metrics</li>
+<li>tabular regression workflows</li>
+</ul>
+<p>So your ML phase should now focus on:</p>
+<ul>
+<li>derivations</li>
+<li>from-scratch implementations</li>
+<li>leakage awareness</li>
+<li>theory of regularization, metrics, and evaluation</li>
+</ul>
+<p>Not more repetitive sklearn scripts.</p>
+<hr />
+<h3 id="change-3--math-is-still-your-1-strategic-gap">Change 3 — math is
+still your #1 strategic gap</h3>
+<p>This has not changed.</p>
+<p>Your coding base is much stronger than first visible, but your
+<strong>math depth is still under-demonstrated</strong>.</p>
+<p>For top-tier AI/DL roles, this is the biggest risk.</p>
+<hr />
+<h3 id="change-4--cuda-moves-earlier">Change 4 — CUDA moves earlier</h3>
+<p>Because your systems base is stronger than initially visible, you’re
+ready to start <strong>real CUDA kernels earlier</strong> than I first
+planned.</p>
+<p>Not advanced kernels immediately, but:</p>
+<ul>
+<li>kernel model</li>
+<li>indexing</li>
+<li>vector add</li>
+<li>reduction</li>
+<li>tiled matmul</li>
+<li>profiling</li>
+</ul>
+<hr />
+<h1 id="2-updated-assessment">2. Updated assessment</h1>
+<h2 id="current-state-by-area">Current state by area</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Current level</th>
+<th>Notes</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linear algebra</td>
+<td>under-demonstrated</td>
+<td>must become strong</td>
+<td>very high</td>
+</tr>
+<tr>
+<td>Calculus for ML</td>
+<td>under-demonstrated</td>
+<td>needs derivations</td>
+<td>very high</td>
+</tr>
+<tr>
+<td>Probability / stats</td>
+<td>under-demonstrated</td>
+<td>entropy/KL/MLE needed</td>
+<td>very high</td>
+</tr>
+<tr>
+<td>Classical ML workflow</td>
+<td>early intermediate</td>
+<td>sklearn usage is real</td>
+<td>medium-high</td>
+</tr>
+<tr>
+<td>Classical ML theory</td>
+<td>beginner</td>
+<td>needs from-scratch work</td>
+<td>high</td>
+</tr>
+<tr>
+<td>PyTorch tensor fluency</td>
+<td>early intermediate</td>
+<td>good mechanics</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>Deep learning fundamentals</td>
+<td>beginner</td>
+<td>needs depth</td>
+<td>very high</td>
+</tr>
+<tr>
+<td>Transformers</td>
+<td>beginner</td>
+<td>build later after DL core</td>
+<td>high</td>
+</tr>
+<tr>
+<td>C</td>
+<td>intermediate</td>
+<td>real asset</td>
+<td>low-medium</td>
+</tr>
+<tr>
+<td>K&amp;R systems reasoning</td>
+<td>intermediate</td>
+<td>useful base</td>
+<td>low-medium</td>
+</tr>
+<tr>
+<td>C++</td>
+<td>beginner to early intermediate</td>
+<td>stronger than initially thought</td>
+<td>high</td>
+</tr>
+<tr>
+<td>CUDA</td>
+<td>novice</td>
+<td>major systems gap</td>
+<td>very high</td>
+</tr>
+<tr>
+<td>AI systems / interop</td>
+<td>early-stage</td>
+<td>promising</td>
+<td>high</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="3-revised-strategy">3. Revised strategy</h1>
+<p>Instead of a mostly linear curriculum, your plan should now run in
+<strong>3 parallel tracks</strong>.</p>
+<h2 id="track-a--math--ml-foundations">Track A — Math + ML
+foundations</h2>
+<p>Goal: build first-principles understanding</p>
+<h2 id="track-b--deep-learning-core--modern-architectures">Track B —
+Deep learning core + modern architectures</h2>
+<p>Goal: become strong enough for serious AI engineering / research
+engineering work</p>
+<h2 id="track-c--ai-systems">Track C — AI systems</h2>
+<p>Goal: turn your C/C++ background into <strong>C++ + CUDA +
+interop</strong> competence</p>
+<p>This is the right plan for your profile.</p>
+<hr />
+<h1 id="4-revised-roadmap">4. Revised roadmap</h1>
+<p>I’ll give this in phases.</p>
+<hr />
+<h2 id="phase-1--foundation-upgrade">Phase 1 — Foundation upgrade</h2>
+<h3 id="duration-8-weeks">Duration: 8 weeks</h3>
+<p>This phase fixes the biggest mismatch in your profile:</p>
+<ul>
+<li>good coding base</li>
+<li>insufficient mathematical / first-principles ML depth</li>
+</ul>
+<h3 id="track-a--math--ml">Track A — Math + ML</h3>
+<p>Focus on:</p>
+<ul>
+<li>dot product</li>
+<li>matrix multiplication</li>
+<li>Jacobian of affine maps</li>
+<li>chain rule</li>
+<li>MSE gradient</li>
+<li>sigmoid + BCE gradient</li>
+<li>entropy</li>
+<li>KL divergence</li>
+<li>MLE</li>
+<li>linear regression from scratch</li>
+<li>logistic regression from scratch</li>
+<li>PCA from scratch</li>
+<li>leakage case study</li>
+<li>finite-difference gradient checking</li>
+<li>stable softmax / log-sum-exp</li>
+</ul>
+<h3 id="track-b--dl-core">Track B — DL core</h3>
+<p>Focus on:</p>
+<ul>
+<li>micrograd-style scalar autograd</li>
+<li>backprop through tanh/ReLU</li>
+<li>parameter update logic</li>
+<li>SGD / momentum / RMSProp / Adam from scratch</li>
+<li>initialization: Xavier / Kaiming</li>
+<li>gradient explosion / vanishing intuition</li>
+</ul>
+<h3 id="track-c--systems">Track C — Systems</h3>
+<p>Focus on:</p>
+<ul>
+<li>CMake</li>
+<li>warning flags</li>
+<li>ASan / UBSan</li>
+<li><code>Matrix</code> class in C++</li>
+<li>contiguous storage</li>
+<li>shape-safe matmul</li>
+<li>copy/move behavior</li>
+<li>CUDA hello world</li>
+<li>vector add kernel</li>
+</ul>
+<h3 id="deliverables-by-end-of-phase-1">Deliverables by end of Phase
+1</h3>
+<ol type="1">
+<li><strong>NumPy linear regression</strong></li>
+<li><strong>NumPy logistic regression</strong></li>
+<li><strong>PCA from scratch</strong></li>
+<li><strong>micrograd-style autograd</strong></li>
+<li><strong>C++ Matrix class v1</strong></li>
+<li><strong>CUDA vector-add kernel</strong></li>
+<li>short write-up on <strong>data leakage</strong></li>
+</ol>
+<hr />
+<h2 id="phase-2--deep-learning-core">Phase 2 — Deep learning core</h2>
+<h3 id="duration-8-weeks-1">Duration: 8 weeks</h3>
+<p>This phase turns you from “basic model trainer” into “real DL
+learner.”</p>
+<h3 id="track-a--math--optimization">Track A — Math / optimization</h3>
+<ul>
+<li>Hessian intuition</li>
+<li>second-order optimization intuition</li>
+<li>regularization math</li>
+<li>bias-variance</li>
+<li>numerical stability</li>
+<li>batch statistics and normalization math</li>
+</ul>
+<h3 id="track-b--dl">Track B — DL</h3>
+<ul>
+<li>BatchNorm from scratch</li>
+<li>LayerNorm from scratch</li>
+<li>Dropout</li>
+<li>MLP training on real datasets</li>
+<li>CNN fundamentals</li>
+<li>residual blocks</li>
+<li>dilated conv</li>
+<li>depthwise separable conv</li>
+<li>RNN hidden state update</li>
+<li>LSTM cell</li>
+<li>GRU</li>
+<li>gradient clipping</li>
+</ul>
+<h3 id="track-c--systems-1">Track C — Systems</h3>
+<ul>
+<li>optimized C++ matrix ops</li>
+<li>benchmark copy vs move</li>
+<li>thread-safe queue</li>
+<li>pybind11 hello world</li>
+<li>pybind11 dot product</li>
+<li>CUDA reduction</li>
+<li>CUDA 2D indexing</li>
+<li>simple matmul kernel</li>
+<li>benchmark against CPU baseline</li>
+</ul>
+<h3 id="deliverables-by-end-of-phase-2">Deliverables by end of Phase
+2</h3>
+<ol type="1">
+<li><strong>BatchNorm + LayerNorm scratch</strong></li>
+<li><strong>CNN for MNIST/CIFAR-lite</strong></li>
+<li><strong>RNN/LSTM/GRU mini-implementations</strong></li>
+<li><strong>C++ numeric library v2</strong></li>
+<li><strong>pybind11 extension</strong></li>
+<li><strong>CUDA reduction + simple matmul</strong></li>
+<li>benchmark notes</li>
+</ol>
+<hr />
+<h2 id="phase-3--attention-and-transformers">Phase 3 — Attention and
+transformers</h2>
+<h3 id="duration-8-weeks-2">Duration: 8 weeks</h3>
+<p>Now we move into modern AI architecture.</p>
+<h3 id="track-a--math--modeling">Track A — Math / modeling</h3>
+<ul>
+<li>attention as weighted similarity</li>
+<li>scaling by <code>1/sqrt(d_k)</code></li>
+<li>masking</li>
+<li>cross-entropy in sequence models</li>
+<li>token probability interpretation</li>
+</ul>
+<h3 id="track-b--dl--transformers">Track B — DL / transformers</h3>
+<ul>
+<li>self-attention from scratch</li>
+<li>scaled dot-product attention</li>
+<li>multi-head attention</li>
+<li>positional encoding</li>
+<li>encoder block</li>
+<li>decoder block</li>
+<li>causal mask</li>
+<li>transformer language model (small)</li>
+<li>tokenization:
+<ul>
+<li>BPE or SentencePiece</li>
+</ul></li>
+<li>inference decoding:
+<ul>
+<li>greedy</li>
+<li>beam</li>
+<li>top-k / top-p</li>
+</ul></li>
+<li>LoRA</li>
+<li>adapter modules</li>
+<li>QLoRA conceptually + practically if setup allows</li>
+</ul>
+<h3 id="track-c--systems-2">Track C — Systems</h3>
+<ul>
+<li>LibTorch inference</li>
+<li>pybind11 matrix/tensor extension improvements</li>
+<li>CUDA tiled matmul</li>
+<li>softmax kernel</li>
+<li>layernorm kernel</li>
+<li>Triton softmax</li>
+<li>Triton GEMM</li>
+<li>benchmarking and profiling</li>
+</ul>
+<h3 id="deliverables-by-end-of-phase-3">Deliverables by end of Phase
+3</h3>
+<ol type="1">
+<li><strong>Transformer from scratch in PyTorch</strong></li>
+<li><strong>tokenizer + decoding demo</strong></li>
+<li><strong>LoRA fine-tuning mini-project</strong></li>
+<li><strong>LibTorch inference example</strong></li>
+<li><strong>CUDA softmax + tiled matmul</strong></li>
+<li><strong>Triton kernel benchmarks</strong></li>
+</ol>
+<hr />
+<h2 id="phase-4--ai-systems-and-inference">Phase 4 — AI systems and
+inference</h2>
+<h3 id="duration-810-weeks">Duration: 8–10 weeks</h3>
+<p>This phase builds the systems depth top-tier AI roles care about.</p>
+<h3 id="topics">Topics</h3>
+<ul>
+<li>DDP basics</li>
+<li>all-reduce intuition</li>
+<li>FSDP concepts</li>
+<li>pipeline parallelism</li>
+<li>quantization:
+<ul>
+<li>8-bit absmax</li>
+<li>weight-only ideas</li>
+</ul></li>
+<li>pruning</li>
+<li>distillation</li>
+<li>KV cache</li>
+<li>memory bandwidth vs compute</li>
+<li>BF16 / FP16 / FP32 tradeoffs</li>
+<li>profiling with Nsight / PyTorch profiler</li>
+<li>retrieval basics:
+<ul>
+<li>cosine vs dot product</li>
+<li>HNSW intuition</li>
+<li>hybrid search</li>
+</ul></li>
+</ul>
+<h3 id="deliverables">Deliverables</h3>
+<ol type="1">
+<li><strong>distributed training toy setup</strong></li>
+<li><strong>KV cache implementation</strong></li>
+<li><strong>quantization benchmark</strong></li>
+<li><strong>retrieval mini-project</strong></li>
+<li><strong>inference optimization notes</strong></li>
+</ol>
+<hr />
+<h2 id="phase-5--capstones--interview-readiness">Phase 5 — Capstones +
+interview readiness</h2>
+<h3 id="duration-812-weeks">Duration: 8–12 weeks</h3>
+<p>This is the hiring conversion phase.</p>
+<h3 id="required-capstones">Required capstones</h3>
+<p>You should end with <strong>4–6 flagship projects</strong>, not 200
+tiny scripts.</p>
+<h4 id="capstone-1--micrograd--mlp">Capstone 1 — Micrograd + MLP</h4>
+<p>Shows:</p>
+<ul>
+<li>backprop understanding</li>
+<li>autograd understanding</li>
+<li>calculus competence</li>
+</ul>
+<h4 id="capstone-2--numpy-ml-package">Capstone 2 — NumPy ML package</h4>
+<p>Include:</p>
+<ul>
+<li>linear regression</li>
+<li>logistic regression</li>
+<li>softmax regression</li>
+<li>PCA</li>
+<li>optimizers</li>
+<li>stable softmax / CE</li>
+<li>evaluation utilities</li>
+</ul>
+<h4 id="capstone-3--transformer-from-scratch">Capstone 3 — Transformer
+from scratch</h4>
+<p>Shows:</p>
+<ul>
+<li>modern DL competence</li>
+<li>attention / masking / decoding</li>
+<li>real training loop ability</li>
+</ul>
+<h4 id="capstone-4--c-matrixtensor-library--pybind11">Capstone 4 — C++
+matrix/tensor library + pybind11</h4>
+<p>Shows:</p>
+<ul>
+<li>modern C++ competence</li>
+<li>interop</li>
+<li>AI systems relevance</li>
+</ul>
+<h4 id="capstone-5--cuda-kernel-suite">Capstone 5 — CUDA kernel
+suite</h4>
+<p>Include:</p>
+<ul>
+<li>vector add</li>
+<li>reduction</li>
+<li>tiled matmul</li>
+<li>softmax</li>
+<li>layernorm</li>
+<li>benchmark + profiling report</li>
+</ul>
+<h4 id="capstone-6--one-paper-replication">Capstone 6 — one paper
+replication</h4>
+<p>Suggested options:</p>
+<ul>
+<li>AlexNet</li>
+<li>ResNet block study</li>
+<li>BERT mini-replication</li>
+<li>ViT mini-replication</li>
+</ul>
+<hr />
+<h1 id="5-what-is-now-deprioritized">5. What is now deprioritized</h1>
+<p>Compared with the initial plan, I would now explicitly reduce time
+on:</p>
+<h2 id="stop--reduce">Stop / reduce</h2>
+<ul>
+<li>tiny tensor API drills</li>
+<li>more beginner C exercises</li>
+<li>more “what is a class / pointer / vector” style C++ practice</li>
+<li>repetitive sklearn regression pipelines</li>
+<li>too much PyCaret</li>
+<li>flashy advanced topics too early:
+<ul>
+<li>RLHF</li>
+<li>PPO</li>
+<li>DPO</li>
+<li>diffusion internals</li>
+<li>FlashAttention-level kernel deep dives</li>
+</ul></li>
+</ul>
+<p>These are not forbidden. They’re just not highest ROI
+<strong>yet</strong>.</p>
+<hr />
+<h1 id="6-what-gets-accelerated">6. What gets accelerated</h1>
+<h2 id="accelerated-now">Accelerated now</h2>
+<ul>
+<li>from-scratch ML</li>
+<li>math derivations</li>
+<li>modern C++ project work</li>
+<li>pybind11</li>
+<li>CUDA kernels</li>
+<li>numerical stability</li>
+<li>transformer internals</li>
+</ul>
+<p>This is the main revision.</p>
+<hr />
+<h1 id="7-revised-next-8-week-sprint">7. Revised next 8-week sprint</h1>
+<p>This is the most actionable part.</p>
+<hr />
+<h2 id="week-1">Week 1</h2>
+<h3 id="math--ml">Math / ML</h3>
+<ul>
+<li>implement dot product</li>
+<li>implement matrix multiplication</li>
+<li>derive Jacobian of <code>y = Wx + b</code></li>
+</ul>
+<h3 id="systems">Systems</h3>
+<ul>
+<li>set up CMake</li>
+<li>compiler warnings</li>
+<li>ASan / UBSan</li>
+<li>start <code>Matrix</code> class with contiguous storage</li>
+</ul>
+<h3 id="deliverables-1">Deliverables</h3>
+<ul>
+<li>Python <code>dot</code>, <code>matmul</code></li>
+<li>C++ <code>Matrix</code> skeleton</li>
+<li>derivation note</li>
+</ul>
+<hr />
+<h2 id="week-2">Week 2</h2>
+<h3 id="math--ml-1">Math / ML</h3>
+<ul>
+<li>derive MSE gradient wrt <code>W</code></li>
+<li>derive sigmoid + BCE gradient</li>
+<li>finite-difference gradient checks</li>
+</ul>
+<h3 id="systems-1">Systems</h3>
+<ul>
+<li><code>Matrix::operator()</code></li>
+<li>transpose</li>
+<li>shape checks</li>
+<li>unit tests</li>
+</ul>
+<h3 id="deliverables-2">Deliverables</h3>
+<ul>
+<li>gradient-check script</li>
+<li>tested transpose/access code</li>
+</ul>
+<hr />
+<h2 id="week-3">Week 3</h2>
+<h3 id="ml">ML</h3>
+<ul>
+<li>linear regression from scratch</li>
+<li>compare with sklearn</li>
+<li>residual plots</li>
+<li>normal equation vs gradient descent intuition</li>
+</ul>
+<h3 id="systems-2">Systems</h3>
+<ul>
+<li>implement C++ matrix multiplication</li>
+<li>benchmark small vs medium matrices</li>
+</ul>
+<h3 id="deliverables-3">Deliverables</h3>
+<ul>
+<li>NumPy linear regression</li>
+<li>C++ matmul</li>
+<li>benchmark note</li>
+</ul>
+<hr />
+<h2 id="week-4">Week 4</h2>
+<h3 id="ml-1">ML</h3>
+<ul>
+<li>logistic regression from scratch</li>
+<li>classification metrics:
+<ul>
+<li>accuracy</li>
+<li>precision</li>
+<li>recall</li>
+<li>F1</li>
+<li>ROC-AUC</li>
+<li>PR-AUC</li>
+</ul></li>
+</ul>
+<h3 id="systems-3">Systems</h3>
+<ul>
+<li>copy constructor / move constructor instrumentation in
+<code>Matrix</code></li>
+<li>observe copy vs move behavior</li>
+</ul>
+<h3 id="deliverables-4">Deliverables</h3>
+<ul>
+<li>NumPy logistic regression</li>
+<li>move/copy note</li>
+</ul>
+<hr />
+<h2 id="week-5">Week 5</h2>
+<h3 id="math--dl">Math / DL</h3>
+<ul>
+<li>entropy</li>
+<li>KL divergence</li>
+<li>MLE</li>
+<li>stable softmax</li>
+<li>log-sum-exp</li>
+<li>compare naive vs stable softmax</li>
+</ul>
+<h3 id="systems-4">Systems</h3>
+<ul>
+<li>pybind11 hello world or pybind11 dot product</li>
+</ul>
+<h3 id="deliverables-5">Deliverables</h3>
+<ul>
+<li>numerics report</li>
+<li>pybind11 extension v1</li>
+</ul>
+<hr />
+<h2 id="week-6">Week 6</h2>
+<h3 id="dl">DL</h3>
+<ul>
+<li>SGD / momentum / RMSProp / Adam from scratch</li>
+<li>micrograd scalar engine</li>
+</ul>
+<h3 id="cuda">CUDA</h3>
+<ul>
+<li>CUDA hello world kernel</li>
+<li>vector add kernel</li>
+<li>correctness checks</li>
+</ul>
+<h3 id="deliverables-6">Deliverables</h3>
+<ul>
+<li>optimizer implementations</li>
+<li>micrograd v1</li>
+<li>CUDA vector add</li>
+</ul>
+<hr />
+<h2 id="week-7">Week 7</h2>
+<h3 id="dl-1">DL</h3>
+<ul>
+<li>Xavier / Kaiming</li>
+<li>gradient explosion / vanishing experiments</li>
+<li>BatchNorm forward/backward intuition</li>
+</ul>
+<h3 id="cuda-1">CUDA</h3>
+<ul>
+<li>reduction kernel</li>
+</ul>
+<h3 id="deliverables-7">Deliverables</h3>
+<ul>
+<li>init experiments</li>
+<li>reduction benchmark</li>
+</ul>
+<hr />
+<h2 id="week-8">Week 8</h2>
+<h3 id="ml--rigor">ML / rigor</h3>
+<ul>
+<li>leakage case study:
+<ul>
+<li>feature selection before CV</li>
+<li>feature selection inside pipeline/CV</li>
+</ul></li>
+<li>show inflated score vs correct score</li>
+</ul>
+<h3 id="systems-5">Systems</h3>
+<ul>
+<li>clean README/docs for:
+<ul>
+<li><code>Matrix</code></li>
+<li>micrograd</li>
+<li>CUDA vector add/reduction</li>
+</ul></li>
+</ul>
+<h3 id="deliverables-8">Deliverables</h3>
+<ul>
+<li>leakage report</li>
+<li>polished repos / folders</li>
+</ul>
+<hr />
+<h1 id="8-revised-mastery-gates">8. Revised mastery gates</h1>
+<p>You should not move forward just because code runs.</p>
+<h2 id="gate-a--math--ml-gate">Gate A — Math / ML gate</h2>
+<p>You pass when you can:</p>
+<ul>
+<li>derive affine Jacobians</li>
+<li>derive MSE and BCE gradients</li>
+<li>explain entropy / KL / MLE</li>
+<li>implement linear + logistic regression from scratch</li>
+<li>explain leakage clearly</li>
+<li>explain stable softmax</li>
+</ul>
+<hr />
+<h2 id="gate-b--dl-core-gate">Gate B — DL core gate</h2>
+<p>You pass when you can:</p>
+<ul>
+<li>implement backprop in a toy engine</li>
+<li>explain optimizer behavior</li>
+<li>implement norm layers conceptually or in code</li>
+<li>explain initialization choices</li>
+<li>train a CNN correctly and debug failure modes</li>
+</ul>
+<hr />
+<h2 id="gate-c--systems-gate">Gate C — Systems gate</h2>
+<p>You pass when you can:</p>
+<ul>
+<li>build C++ with CMake</li>
+<li>reason about copy/move behavior</li>
+<li>expose a function via pybind11</li>
+<li>write a correct CUDA vector add and reduction kernel</li>
+<li>explain thread/block/grid indexing</li>
+<li>benchmark and sanity-check results</li>
+</ul>
+<hr />
+<h2 id="gate-d--transformer-gate">Gate D — Transformer gate</h2>
+<p>You pass when you can:</p>
+<ul>
+<li>implement self-attention and MHA</li>
+<li>explain causal masking</li>
+<li>explain positional encoding</li>
+<li>train a small transformer</li>
+<li>describe LoRA at a mechanistic level</li>
+</ul>
+<hr />
+<h1 id="9-portfolio-strategy-revision">9. Portfolio strategy
+revision</h1>
+<p>Earlier, I wanted broad coverage. Now I want <strong>selective
+depth</strong>.</p>
+<h2 id="your-final-portfolio-should-emphasize">Your final portfolio
+should emphasize:</h2>
+<h3 id="1-first-principles-understanding">1. first-principles
+understanding</h3>
+<h3 id="2-systems-competence">2. systems competence</h3>
+<h3 id="3-modern-ai-architecture-competence">3. modern AI architecture
+competence</h3>
+<h3 id="best-portfolio-mix-for-you">Best portfolio mix for you</h3>
+<ul>
+<li>1 math-heavy repo</li>
+<li>1 from-scratch ML repo</li>
+<li>1 DL/transformer repo</li>
+<li>1 C++/pybind11 repo</li>
+<li>1 CUDA/Triton repo</li>
+<li>1 paper replication</li>
+</ul>
+<p>That is far more powerful than many small disconnected exercises.</p>
+<hr />
+<h1 id="10-best-fit-target-roles-for-this-revised-plan">10. Best-fit
+target roles for this revised plan</h1>
+<p>Given your profile, the strongest target roles are:</p>
+<h2 id="most-realistic-high-upside-targets">Most realistic high-upside
+targets</h2>
+<ul>
+<li><strong>Research Engineer</strong></li>
+<li><strong>Deep Learning Engineer</strong></li>
+<li><strong>ML Systems Engineer</strong></li>
+<li><strong>Inference / Performance Engineer</strong></li>
+</ul>
+<h2 id="less-ideal-immediate-target">Less ideal immediate target</h2>
+<p>Pure research scientist roles, unless your math and paper-replication
+depth becomes very strong.</p>
+<hr />
+<h1 id="11-final-revised-diagnosis">11. Final revised diagnosis</h1>
+<h2 id="stronger-than-initially-assessed-in">Stronger than initially
+assessed in:</h2>
+<ul>
+<li>C</li>
+<li>K&amp;R systems intuition</li>
+<li>C++</li>
+<li>sklearn-based ML workflow</li>
+</ul>
+<h2 id="still-weakest-in">Still weakest in:</h2>
+<ul>
+<li>mathematical rigor</li>
+<li>deep learning depth</li>
+<li>CUDA/kernel skill</li>
+<li>polished flagship projects</li>
+</ul>
+<p>So the revised plan shifts from:</p>
+<ul>
+<li>“build basic programming foundations”</li>
+</ul>
+<p>to:</p>
+<ul>
+<li><strong>build math + first-principles ML + real DL + AI systems
+depth</strong></li>
+</ul>
+<p>That is the correct plan for <em>you</em> now.</p>
+<hr />
+<h1 id="12-my-recommendation-for-execution">12. My recommendation for
+execution</h1>
+<p>If you study <strong>15–20 hrs/week</strong>, this revised plan is
+roughly:</p>
+<ul>
+<li><strong>9–12 months</strong> to become competitive</li>
+</ul>
+<p>If you study <strong>25–30 hrs/week</strong>, more like:</p>
+<ul>
+<li><strong>6–8 months</strong> for strong readiness</li>
+</ul>
+<hr />
+<p>If you want, I can turn this revised plan into either of these
+next:</p>
+<ol type="1">
+<li><strong>a detailed week-by-week 12-week curriculum</strong>, or</li>
+<li><strong>a mastery tracker table</strong> with:
+<ul>
+<li>topic</li>
+<li>current level</li>
+<li>target level</li>
+<li>exercises</li>
+<li>pass criteria</li>
+</ul></li>
+</ol>
+<p>My recommendation: <strong>let me build the 12-week execution plan
+next</strong>.</p>

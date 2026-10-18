@@ -1,0 +1,23 @@
+﻿using System;
+
+namespace Hello
+{
+    class HelloApp
+    {
+        static void Main(string[] args)
+        {
+            int x = 1; float y = 2.2F;
+            double z = 2.3;
+            char t = 'T';
+            bool f = false;
+            string s = "foobar";
+
+            Console.WriteLine(x.ToString());
+            Console.WriteLine(y.ToString());
+            Console.WriteLine(z.ToString());
+            Console.WriteLine(t.ToString());
+            Console.WriteLine(f.ToString());
+            Console.WriteLine(s.ToString());
+        }
+    }
+}

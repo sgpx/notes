@@ -1,0 +1,2 @@
+#!/bin/bash
+ifconfig | grep -E "inet.+192" | head -n1 | sed -r "s/^.+(192[0-9\.]+) .+$/\1/"

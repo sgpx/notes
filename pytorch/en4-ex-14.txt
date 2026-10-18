@@ -1,0 +1,82 @@
+Sure! Think of `tensor.view()` as changing how you look at a bunch of LEGO blocks (the data), without changing the blocks themselves.
+
+### What does `view()` do?
+It reshapes the tensor into a different shape.
+
+---
+
+### Basic idea:
+- You have a tensor (your data).
+- You want to change its shape (how many rows, columns, etc.).
+- `view()` makes it look different but keeps the same data.
+
+---
+
+### Example 1: Flatten a 2D tensor
+
+```python
+import torch
+
+tensor = torch.tensor([[1, 2], [3, 4]])
+print(tensor.shape)  # (2, 2)
+
+flat = tensor.view(-1)
+print(flat)          # [1, 2, 3, 4]
+print(flat.shape)    # (4,)
+```
+
+*Why `-1`?*  
+It says "figure out this dimension."
+
+---
+
+### Example 2: Reshape to 3D
+
+```python
+tensor = torch.arange(8)
+print(tensor.shape)  # (8,)
+
+reshaped = tensor.view(2, 2, 2)
+print(reshaped)
+# [[[0, 1],
+#   [2, 3]],
+#
+#  [[4, 5],
+#   [6, 7]]]
+```
+
+---
+
+### Example 3: Add dummy dimension (like a batch)
+
+```python
+tensor = torch.tensor([1, 2, 3])
+print(tensor.shape)  # (3,)
+
+# Make it a 1x3
+batch_tensor = tensor.view(1, 3)
+print(batch_tensor.shape)  # (1, 3)
+
+# Make it a 3x1
+column_tensor = tensor.view(3, 1)
+print(column_tensor)
+# [[1],
+#  [2],
+#  [3]]
+```
+
+---
+
+### Remember:
+- Use `-1` if you want PyTorch to guess the size.
+- The total number of elements must stay same!
+
+---
+
+### Quick tips:
+- `view()` only works if the memory is contiguous.
+- If not, do `tensor.contiguous().view()`.
+
+---
+
+Hope that makes sense!

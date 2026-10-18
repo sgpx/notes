@@ -1,0 +1,40 @@
+- Write a factory function that returns a `std::unique_ptr<T>` for a custom class and test copy prevention.
+- Create two classes, `Node` and `Edge`, using `std::shared_ptr` to demonstrate and fix a memory leak with `std::weak_ptr`.
+- Implement a `Logger` class that prints messages on creation and destruction; track order of destructors in a vector of `unique_ptr<Logger>`.
+- Create a class managing a dynamic array, implementing all special functions, and monitor their calls with STL containers.
+- Make a move-only class that is non-copyable, and study its behavior in a `std::vector`.
+- Generate a vector of pairs and write a lambda for custom sorting by score and name, comparing `std::sort` and `std::stable_sort`.
+- Write three lambdas and compose them into a `std::function<int(int)>` for integer processing.
+- Use `std::accumulate` with a lambda to sum the `area()` of a vector of `Shape*`, extending the `Shape` hierarchy.
+- Implement a templated `swap` function and create a single variadic template `debug()` using fold expressions.
+- Write a function template to check at compile time whether a type is trivially copyable, moveable, or destructible using `<type_traits>`.
+- Create a `std::vector<std::unique_ptr<Shape>>`, adding derived shapes and invoking `.area()` polymorphically.
+- Remove the virtual destructor from the `Shape` base and explain the consequences on derived destructors.
+- Define a purely abstract interface `Printable` with a `print()` method, implement it in unrelated classes, and store them in a vector for invocation.
+- Manage a `FILE*` resource via `unique_ptr<FILE, decltype(&fclose)>` with a custom deleter.
+- Benchmark `push_back(T(...))` vs `emplace_back(...)` for a vector of a user-defined class with print statements.
+- Write a simplified `std::vector` class that stores up to N elements inline, falling back to dynamic allocation beyond N, practicing move/copy.
+- (Optional Variation) Change context of tasks using lightweight structs instead of `int`/`string`.
+- (Optional Variation) Change vector to list or set, and use different STL algorithms.
+- (Optional Variation) Add exception handling to some tasks to practice RAII robustness.
+- Write a function to remove all even numbers from a `std::vector<int>` in-place using `erase-remove_if`.
+- Repeat the above with `std::vector<std::unique_ptr<int>>`.
+- Redo `StringWrapper` class to log every copy and move; create, copy, and move several instances, logging actions.
+- Repeat the logging with `std::shared_ptr<StringWrapper>`.
+- Write a function template `add(a, b)` for type conversion that works with different types.
+- Create a base class `Animal` and derived classes `Dog` and `Cat`, and store them as `std::unique_ptr<Animal>` in a `std::vector`.
+- Replace `std::unique_ptr<Animal>` with `std::shared_ptr<Animal>` and test.
+- Write a class for managing an integer array (manual allocation) and use it within a loop.
+- Replace the array management class with `std::vector<int>` and compare memory safety.
+- Extend the `debug()` variadic template to handle single values and arbitrary containers.
+- Manually find the minimum element in a vector, sort it, and reverse it.
+- Repeat the above three tasks using only STL algorithms.
+- Create a functor to filter odd numbers from a list into a new vector.
+- Replace the functor with a lambda and `std::function`.
+- Write a function that returns a class by value and observe constructor/destructor calls.
+- Test copy elision with and without `std::move`.
+- Create a class with several constructors using constructor delegation.
+- Define a vector of custom objects and sort by name, then by age using custom comparators.
+- Repeat the sorting task using `std::function`-based comparators.
+- Create a class with all special functions (Rule of Five) and log their calls when used.
+- Implement an observer pattern using `std::weak_ptr` for observers and `std::shared_ptr` for subjects.

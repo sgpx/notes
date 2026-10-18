@@ -1,0 +1,19 @@
+#!/bin/bash
+exe(){
+	echo "$1";
+	$1;
+}
+engine="docker"
+
+exe "$engine stop $($engine ps -aq)"
+
+if [ "$1" = "-a" ]; then
+	exe "$engine rm $($engine ps -aq)"
+	exe "$engine machine stop"
+fi
+
+if [ "$1" = "-k" ]; then
+	exe "$engine machine stop"
+	exe "pkill gvproxy qemu-system-aarch64"
+fi
+

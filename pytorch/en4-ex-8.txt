@@ -1,0 +1,43 @@
+Sure!  
+**tensor.shape** tells you the size of each dimension in a tensor. Think of a tensor as a multi-dimensional array.
+
+### Examples:
+
+1. **Scalar (single number)**  
+```python
+scalar = 5  
+scalar.shape → AttributeError (no shape, it's just a number)
+```
+
+2. **1D tensor (vector)**  
+```python
+vector = [1, 2, 3]  
+vector.shape → (3,)  # 3 elements
+```
+
+3. **2D tensor (matrix)**  
+```python
+matrix = [[1, 2], [3, 4], [5, 6]]  
+matrix.shape → (3, 2)  # 3 rows, 2 columns
+```
+
+4. **3D tensor (like a cube)**  
+```python
+cube = [[[1], [2]], [[3], [4]]]  
+cube.shape → (2, 2, 1)  
+# 2 blocks, each with 2 rows and 1 column
+```
+
+5. **Higher dimensions**  
+```python
+# e.g., a batch of images (batch_size, height, width, channels)
+images = torch.randn(10, 28, 28, 3)
+images.shape → (10, 28, 28, 3)
+```
+
+### Quick tips:
+- Always a tuple!
+- Length of tuple = number of dimensions
+- Values = size of each dimension
+
+That’s tensor.shape!

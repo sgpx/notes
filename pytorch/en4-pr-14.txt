@@ -1,0 +1,36 @@
+Sure! Here's a simple learning problem that can be solved using `tensor.view()`. The goal is to reshape a 2D tensor into a 3D tensor and then do a basic operation.
+
+---
+
+### Problem:
+
+Given a 2D tensor of shape `[6, 4]`, reshape it into a 3D tensor with shape `[2, 3, 4]` using `tensor.view()`, and then compute the sum of all elements in the reshaped tensor.
+
+---
+
+### Solution:
+
+```python
+import torch
+
+# Create a 2D tensor of shape [6, 4]
+original_tensor = torch.arange(24).reshape(6, 4)
+print("Original tensor:\n", original_tensor)
+
+# Reshape to shape [2, 3, 4] using view()
+reshaped_tensor = original_tensor.view(2, 3, 4)
+print("\nReshaped tensor:\n", reshaped_tensor)
+
+# Compute the sum of all elements
+total_sum = reshaped_tensor.sum()
+print("\nSum of all elements:", total_sum.item())
+```
+
+---
+
+### Explanation:
+- We start with a tensor with 6 rows and 4 columns.
+- Using `view(2, 3, 4)`, we reshape it into 3D with 2 blocks, each containing 3 rows and 4 columns.
+- Then, we perform a simple operation (`sum()`) to demonstrate working with the reshaped tensor.
+
+This simple example helps learn how to manipulate tensor shapes with `view()`.

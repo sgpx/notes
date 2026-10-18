@@ -1,0 +1,133 @@
+pd.read_csv() is Pandas’ main tool to read CSV files into a DataFrame. It’s very flexible and has lots of knobs. Here are many practical, student-friendly examples. Assume you’ve already done: import pandas as pd
+
+Basic. read a simple file
+- What it does: reads data into a DataFrame
+- Code:
+  df = pd.read_csv('data.csv')
+
+No header row. You provide your own column names
+- What it does: treats the first line as data, not headers
+- Code:
+  df = pd.read_csv('data.csv', header=None, names=['col1','col2','col3'])
+
+Only some columns. Use usecols
+- What it does: read only certain columns
+- Code:
+  df = pd.read_csv('data.csv', usecols=['name','age'])
+
+Parse dates in a column
+- What it does: converts a date column to datetime
+- Code:
+  df = pd.read_csv('data.csv', parse_dates=['signup_date'])
+
+Set an index column
+- What it does: uses a specific column as the DataFrame index
+- Code:
+  df = pd.read_csv('data.csv', index_col='id')
+
+Delimiter other than comma (semicolon, tab, etc.)
+- What it does: reads non-comma separated files
+- Code (semicolon):
+  df = pd.read_csv('data_semicolon.csv', sep=';')
+- Code (tab):
+  df = pd.read_csv('data_tab.csv', sep='\t')
+
+Missing values. customize NA markers
+- What it does: treats certain strings as missing
+- Code:
+  df = pd.read_csv('data.csv', na_values=['NA','-'])
+
+Read from a string (useful for examples and tests)
+- What it does: reads CSV data from memory
+- Code:
+  from io import StringIO
+  csv = "name,age\nAlice,30\nBob,25"
+  df = pd.read_csv(StringIO(csv))
+
+Specify data types for columns
+- What it does: forces a column to be int/float/str etc.
+- Code:
+  df = pd.read_csv('data.csv', dtype={'age': int, 'salary': float})
+
+Skip some rows at the top
+- What it does: ignore initial lines (like a header or notes)
+- Code:
+  df = pd.read_csv('data.csv', skiprows=2)
+
+Only read the first N rows
+- What it does: read a subset of rows
+- Code:
+  df = pd.read_csv('data.csv', nrows=100)
+
+Handle compressed files (auto-detect or specify)
+- What it does: read .gz, .bz2, etc.
+- Code (auto-detect by extension):
+  df = pd.read_csv('data.csv.gz')
+- Code (explicit):
+  df = pd.read_csv('data.csv.gz', compression='gzip')
+
+Encoding for non-UTF-8 files
+- What it does: specify file encoding
+- Code:
+  df = pd.read_csv('data.csv', encoding='latin1')
+
+Skip problematic lines gracefully
+- What it does: skip lines that cause errors
+- Code:
+  df = pd.read_csv('data.csv', on_bad_lines='skip')  # or 'warn' or 'raise'
+
+Custom conversion functions per column
+- What it does: apply a function to each value in a column
+- Code:
+  df = pd.read_csv('data.csv', converters={'age': lambda x: int(x)}) 
+
+Adjust decimal separator and thousands
+- What it does: handle numbers like 1.234,56 or 1,234.56
+- Code (comma decimal):
+  df = pd.read_csv('data.csv', decimal=',')
+- Code (thousands separator):
+  df = pd.read_csv('data.csv', thousands='.')
+
+Parse dates with more control
+- What it does: handle complex date formats
+- Code:
+  df = pd.read_csv('data.csv', parse_dates=['date'], dayfirst=True)
+
+Use a non-default header row
+- What it does: treat a different line as header
+- Code:
+  df = pd.read_csv('data.csv', header=2)  # line 3 is the header
+
+Choose how to handle quotes
+- What it does: control CSV quoting
+- Code:
+  import csv
+  df = pd.read_csv('data.csv', quoting= csv.QUOTE_NONE)
+
+Read with a specific engine (needed for some tricky cases)
+- What it does: chooses the parser engine
+- Code:
+  df = pd.read_csv('data.csv', engine='python')
+
+Notes and quick tips
+- Always preview: df.head() or df.info() after reading
+- Use errors and types to catch bad data early
+- If you’re unsure about separators or encodings, try basic reads first, then add options
+
+Tiny recap cheat sheet
+- Basic: pd.read_csv('file.csv')
+- No header: header=None, names=[...]
+- Subset columns: usecols=[...]
+- Dates: parse_dates=[...]
+- Index: index_col='column'
+- Delimiter: sep=';', sep='\t'
+- Missing values: na_values=[...]
+- From string: StringIO(...)
+- Types: dtype={...}
+- Skip rows: skiprows=...
+- Limit rows: nrows=...
+- Compression: compression='gzip' or rely on extension
+- Encoding: encoding='utf-8', 'latin1', etc.
+- Bad lines: on_bad_lines='skip'
+
+If you want, I can tailor these examples to a specific dataset you’re working with or turn them into a small, printable cheat sheet for quick reference.

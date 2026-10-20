@@ -1,3 +1,53 @@
+# pytorch indexing
+
+
+why does this select columns
+
+>>> a = torch.rand(10,2)*10
+>>> a
+tensor([[6.4058, 8.2347],
+        [9.4747, 9.3030],
+        [5.5877, 8.6713],
+        [5.0575, 2.2194],
+        [4.5745, 3.3518],
+        [6.8435, 5.3112],
+        [2.5531, 8.2854],
+        [1.8760, 3.3715],
+        [1.8423, 2.8175],
+        [1.0194, 5.2646]])
+>>> a[:,0]
+tensor([6.4058, 9.4747, 5.5877, 5.0575, 4.5745, 6.8435, 2.5531, 1.8760, 1.8423,
+        1.0194])
+>>> a[:,1]
+tensor([8.2347, 9.3030, 8.6713, 2.2194, 3.3518, 5.3112, 8.2854, 3.3715, 2.8175,
+        5.2646])
+
+This behavior happens because PyTorch relies on multi-dimensional indexing using the format [rows, columns].
+When you look at your 2D tensor a, it is organized like a grid or spreadsheet:
+• Dimension 0 (Rows): Goes from top to bottom (indices 0 to 9).
+• Dimension 1 (Columns): Goes from left to right (index 0 for X, index 1 for Y).
+Here is the breakdown of why a[:, 0] pulls out the column:
+
+The Anatomy of a[:, 0]
+
+1. The Comma , Splits the Dimensions: The comma separates what you want to do with the rows from what you want to do with the columns.
+2. The Colon : Means "Everything": When placed in the row position, the colon tells PyTorch: "Give me every single row from top to bottom."
+3. The Index 0 Specifics the Target: When placed in the column position, it tells PyTorch: "Only grab the data at index 0 (the first column)."
+Putting it together, a[:, 0] literally translates to: "Give me every row, but only for the 0th column."
+
+Visually mapping your exact data:
+
+If PyTorch looks at your tensor, it sees the grid below. The colon selects every row down the vertical axis, and the 0 locks into the first column:
+
+Row Index	Column 0 (X) ⬅️ Selected by 0	Column 1 (Y)
+0 ⬇️ Selected by :	6.4058	8.2347
+1 ⬇️ Selected by :	9.4747	9.3030
+2 ⬇️ Selected by :	5.5877	8.6713
+...	...	...
+
+Because you asked for every row, PyTorch collects 6.4058, 9.4747, 5.5877, and so on, packing them together into a single flat line of numbers.
+
+
 # reshape() vs view()
 
 reshape() creates a clone while view() just uses a memory reference
